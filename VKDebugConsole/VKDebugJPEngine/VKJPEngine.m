@@ -98,45 +98,45 @@ void (^_vkexceptionBlock)(NSString *log) = ^void(NSString *log) {
     JSContext *context = [[JSContext alloc] init];
     
     context[@"_OC_defineClass"] = ^(NSString *classDeclaration, JSValue *instanceMethods, JSValue *classMethods) {
-        return defineClass(classDeclaration, instanceMethods, classMethods);
+        return vkdefineClass(classDeclaration, instanceMethods, classMethods);
     };
 
     context[@"_OC_defineProtocol"] = ^(NSString *protocolDeclaration, JSValue *instProtocol, JSValue *clsProtocol) {
-        return defineProtocol(protocolDeclaration, instProtocol,clsProtocol);
+        return vkdefineProtocol(protocolDeclaration, instProtocol,clsProtocol);
     };
     
     context[@"_OC_callI"] = ^id(JSValue *obj, NSString *selectorName, JSValue *arguments, BOOL isSuper) {
-        return callSelector(nil, selectorName, arguments, obj, isSuper);
+        return vkcallSelector(nil, selectorName, arguments, obj, isSuper);
     };
     context[@"_OC_callC"] = ^id(NSString *className, NSString *selectorName, JSValue *arguments) {
-        return callSelector(className, selectorName, arguments, nil, NO);
+        return vkcallSelector(className, selectorName, arguments, nil, NO);
     };
     context[@"_OC_formatJSToOC"] = ^id(JSValue *obj) {
-        return formatJSToOC(obj);
+        return vkformatJSToOC(obj);
     };
     
     context[@"_OC_formatOCToJS"] = ^id(JSValue *obj) {
-        return formatOCToJS([obj toObject]);
+        return vkformatOCToJS([obj toObject]);
     };
     
     context[@"_OC_getCustomProps"] = ^id(JSValue *obj) {
-        id realObj = formatJSToOC(obj);
+        id realObj = vkformatJSToOC(obj);
         return objc_getAssociatedObject(realObj, vkkPropAssociatedObjectKey);
     };
     
     context[@"_OC_setCustomProps"] = ^(JSValue *obj, JSValue *val) {
-        id realObj = formatJSToOC(obj);
+        id realObj = vkformatJSToOC(obj);
         objc_setAssociatedObject(realObj, vkkPropAssociatedObjectKey, val, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     };
     
     context[@"__weak"] = ^id(JSValue *jsval) {
-        id obj = formatJSToOC(jsval);
-        return [[JSContext currentContext][@"_formatOCToJS"] callWithArguments:@[formatOCToJS([VKJPBoxing boxWeakObj:obj])]];
+        id obj = vkformatJSToOC(jsval);
+        return [[JSContext currentContext][@"_formatOCToJS"] callWithArguments:@[vkformatOCToJS([VKJPBoxing boxWeakObj:obj])]];
     };
 
     context[@"__strong"] = ^id(JSValue *jsval) {
-        id obj = formatJSToOC(jsval);
-        return [[JSContext currentContext][@"_formatOCToJS"] callWithArguments:@[formatOCToJS(obj)]];
+        id obj = vkformatJSToOC(jsval);
+        return [[JSContext currentContext][@"_formatOCToJS"] callWithArguments:@[vkformatOCToJS(obj)]];
     };
     
     context[@"_OC_superClsName"] = ^(NSString *clsName) {
@@ -208,7 +208,7 @@ void (^_vkexceptionBlock)(NSString *log) = ^void(NSString *log) {
     context[@"_OC_log"] = ^() {
         NSArray *args = [JSContext currentArguments];
         for (JSValue *jsVal in args) {
-            id obj = formatJSToOC(jsVal);
+            id obj = vkformatJSToOC(jsVal);
             NSLog(@"JSPatch.log: %@", obj == _vknilObj ? nil : (obj == _vknullObj ? [NSNull null]: obj));
         }
     };
@@ -223,7 +223,7 @@ void (^_vkexceptionBlock)(NSString *log) = ^void(NSString *log) {
     };
     
     _vknullObj = [[NSObject alloc] init];
-    context[@"_OC_null"] = formatOCToJS(_vknullObj);
+    context[@"_OC_null"] = vkformatOCToJS(_vknullObj);
     
     _vkcontext = context;
     
@@ -236,12 +236,12 @@ void (^_vkexceptionBlock)(NSString *log) = ^void(NSString *log) {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleMemoryWarning) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
 #endif
     
-    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"JSPatch" ofType:@"js"];
+    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"VKJSPatch" ofType:@"js"];
     if (!path) _vkexceptionBlock(@"can't find JSPatch.js");
     NSString *jsCore = [[NSString alloc] initWithData:[[NSFileManager defaultManager] contentsAtPath:path] encoding:NSUTF8StringEncoding];
     
     if ([_vkcontext respondsToSelector:@selector(evaluateScript:withSourceURL:)]) {
-        [_vkcontext evaluateScript:jsCore withSourceURL:[NSURL URLWithString:@"JSPatch.js"]];
+        [_vkcontext evaluateScript:jsCore withSourceURL:[NSURL URLWithString:@"VKJSPatch.js"]];
     } else {
         [_vkcontext evaluateScript:jsCore];
     }
@@ -326,7 +326,7 @@ void (^_vkexceptionBlock)(NSString *log) = ^void(NSString *log) {
 
 #pragma mark - Implements
 
-static const void *propKey(NSString *propName) {
+static const void *vkpropKey(NSString *propName) {
     if (!_vkpropKeys) _vkpropKeys = [[NSMutableDictionary alloc] init];
     id key = _vkpropKeys[propName];
     if (!key) {
@@ -335,16 +335,16 @@ static const void *propKey(NSString *propName) {
     }
     return (__bridge const void *)(key);
 }
-static id getPropIMP(id slf, SEL selector, NSString *propName) {
-    return objc_getAssociatedObject(slf, propKey(propName));
+static id vkgetPropIMP(id slf, SEL selector, NSString *propName) {
+    return objc_getAssociatedObject(slf, vkpropKey(propName));
 }
-static void setPropIMP(id slf, SEL selector, id val, NSString *propName) {
-    objc_setAssociatedObject(slf, propKey(propName), val, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+static void vksetPropIMP(id slf, SEL selector, id val, NSString *propName) {
+    objc_setAssociatedObject(slf, vkpropKey(propName), val, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-static char *methodTypesInProtocol(NSString *protocolName, NSString *selectorName, BOOL isInstanceMethod, BOOL isRequired)
+static char *vkmethodTypesInProtocol(NSString *protocolName, NSString *selectorName, BOOL isInstanceMethod, BOOL isRequired)
 {
-    Protocol *protocol = objc_getProtocol([trim(protocolName) cStringUsingEncoding:NSUTF8StringEncoding]);
+    Protocol *protocol = objc_getProtocol([vktrim(protocolName) cStringUsingEncoding:NSUTF8StringEncoding]);
     unsigned int selCount = 0;
     struct objc_method_description *methods = protocol_copyMethodDescriptionList(protocol, isRequired, isInstanceMethod, &selCount);
     for (int i = 0; i < selCount; i ++) {
@@ -359,18 +359,18 @@ static char *methodTypesInProtocol(NSString *protocolName, NSString *selectorNam
     return NULL;
 }
 
-static void defineProtocol(NSString *protocolDeclaration, JSValue *instProtocol, JSValue *clsProtocol)
+static void vkdefineProtocol(NSString *protocolDeclaration, JSValue *instProtocol, JSValue *clsProtocol)
 {
     const char *protocolName = [protocolDeclaration UTF8String];
     Protocol* newprotocol = objc_allocateProtocol(protocolName);
     if (newprotocol) {
-        addGroupMethodsToProtocol(newprotocol, instProtocol, YES);
-        addGroupMethodsToProtocol(newprotocol, clsProtocol, NO);
+        vkaddGroupMethodsToProtocol(newprotocol, instProtocol, YES);
+        vkaddGroupMethodsToProtocol(newprotocol, clsProtocol, NO);
         objc_registerProtocol(newprotocol);
     }
 }
 
-static void addGroupMethodsToProtocol(Protocol* protocol,JSValue *groupMethods,BOOL isInstance)
+static void vkaddGroupMethodsToProtocol(Protocol* protocol,JSValue *groupMethods,BOOL isInstance)
 {
     NSDictionary *groupDic = [groupMethods toDictionary];
     for (NSString *jpSelector in groupDic.allKeys) {
@@ -380,14 +380,14 @@ static void addGroupMethodsToProtocol(Protocol* protocol,JSValue *groupMethods,B
         NSString *typeEncode = methodDict[@"typeEncode"];
         
         NSArray *argStrArr = [paraString componentsSeparatedByString:@","];
-        NSString *selectorName = convertJPSelectorString(jpSelector);
+        NSString *selectorName = vkconvertJPSelectorString(jpSelector);
         
         if ([selectorName componentsSeparatedByString:@":"].count - 1 < argStrArr.count) {
             selectorName = [selectorName stringByAppendingString:@":"];
         }
 
         if (typeEncode) {
-            addMethodToProtocol(protocol, selectorName, typeEncode, isInstance);
+            vkaddMethodToProtocol(protocol, selectorName, typeEncode, isInstance);
             
         } else {
             if (!_vkprotocolTypeEncodeDict) {
@@ -433,10 +433,10 @@ static void addGroupMethodsToProtocol(Protocol* protocol,JSValue *groupMethods,B
                 NSMutableString *encode = [returnEncode mutableCopy];
                 [encode appendString:@"@:"];
                 for (NSInteger i = 0; i < argStrArr.count; i++) {
-                    NSString *argStr = trim([argStrArr objectAtIndex:i]);
+                    NSString *argStr = vktrim([argStrArr objectAtIndex:i]);
                     NSString *argEncode = _vkprotocolTypeEncodeDict[argStr];
                     if (!argEncode) {
-                        NSString *argClassName = trim([argStr stringByReplacingOccurrencesOfString:@"*" withString:@""]);
+                        NSString *argClassName = vktrim([argStr stringByReplacingOccurrencesOfString:@"*" withString:@""]);
                         if (NSClassFromString(argClassName) != NULL) {
                             argEncode = @"@";
                         } else {
@@ -446,20 +446,20 @@ static void addGroupMethodsToProtocol(Protocol* protocol,JSValue *groupMethods,B
                     }
                     [encode appendString:argEncode];
                 }
-                addMethodToProtocol(protocol, selectorName, encode, isInstance);
+                vkaddMethodToProtocol(protocol, selectorName, encode, isInstance);
             }
         }
     }
 }
 
-static void addMethodToProtocol(Protocol* protocol, NSString *selectorName, NSString *typeencoding, BOOL isInstance)
+static void vkaddMethodToProtocol(Protocol* protocol, NSString *selectorName, NSString *typeencoding, BOOL isInstance)
 {
     SEL sel = NSSelectorFromString(selectorName);
     const char* type = [typeencoding UTF8String];
     protocol_addMethodDescription(protocol, sel, type, YES, isInstance);
 }
 
-static NSDictionary *defineClass(NSString *classDeclaration, JSValue *instanceMethods, JSValue *classMethods)
+static NSDictionary *vkdefineClass(NSString *classDeclaration, JSValue *instanceMethods, JSValue *classMethods)
 {
     NSScanner *scanner = [NSScanner scannerWithString:classDeclaration];
     
@@ -477,8 +477,8 @@ static NSDictionary *defineClass(NSString *classDeclaration, JSValue *instanceMe
     }
     
     if (!superClassName) superClassName = @"NSObject";
-    className = trim(className);
-    superClassName = trim(superClassName);
+    className = vktrim(className);
+    superClassName = vktrim(superClassName);
     
     NSArray *protocols = [protocolNames length] ? [protocolNames componentsSeparatedByString:@","] : nil;
     
@@ -495,7 +495,7 @@ static NSDictionary *defineClass(NSString *classDeclaration, JSValue *instanceMe
     
     if (protocols.count > 0) {
         for (NSString* protocolName in protocols) {
-            Protocol *protocol = objc_getProtocol([trim(protocolName) cStringUsingEncoding:NSUTF8StringEncoding]);
+            Protocol *protocol = objc_getProtocol([vktrim(protocolName) cStringUsingEncoding:NSUTF8StringEncoding]);
             class_addProtocol (cls, protocol);
         }
     }
@@ -509,7 +509,7 @@ static NSDictionary *defineClass(NSString *classDeclaration, JSValue *instanceMe
         for (NSString *jsMethodName in methodDict.allKeys) {
             JSValue *jsMethodArr = [jsMethods valueForProperty:jsMethodName];
             int numberOfArg = [jsMethodArr[0] toInt32];
-            NSString *selectorName = convertJPSelectorString(jsMethodName);
+            NSString *selectorName = vkconvertJPSelectorString(jsMethodName);
             
             if ([selectorName componentsSeparatedByString:@":"].count - 1 < numberOfArg) {
                 selectorName = [selectorName stringByAppendingString:@":"];
@@ -517,14 +517,14 @@ static NSDictionary *defineClass(NSString *classDeclaration, JSValue *instanceMe
             
             JSValue *jsMethod = jsMethodArr[1];
             if (class_respondsToSelector(currCls, NSSelectorFromString(selectorName))) {
-                overrideMethod(currCls, selectorName, jsMethod, !isInstance, NULL);
+                vkoverrideMethod(currCls, selectorName, jsMethod, !isInstance, NULL);
             } else {
                 BOOL overrided = NO;
                 for (NSString *protocolName in protocols) {
-                    char *types = methodTypesInProtocol(protocolName, selectorName, isInstance, YES);
-                    if (!types) types = methodTypesInProtocol(protocolName, selectorName, isInstance, NO);
+                    char *types = vkmethodTypesInProtocol(protocolName, selectorName, isInstance, YES);
+                    if (!types) types = vkmethodTypesInProtocol(protocolName, selectorName, isInstance, NO);
                     if (types) {
-                        overrideMethod(currCls, selectorName, jsMethod, !isInstance, types);
+                        vkoverrideMethod(currCls, selectorName, jsMethod, !isInstance, types);
                         free(types);
                         overrided = YES;
                         break;
@@ -536,7 +536,7 @@ static NSDictionary *defineClass(NSString *classDeclaration, JSValue *instanceMe
                         for (int i = 0; i < numberOfArg; i ++) {
                             [typeDescStr appendString:@"@"];
                         }
-                        overrideMethod(currCls, selectorName, jsMethod, !isInstance, [typeDescStr cStringUsingEncoding:NSUTF8StringEncoding]);
+                        vkoverrideMethod(currCls, selectorName, jsMethod, !isInstance, [typeDescStr cStringUsingEncoding:NSUTF8StringEncoding]);
                     }
                 }
             }
@@ -545,14 +545,14 @@ static NSDictionary *defineClass(NSString *classDeclaration, JSValue *instanceMe
     
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
-    class_addMethod(cls, @selector(getProp:), (IMP)getPropIMP, "@@:@");
-    class_addMethod(cls, @selector(setProp:forKey:), (IMP)setPropIMP, "v@:@@");
+    class_addMethod(cls, @selector(getProp:), (IMP)vkgetPropIMP, "@@:@");
+    class_addMethod(cls, @selector(setProp:forKey:), (IMP)vksetPropIMP, "v@:@@");
 #pragma clang diagnostic pop
 
     return @{@"cls": className, @"superCls": superClassName};
 }
 
-static JSValue* getJSFunctionInObjectHierachy(id slf, NSString *selectorName)
+static JSValue* vkgetJSFunctionInObjectHierachy(id slf, NSString *selectorName)
 {
     Class cls = object_getClass(slf);
     if (_vkcurrInvokeSuperClsName) {
@@ -573,7 +573,7 @@ static JSValue* getJSFunctionInObjectHierachy(id slf, NSString *selectorName)
 
 #pragma clang diagnostic pop
 
-static void JPForwardInvocation(__unsafe_unretained id assignSlf, SEL selector, NSInvocation *invocation)
+static void vkJPForwardInvocation(__unsafe_unretained id assignSlf, SEL selector, NSInvocation *invocation)
 {
     BOOL deallocFlag = NO;
     id slf = assignSlf;
@@ -585,7 +585,7 @@ static void JPForwardInvocation(__unsafe_unretained id assignSlf, SEL selector, 
     SEL JPSelector = NSSelectorFromString(JPSelectorName);
     
     if (!class_respondsToSelector(object_getClass(slf), JPSelector)) {
-        JPExcuteORIGForwardInvocation(slf, selector, invocation);
+        vkJPExcuteORIGForwardInvocation(slf, selector, invocation);
         return;
     }
     
@@ -634,7 +634,7 @@ static void JPForwardInvocation(__unsafe_unretained id assignSlf, SEL selector, 
                 break;
             }
             case '{': {
-                NSString *typeString = extractStructName([NSString stringWithUTF8String:argumentType]);
+                NSString *typeString = vkextractStructName([NSString stringWithUTF8String:argumentType]);
                 #define VKJP_FWD_ARG_STRUCT(_type, _transFunc) \
                 if ([typeString rangeOfString:@#_type].location != NSNotFound) {    \
                     _type arg; \
@@ -650,11 +650,11 @@ static void JPForwardInvocation(__unsafe_unretained id assignSlf, SEL selector, 
                 @synchronized (_vkcontext) {
                     NSDictionary *structDefine = _vkregisteredStruct[typeString];
                     if (structDefine) {
-                        size_t size = sizeOfStructTypes(structDefine[@"types"]);
+                        size_t size = vksizeOfStructTypes(structDefine[@"types"]);
                         if (size) {
                             void *ret = malloc(size);
                             [invocation getArgument:ret atIndex:i];
-                            NSDictionary *dict = getDictOfStruct(ret, structDefine);
+                            NSDictionary *dict = vkgetDictOfStruct(ret, structDefine);
                             [argList addObject:[JSValue valueWithObject:dict inContext:_vkcontext]];
                             free(ret);
                             break;
@@ -697,19 +697,19 @@ static void JPForwardInvocation(__unsafe_unretained id assignSlf, SEL selector, 
         if (!_vkJSOverideMethods[cls][tmpSelectorName]) {
             NSString *ORIGSelectorName = [selectorName stringByReplacingOccurrencesOfString:@"SUPER_" withString:@"ORIG"];
             [argList removeObjectAtIndex:0];
-            id retObj = callSelector(_vkcurrInvokeSuperClsName, ORIGSelectorName, [JSValue valueWithObject:argList inContext:_vkcontext], [JSValue valueWithObject:@{@"__obj": slf, @"__realClsName": @""} inContext:_vkcontext], NO);
-            id __autoreleasing ret = formatJSToOC([JSValue valueWithObject:retObj inContext:_vkcontext]);
+            id retObj = vkcallSelector(_vkcurrInvokeSuperClsName, ORIGSelectorName, [JSValue valueWithObject:argList inContext:_vkcontext], [JSValue valueWithObject:@{@"__obj": slf, @"__realClsName": @""} inContext:_vkcontext], NO);
+            id __autoreleasing ret = vkformatJSToOC([JSValue valueWithObject:retObj inContext:_vkcontext]);
             [invocation setReturnValue:&ret];
             return;
         }
     }
     
-    NSArray *params = _formatOCToJSList(argList);
+    NSArray *params = _vkformatOCToJSList(argList);
     const char *returnType = [methodSignature methodReturnType];
 
     switch (returnType[0] == 'r' ? returnType[1] : returnType[0]) {
         #define VKJP_FWD_RET_CALL_JS \
-            JSValue *fun = getJSFunctionInObjectHierachy(slf, JPSelectorName); \
+            JSValue *fun = vkgetJSFunctionInObjectHierachy(slf, JPSelectorName); \
             JSValue *jsval; \
             [_vkJSMethodForwardCallLock lock];   \
             jsval = [fun callWithArguments:params]; \
@@ -718,8 +718,8 @@ static void JPForwardInvocation(__unsafe_unretained id assignSlf, SEL selector, 
                 NSArray *args = nil;  \
                 JSValue *cb = jsval[@"cb"]; \
                 if ([jsval hasProperty:@"sel"]) {   \
-                    id callRet = callSelector(![jsval[@"clsName"] isUndefined] ? [jsval[@"clsName"] toString] : nil, [jsval[@"sel"] toString], jsval[@"args"], ![jsval[@"obj"] isUndefined] ? jsval[@"obj"] : nil, NO);  \
-                    args = @[[_vkcontext[@"_formatOCToJS"] callWithArguments:callRet ? @[callRet] : _formatOCToJSList(@[_vknilObj])]];  \
+                    id callRet = vkcallSelector(![jsval[@"clsName"] isUndefined] ? [jsval[@"clsName"] toString] : nil, [jsval[@"sel"] toString], jsval[@"args"], ![jsval[@"obj"] isUndefined] ? jsval[@"obj"] : nil, NO);  \
+                    args = @[[_vkcontext[@"_formatOCToJS"] callWithArguments:callRet ? @[callRet] : _vkformatOCToJSList(@[_vknilObj])]];  \
                 }   \
                 [_vkJSMethodForwardCallLock lock];    \
                 jsval = [cb callWithArguments:args];  \
@@ -738,27 +738,27 @@ static void JPForwardInvocation(__unsafe_unretained id assignSlf, SEL selector, 
             VKJP_FWD_RET_CASE_RET(_typeChar, _type, _type ret = [[jsval toObject] _typeSelector];)   \
 
         #define VKJP_FWD_RET_CODE_ID \
-            id __autoreleasing ret = formatJSToOC(jsval); \
+            id __autoreleasing ret = vkformatJSToOC(jsval); \
             if (ret == _vknilObj ||   \
                 ([ret isKindOfClass:[NSNumber class]] && strcmp([ret objCType], "c") == 0 && ![ret boolValue])) ret = nil;  \
 
         #define VKJP_FWD_RET_CODE_POINTER    \
             void *ret; \
-            id obj = formatJSToOC(jsval); \
+            id obj = vkformatJSToOC(jsval); \
             if ([obj isKindOfClass:[VKJPBoxing class]]) { \
                 ret = [((VKJPBoxing *)obj) unboxPointer]; \
             }
 
         #define VKJP_FWD_RET_CODE_CLASS    \
             Class ret;   \
-            id obj = formatJSToOC(jsval); \
+            id obj = vkformatJSToOC(jsval); \
             if ([obj isKindOfClass:[VKJPBoxing class]]) { \
                 ret = [((VKJPBoxing *)obj) unboxClass]; \
             }
 
         #define VKJP_FWD_RET_CODE_SEL    \
             SEL ret;   \
-            id obj = formatJSToOC(jsval); \
+            id obj = vkformatJSToOC(jsval); \
             if ([obj isKindOfClass:[NSString class]]) { \
                 ret = NSSelectorFromString(obj); \
             }
@@ -789,7 +789,7 @@ static void JPForwardInvocation(__unsafe_unretained id assignSlf, SEL selector, 
         }
         
         case '{': {
-            NSString *typeString = extractStructName([NSString stringWithUTF8String:returnType]);
+            NSString *typeString = vkextractStructName([NSString stringWithUTF8String:returnType]);
             #define VKJP_FWD_RET_STRUCT(_type, _funcSuffix) \
             if ([typeString rangeOfString:@#_type].location != NSNotFound) {    \
                 VKJP_FWD_RET_CALL_JS \
@@ -805,11 +805,11 @@ static void JPForwardInvocation(__unsafe_unretained id assignSlf, SEL selector, 
             @synchronized (_vkcontext) {
                 NSDictionary *structDefine = _vkregisteredStruct[typeString];
                 if (structDefine) {
-                    size_t size = sizeOfStructTypes(structDefine[@"types"]);
+                    size_t size = vksizeOfStructTypes(structDefine[@"types"]);
                     VKJP_FWD_RET_CALL_JS
                     void *ret = malloc(size);
-                    NSDictionary *dict = formatJSToOC(jsval);
-                    getStructDataWithDict(ret, dict, structDefine);
+                    NSDictionary *dict = vkformatJSToOC(jsval);
+                    vkgetStructDataWithDict(ret, dict, structDefine);
                     [invocation setReturnValue:ret];
                     free(ret);
                 }
@@ -839,7 +839,7 @@ static void JPForwardInvocation(__unsafe_unretained id assignSlf, SEL selector, 
     }
 }
 
-static void JPExcuteORIGForwardInvocation(id slf, SEL selector, NSInvocation *invocation)
+static void vkJPExcuteORIGForwardInvocation(id slf, SEL selector, NSInvocation *invocation)
 {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
@@ -879,7 +879,7 @@ static void JPExcuteORIGForwardInvocation(id slf, SEL selector, NSInvocation *in
     }
 }
 
-static void _initJPOverideMethods(Class cls) {
+static void _vkinitJPOverideMethods(Class cls) {
     if (!_vkJSOverideMethods) {
         _vkJSOverideMethods = [[NSMutableDictionary alloc] init];
     }
@@ -888,7 +888,7 @@ static void _initJPOverideMethods(Class cls) {
     }
 }
 
-static void overrideMethod(Class cls, NSString *selectorName, JSValue *function, BOOL isClassMethod, const char *typeDescription)
+static void vkoverrideMethod(Class cls, NSString *selectorName, JSValue *function, BOOL isClassMethod, const char *typeDescription)
 {
     SEL selector = NSSelectorFromString(selectorName);
     
@@ -914,8 +914,8 @@ static void overrideMethod(Class cls, NSString *selectorName, JSValue *function,
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
-    if (class_getMethodImplementation(cls, @selector(forwardInvocation:)) != (IMP)JPForwardInvocation) {
-        IMP originalForwardImp = class_replaceMethod(cls, @selector(forwardInvocation:), (IMP)JPForwardInvocation, "v@:@");
+    if (class_getMethodImplementation(cls, @selector(forwardInvocation:)) != (IMP)vkJPForwardInvocation) {
+        IMP originalForwardImp = class_replaceMethod(cls, @selector(forwardInvocation:), (IMP)vkJPForwardInvocation, "v@:@");
         class_addMethod(cls, @selector(ORIGforwardInvocation:), originalForwardImp, "v@:@");
     }
 #pragma clang diagnostic pop
@@ -931,31 +931,31 @@ static void overrideMethod(Class cls, NSString *selectorName, JSValue *function,
     NSString *JPSelectorName = [NSString stringWithFormat:@"_JP%@", selectorName];
     SEL JPSelector = NSSelectorFromString(JPSelectorName);
 
-    _initJPOverideMethods(cls);
+    _vkinitJPOverideMethods(cls);
     _vkJSOverideMethods[cls][JPSelectorName] = function;
     
     class_addMethod(cls, JPSelector, msgForwardIMP, typeDescription);
 
     // Replace the original secltor at last, preventing threading issus when
-    // the selector get called during the execution of `overrideMethod`
+    // the selector get called during the execution of `vkoverrideMethod`
     class_replaceMethod(cls, selector, msgForwardIMP, typeDescription);
 }
 
 #pragma mark -
 
-static id callSelector(NSString *className, NSString *selectorName, JSValue *arguments, JSValue *instance, BOOL isSuper)
+static id vkcallSelector(NSString *className, NSString *selectorName, JSValue *arguments, JSValue *instance, BOOL isSuper)
 {
     NSString *realClsName = [[instance valueForProperty:@"__realClsName"] toString];
    
     if (instance) {
-        instance = formatJSToOC(instance);
+        instance = vkformatJSToOC(instance);
         if (!instance || instance == _vknilObj || [instance isKindOfClass:[VKJPBoxing class]]) return @{@"__isNil": @(YES)};
     }
-    id argumentsObj = formatJSToOC(arguments);
+    id argumentsObj = vkformatJSToOC(arguments);
     
     if (instance && [selectorName isEqualToString:@"toJS"]) {
         if ([instance isKindOfClass:[NSString class]] || [instance isKindOfClass:[NSDictionary class]] || [instance isKindOfClass:[NSArray class]] || [instance isKindOfClass:[NSDate class]]) {
-            return _unboxOCObjectToJS(instance);
+            return _vkunboxOCObjectToJS(instance);
         }
     }
 
@@ -983,7 +983,7 @@ static id callSelector(NSString *className, NSString *selectorName, JSValue *arg
         NSString *JPSelectorName = [NSString stringWithFormat:@"_JP%@", selectorName];
         JSValue *overideFunction = _vkJSOverideMethods[superCls][JPSelectorName];
         if (overideFunction) {
-            overrideMethod(cls, superSelectorName, overideFunction, NO, NULL);
+            vkoverrideMethod(cls, superSelectorName, overideFunction, NO, NULL);
         }
         
         selector = superSelector;
@@ -1031,8 +1031,8 @@ static id callSelector(NSString *className, NSString *selectorName, JSValue *arg
     if (inputArguments > numberOfArguments - 2) {
         // calling variable argument method, only support parameter type `id` and return type `id`
         id sender = instance != nil ? instance : cls;
-        id result = invokeVariableParameterMethod(argumentsObj, methodSignature, sender, selector);
-        return formatOCToJS(result);
+        id result = vkinvokeVariableParameterMethod(argumentsObj, methodSignature, sender, selector);
+        return vkformatOCToJS(result);
     }
     
     for (NSUInteger i = 2; i < numberOfArguments; i++) {
@@ -1070,7 +1070,7 @@ static id callSelector(NSString *className, NSString *selectorName, JSValue *arg
                 break;
             }
             case '{': {
-                NSString *typeString = extractStructName([NSString stringWithUTF8String:argumentType]);
+                NSString *typeString = vkextractStructName([NSString stringWithUTF8String:argumentType]);
                 JSValue *val = arguments[i-2];
                 #define JP_CALL_ARG_STRUCT(_type, _methodName) \
                 if ([typeString rangeOfString:@#_type].location != NSNotFound) {    \
@@ -1085,9 +1085,9 @@ static id callSelector(NSString *className, NSString *selectorName, JSValue *arg
                 @synchronized (_vkcontext) {
                     NSDictionary *structDefine = _vkregisteredStruct[typeString];
                     if (structDefine) {
-                        size_t size = sizeOfStructTypes(structDefine[@"types"]);
+                        size_t size = vksizeOfStructTypes(structDefine[@"types"]);
                         void *ret = malloc(size);
-                        getStructDataWithDict(ret, valObj, structDefine);
+                        vkgetStructDataWithDict(ret, valObj, structDefine);
                         [invocation setArgument:ret atIndex:i];
                         free(ret);
                         break;
@@ -1136,7 +1136,7 @@ static id callSelector(NSString *className, NSString *selectorName, JSValue *arg
                     break;
                 }
                 if ([(JSValue *)arguments[i-2] hasProperty:@"__isBlock"]) {
-                    __autoreleasing id cb = genCallbackBlock(arguments[i-2]);
+                    __autoreleasing id cb = vkgenCallbackBlock(arguments[i-2]);
                     [invocation setArgument:&cb atIndex:i];
                 } else {
                     [invocation setArgument:&valObj atIndex:i];
@@ -1173,7 +1173,7 @@ static id callSelector(NSString *className, NSString *selectorName, JSValue *arg
             } else {
                 returnValue = (__bridge id)result;
             }
-            return formatOCToJS(returnValue);
+            return vkformatOCToJS(returnValue);
             
         } else {
             switch (returnType[0] == 'r' ? returnType[1] : returnType[0]) {
@@ -1201,7 +1201,7 @@ static id callSelector(NSString *className, NSString *selectorName, JSValue *arg
                 VKJP_CALL_RET_CASE('B', BOOL)
 
                 case '{': {
-                    NSString *typeString = extractStructName([NSString stringWithUTF8String:returnType]);
+                    NSString *typeString = vkextractStructName([NSString stringWithUTF8String:returnType]);
                     #define VKJP_CALL_RET_STRUCT(_type, _methodName) \
                     if ([typeString rangeOfString:@#_type].location != NSNotFound) {    \
                         _type result;   \
@@ -1215,10 +1215,10 @@ static id callSelector(NSString *className, NSString *selectorName, JSValue *arg
                     @synchronized (_vkcontext) {
                         NSDictionary *structDefine = _vkregisteredStruct[typeString];
                         if (structDefine) {
-                            size_t size = sizeOfStructTypes(structDefine[@"types"]);
+                            size_t size = vksizeOfStructTypes(structDefine[@"types"]);
                             void *ret = malloc(size);
                             [invocation getReturnValue:ret];
-                            NSDictionary *dict = getDictOfStruct(ret, structDefine);
+                            NSDictionary *dict = vkgetDictOfStruct(ret, structDefine);
                             free(ret);
                             return dict;
                         }
@@ -1229,7 +1229,7 @@ static id callSelector(NSString *className, NSString *selectorName, JSValue *arg
                 case '^': {
                     void *result;
                     [invocation getReturnValue:&result];
-                    returnValue = formatOCToJS([VKJPBoxing boxPointer:result]);
+                    returnValue = vkformatOCToJS([VKJPBoxing boxPointer:result]);
                     if (strncmp(returnType, "^{CG", 4) == 0) {
                         if (!_vkpointersToRelease) {
                             _vkpointersToRelease = [[NSMutableArray alloc] init];
@@ -1242,7 +1242,7 @@ static id callSelector(NSString *className, NSString *selectorName, JSValue *arg
                 case '#': {
                     Class result;
                     [invocation getReturnValue:&result];
-                    returnValue = formatOCToJS([VKJPBoxing boxClass:result]);
+                    returnValue = vkformatOCToJS([VKJPBoxing boxClass:result]);
                     break;
                 }
             }
@@ -1263,7 +1263,7 @@ id (*vknew_msgSend8)(id, SEL, id, id, id, id, id, id, id, id,...) = (id (*)(id, 
 id (*vknew_msgSend9)(id, SEL, id, id, id, id, id, id, id, id, id,...) = (id (*)(id, SEL, id, id, id, id, id, id, id, id, id, ...)) objc_msgSend;
 id (*vknew_msgSend10)(id, SEL, id, id, id, id, id, id, id, id, id, id,...) = (id (*)(id, SEL, id, id, id, id, id, id, id, id, id, id,...)) objc_msgSend;
 
-static id invokeVariableParameterMethod(NSMutableArray *origArgumentsList, NSMethodSignature *methodSignature, id sender, SEL selector) {
+static id vkinvokeVariableParameterMethod(NSMutableArray *origArgumentsList, NSMethodSignature *methodSignature, id sender, SEL selector) {
     
     NSInteger inputArguments = [(NSArray *)origArgumentsList count];
     NSUInteger numberOfArguments = methodSignature.numberOfArguments;
@@ -1286,7 +1286,7 @@ static id invokeVariableParameterMethod(NSMutableArray *origArgumentsList, NSMet
     
     //If you want to debug the macro code below, replace it to the expanded code:
     //https://gist.github.com/bang590/ca3720ae1da594252a2e
-    #define VKJP_G_ARG(_idx) getArgument(argumentsList[_idx])
+    #define VKJP_G_ARG(_idx) vkgetArgument(argumentsList[_idx])
     #define VKJP_CALL_MSGSEND_ARG1(_num) results = vknew_msgSend##_num(sender, selector, VKJP_G_ARG(0));
     #define VKJP_CALL_MSGSEND_ARG2(_num) results = vknew_msgSend##_num(sender, selector, VKJP_G_ARG(0), VKJP_G_ARG(1));
     #define VKJP_CALL_MSGSEND_ARG3(_num) results = vknew_msgSend##_num(sender, selector, VKJP_G_ARG(0), VKJP_G_ARG(1), VKJP_G_ARG(2));
@@ -1320,7 +1320,7 @@ static id invokeVariableParameterMethod(NSMutableArray *origArgumentsList, NSMet
     return results;
 }
 
-static id getArgument(id valObj){
+static id vkgetArgument(id valObj){
     if (valObj == _vknilObj ||
         ([valObj isKindOfClass:[NSNumber class]] && strcmp([valObj objCType], "c") == 0 && ![valObj boolValue])) {
         return nil;
@@ -1330,14 +1330,14 @@ static id getArgument(id valObj){
 
 #pragma mark -
 
-static id genCallbackBlock(JSValue *jsVal)
+static id vkgenCallbackBlock(JSValue *jsVal)
 {
     #define VKBLK_TRAITS_ARG(_idx, _paramName) \
     if (_idx < argTypes.count) { \
-        if (blockTypeIsObject(trim(argTypes[_idx]))) {  \
-            [list addObject:formatOCToJS((__bridge id)_paramName)]; \
+        if (vkblockTypeIsObject(vktrim(argTypes[_idx]))) {  \
+            [list addObject:vkformatOCToJS((__bridge id)_paramName)]; \
         } else {  \
-            [list addObject:formatOCToJS([NSNumber numberWithLongLong:(long long)_paramName])]; \
+            [list addObject:vkformatOCToJS([NSNumber numberWithLongLong:(long long)_paramName])]; \
         }   \
     }
 
@@ -1351,7 +1351,7 @@ static id genCallbackBlock(JSValue *jsVal)
         VKBLK_TRAITS_ARG(4, p4)
         VKBLK_TRAITS_ARG(5, p5)
         JSValue *ret = [jsVal[@"cb"] callWithArguments:list];
-        return formatJSToOC(ret);
+        return vkformatJSToOC(ret);
     };
     
     return cb;
@@ -1359,7 +1359,7 @@ static id genCallbackBlock(JSValue *jsVal)
 
 #pragma mark - Struct
 
-static int sizeOfStructTypes(NSString *structTypes)
+static int vksizeOfStructTypes(NSString *structTypes)
 {
     const char *types = [structTypes cStringUsingEncoding:NSUTF8StringEncoding];
     int index = 0;
@@ -1398,7 +1398,7 @@ static int sizeOfStructTypes(NSString *structTypes)
     return size;
 }
 
-static void getStructDataWithDict(void *structData, NSDictionary *dict, NSDictionary *structDefine)
+static void vkgetStructDataWithDict(void *structData, NSDictionary *dict, NSDictionary *structDefine)
 {
     NSArray *itemKeys = structDefine[@"keys"];
     const char *structTypes = [structDefine[@"types"] cStringUsingEncoding:NSUTF8StringEncoding];
@@ -1455,7 +1455,7 @@ static void getStructDataWithDict(void *structData, NSDictionary *dict, NSDictio
     }
 }
 
-static NSDictionary *getDictOfStruct(void *structData, NSDictionary *structDefine)
+static NSDictionary *vkgetDictOfStruct(void *structData, NSDictionary *structDefine)
 {
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     NSArray *itemKeys = structDefine[@"keys"];
@@ -1506,7 +1506,7 @@ static NSDictionary *getDictOfStruct(void *structData, NSDictionary *structDefin
     return dict;
 }
 
-static NSString *extractStructName(NSString *typeEncodeString)
+static NSString *vkextractStructName(NSString *typeEncodeString)
 {
     NSArray *array = [typeEncodeString componentsSeparatedByString:@"="];
     NSString *typeString = array[0];
@@ -1524,17 +1524,17 @@ static NSString *extractStructName(NSString *typeEncodeString)
 
 #pragma mark - Utils
 
-static NSString *trim(NSString *string)
+static NSString *vktrim(NSString *string)
 {
     return [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
-static BOOL blockTypeIsObject(NSString *typeString)
+static BOOL vkblockTypeIsObject(NSString *typeString)
 {
     return [typeString rangeOfString:@"*"].location != NSNotFound || [typeString isEqualToString:@"id"];
 }
 
-static NSString *convertJPSelectorString(NSString *selectorString)
+static NSString *vkconvertJPSelectorString(NSString *selectorString)
 {
     NSString *tmpJSMethodName = [selectorString stringByReplacingOccurrencesOfString:@"__" withString:@"-"];
     NSString *selectorName = [tmpJSMethodName stringByReplacingOccurrencesOfString:@"_" withString:@":"];
@@ -1543,10 +1543,10 @@ static NSString *convertJPSelectorString(NSString *selectorString)
 
 #pragma mark - Object format
 
-static id formatOCToJS(id obj)
+static id vkformatOCToJS(id obj)
 {
     if ([obj isKindOfClass:[NSString class]] || [obj isKindOfClass:[NSDictionary class]] || [obj isKindOfClass:[NSArray class]] || [obj isKindOfClass:[NSDate class]]) {
-        return _vkautoConvert ? obj: _wrapObj([VKJPBoxing boxObj:obj]);
+        return _vkautoConvert ? obj: _vkwrapObj([VKJPBoxing boxObj:obj]);
     }
     if ([obj isKindOfClass:[NSNumber class]]) {
         return _vkconvertOCNumberToString ? [(NSNumber*)obj stringValue] : obj;
@@ -1554,10 +1554,10 @@ static id formatOCToJS(id obj)
     if ([obj isKindOfClass:NSClassFromString(@"NSBlock")] || [obj isKindOfClass:[JSValue class]]) {
         return obj;
     }
-    return _wrapObj(obj);
+    return _vkwrapObj(obj);
 }
 
-static id formatJSToOC(JSValue *jsval)
+static id vkformatJSToOC(JSValue *jsval)
 {
     id obj = [jsval toObject];
     if (!obj || [obj isKindOfClass:[NSNull class]]) return _vknilObj;
@@ -1566,7 +1566,7 @@ static id formatJSToOC(JSValue *jsval)
     if ([obj isKindOfClass:[NSArray class]]) {
         NSMutableArray *newArr = [[NSMutableArray alloc] init];
         for (int i = 0; i < [(NSArray*)obj count]; i ++) {
-            [newArr addObject:formatJSToOC(jsval[i])];
+            [newArr addObject:vkformatJSToOC(jsval[i])];
         }
         return newArr;
     }
@@ -1577,27 +1577,27 @@ static id formatJSToOC(JSValue *jsval)
             return ocObj;
         }
         if (obj[@"__isBlock"]) {
-            return genCallbackBlock(jsval);
+            return vkgenCallbackBlock(jsval);
         }
         NSMutableDictionary *newDict = [[NSMutableDictionary alloc] init];
         for (NSString *key in [obj allKeys]) {
-            [newDict setObject:formatJSToOC(jsval[key]) forKey:key];
+            [newDict setObject:vkformatJSToOC(jsval[key]) forKey:key];
         }
         return newDict;
     }
     return obj;
 }
 
-static id _formatOCToJSList(NSArray *list)
+static id _vkformatOCToJSList(NSArray *list)
 {
     NSMutableArray *arr = [NSMutableArray new];
     for (id obj in list) {
-        [arr addObject:formatOCToJS(obj)];
+        [arr addObject:vkformatOCToJS(obj)];
     }
     return arr;
 }
 
-static NSDictionary *_wrapObj(id obj)
+static NSDictionary *_vkwrapObj(id obj)
 {
     if (!obj || obj == _vknilObj) {
         return @{@"__isNil": @(YES)};
@@ -1605,26 +1605,26 @@ static NSDictionary *_wrapObj(id obj)
     return @{@"__obj": obj, @"__clsName": NSStringFromClass([obj isKindOfClass:[VKJPBoxing class]] ? [[((VKJPBoxing *)obj) unbox] class]: [obj class])};
 }
 
-static id _unboxOCObjectToJS(id obj)
+static id _vkunboxOCObjectToJS(id obj)
 {
     if ([obj isKindOfClass:[NSArray class]]) {
         NSMutableArray *newArr = [[NSMutableArray alloc] init];
         for (int i = 0; i < [(NSArray*)obj count]; i ++) {
-            [newArr addObject:_unboxOCObjectToJS(obj[i])];
+            [newArr addObject:_vkunboxOCObjectToJS(obj[i])];
         }
         return newArr;
     }
     if ([obj isKindOfClass:[NSDictionary class]]) {
         NSMutableDictionary *newDict = [[NSMutableDictionary alloc] init];
         for (NSString *key in [obj allKeys]) {
-            [newDict setObject:_unboxOCObjectToJS(obj[key]) forKey:key];
+            [newDict setObject:_vkunboxOCObjectToJS(obj[key]) forKey:key];
         }
         return newDict;
     }
     if ([obj isKindOfClass:[NSString class]] ||[obj isKindOfClass:[NSNumber class]] || [obj isKindOfClass:NSClassFromString(@"NSBlock")] || [obj isKindOfClass:[NSDate class]]) {
         return obj;
     }
-    return _wrapObj(obj);
+    return _vkwrapObj(obj);
 }
 @end
 
@@ -1651,12 +1651,12 @@ static id _unboxOCObjectToJS(id obj)
 
 + (id)formatRetainedCFTypeOCToJS:(CFTypeRef)CF_CONSUMED type
 {
-    return formatOCToJS([VKJPBoxing boxPointer:(void *)type]);
+    return vkformatOCToJS([VKJPBoxing boxPointer:(void *)type]);
 }
 
 + (id)formatPointerOCToJS:(void *)pointer
 {
-    return formatOCToJS([VKJPBoxing boxPointer:pointer]);
+    return vkformatOCToJS([VKJPBoxing boxPointer:pointer]);
 }
 
 + (id)formatJSToOC:(JSValue *)val
@@ -1664,27 +1664,27 @@ static id _unboxOCObjectToJS(id obj)
     if (![val toBool]) {
         return nil;
     }
-    return formatJSToOC(val);
+    return vkformatJSToOC(val);
 }
 
 + (id)formatOCToJS:(id)obj
 {
-    return [[JSContext currentContext][@"_formatOCToJS"] callWithArguments:@[formatOCToJS(obj)]];
+    return [[JSContext currentContext][@"_formatOCToJS"] callWithArguments:@[vkformatOCToJS(obj)]];
 }
 
 + (int)sizeOfStructTypes:(NSString *)structTypes
 {
-    return sizeOfStructTypes(structTypes);
+    return vksizeOfStructTypes(structTypes);
 }
 
 + (void)getStructDataWidthDict:(void *)structData dict:(NSDictionary *)dict structDefine:(NSDictionary *)structDefine
 {
-    return getStructDataWithDict(structData, dict, structDefine);
+    return vkgetStructDataWithDict(structData, dict, structDefine);
 }
 
 + (NSDictionary *)getDictOfStruct:(void *)structData structDefine:(NSDictionary *)structDefine
 {
-    return getDictOfStruct(structData, structDefine);
+    return vkgetDictOfStruct(structData, structDefine);
 }
 
 + (NSMutableDictionary *)registeredStruct

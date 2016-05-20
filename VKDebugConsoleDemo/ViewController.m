@@ -25,11 +25,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.view.backgroundColor = [UIColor blueColor];
+    
     self.title = @"测试界面";
     
     self.name = @"味精";
     self.age = 28;
-    self.view.backgroundColor = [UIColor whiteColor];
+    
     
     self.label = [[UILabel alloc]initWithFrame:CGRectMake(100, 100, 1000, 50)];
     self.label.font = [UIFont systemFontOfSize:20];
@@ -42,6 +44,11 @@
     [self.bt setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.view addSubview:self.bt];
     [self.bt addTarget:self action:@selector(click) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    UIView *v = [[UIView alloc]initWithFrame:CGRectMake(150, 300, 100, 100)];
+    [self.view addSubview:v];
+    v.backgroundColor = [UIColor greenColor];
     
     
     // Do any additional setup after loading the view, typically from a nib.
