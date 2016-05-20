@@ -43,6 +43,7 @@
 		6CC1CB151CEF01DA000DD04B /* VKCommonFundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKCommonFundation.h; sourceTree = "<group>"; };
 		6CC1CB161CEF01DA000DD04B /* VKFoundationMarco.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKFoundationMarco.h; sourceTree = "<group>"; };
 		6CC1CB171CEF01DA000DD04B /* VKUIKitMarco.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKUIKitMarco.h; sourceTree = "<group>"; };
+		6CC1CB1D1CEF09B1000DD04B /* VKJPEngineProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKJPEngineProtocol.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +112,7 @@
 		6CC1CB0C1CEF01DA000DD04B /* VKDebugJPEngine */ = {
 			isa = PBXGroup;
 			children = (
+				6CC1CB1D1CEF09B1000DD04B /* VKJPEngineProtocol.h */,
 				6CC1CB0D1CEF01DA000DD04B /* VKJPEngine.h */,
 				6CC1CB0E1CEF01DA000DD04B /* VKJPEngine.m */,
 				6CC1CB0F1CEF01DA000DD04B /* VKJSPatch.js */,

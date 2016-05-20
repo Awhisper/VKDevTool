@@ -18,6 +18,8 @@
 
 @property (nonatomic,strong) UIButton *bt;
 
+@property (nonatomic,strong) UIView *v;
+
 @end
 
 @implementation ViewController
@@ -49,6 +51,7 @@
     UIView *v = [[UIView alloc]initWithFrame:CGRectMake(150, 300, 100, 100)];
     [self.view addSubview:v];
     v.backgroundColor = [UIColor greenColor];
+    self.v = v;
     
     
     // Do any additional setup after loading the view, typically from a nib.
@@ -56,7 +59,7 @@
 
 -(void)click
 {
-    
+    [VKDebugConsole show];
 }
 
 -(void)setlabelname

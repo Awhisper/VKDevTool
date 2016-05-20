@@ -10,5 +10,9 @@
 
 @interface VKDebugConsole : UIView
 
++(void)show;
+
+//-(instancetype)initWithCurrentVC;
+//-(instancetype)initWithTarget:(id)target;
 
 @end
