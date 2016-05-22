@@ -53,6 +53,7 @@ static CGFloat maskAlpha = 0.6f;
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
+        self.mask.alpha = 0;
         [self startScriptEngine];
     }
     return self;
@@ -122,6 +123,8 @@ static CGFloat maskAlpha = 0.6f;
 -(void)showConsole
 {
     self.alpha = 0;
+    self.inputView.text = @"";
+    self.outputView.text = @"output:";
     [UIView animateWithDuration:0.5f animations:^{
         self.alpha = 1;
         self.mask.alpha = maskAlpha;
@@ -156,6 +159,7 @@ static CGFloat maskAlpha = 0.6f;
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     if ([text isEqualToString:@"\n"]){ //判断输入的字是否是回车，即按下return
         //在这里做你响应return键的代码
+        self.outputView.text = @"output:";
         [VKJPEngine evaluateScript:textView.text];
         
         return YES;

@@ -98,11 +98,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VKDebugConsole/VKConsoleModule/VKDebugScript/VKScriptConsole.m"
-            timestampString = "485590229.312612"
+            timestampString = "485592514.3091"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "150"
-            endingLineNumber = "150"
+            startingLineNumber = "153"
+            endingLineNumber = "153"
             landmarkName = "-addScriptLogToOutput:"
             landmarkType = "5">
          </BreakpointContent>
@@ -126,7 +126,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VKDebugConsole/VKConsoleModule/VKDebugScript/VKDebugJPEngine/VKJPEngine.m"

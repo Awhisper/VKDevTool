@@ -22,6 +22,8 @@
 
 @property (nonatomic,strong) UIView *v;
 
+@property (nonatomic,strong) NSArray * data;
+
 @end
 
 @implementation ViewController
@@ -34,7 +36,9 @@
     self.title = @"测试界面";
     
     self.name = @"味精";
-    self.age = 28;
+    self.age = 18;
+    
+    self.data = @[@"111",@"222",@"333",@"444",@"555"];
     
     
     self.label = [[UILabel alloc]initWithFrame:CGRectMake(100, 100, 1000, 50)];
@@ -56,7 +60,7 @@
 
 -(void)setlabelname
 {
-    NSString *txt = [NSString stringWithFormat:@"我叫：%@，哇哈哈 %@",self.name,@(self.age)];
+    NSString *txt = [NSString stringWithFormat:@"我叫：%@，哇哈哈 永远 %@",self.name,@(self.age)];
     self.label.text = txt;
 }
 
