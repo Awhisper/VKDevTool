@@ -14,6 +14,6 @@
 #import "UIView+VKMetrics.h"
 #import "UIDevice+VKUtlities.h"
 
-
+#import "NSObject+VKSingleton.h"
 
 #endif

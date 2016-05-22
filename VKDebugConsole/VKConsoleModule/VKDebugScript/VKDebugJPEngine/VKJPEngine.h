@@ -12,7 +12,6 @@
 
 #import <Foundation/Foundation.h>
 #import <JavaScriptCore/JavaScriptCore.h>
-#import "VKJPEngineProtocol.h"
 
 @interface VKJPEngine : NSObject
 
@@ -69,8 +68,8 @@
 
 + (void)handleException:(void (^)(NSString *msg))exceptionBlock;
 
-
-+(void)setScriptWeakTarget:(__weak id<VKJPEngineProtocol>)target;
++ (void)handleLog:(void (^)(NSString *msg))logBlock;
++(void)setScriptWeakTarget:(__weak id)target;
 
 @end
 

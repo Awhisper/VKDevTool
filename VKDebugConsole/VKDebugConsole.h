@@ -1,18 +1,18 @@
 //
 //  VKDebugConsole.h
-//  VKDebugConsole
+//  VKDebugConsoleDemo
 //
-//  Created by Awhisper on 16/5/20.
+//  Created by Awhisper on 16/5/22.
 //  Copyright © 2016年 baidu. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import "VKCommonFundation.h"
 
-@interface VKDebugConsole : UIView
+@interface VKDebugConsole : NSObject
+VK_AS_SINGLETON
 
-+(void)show;
-
-//-(instancetype)initWithCurrentVC;
-//-(instancetype)initWithTarget:(id)target;
++(void)showBt;
++(void)hideBt;
 
 @end

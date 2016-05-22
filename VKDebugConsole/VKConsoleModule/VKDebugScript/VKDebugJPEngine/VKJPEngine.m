@@ -58,7 +58,7 @@ VKJPBOXING_GEN(boxAssignObj, assignObj, id)
 @end
 
 static JSContext *_vkcontext;
-static __weak id<VKJPEngineProtocol> _vktarget;
+static __weak id _vktarget;
 static NSString *_vkregexStr = @"(?<!\\\\)\\.\\s*(\\w+)\\s*\\(";
 static NSString *_vkreplaceStr = @".__c(\"$1\")(";
 static NSRegularExpression* _vkregex;
@@ -83,6 +83,10 @@ static NSMutableArray      *_vkpointersToRelease;
 
 void (^_vkexceptionBlock)(NSString *log) = ^void(NSString *log) {
     NSCAssert(NO, log);
+};
+
+void (^_vkLogBlock)(NSString *log) = ^void(NSString *log) {
+//    NSCAssert(NO, log);
 };
 
 
@@ -211,7 +215,8 @@ void (^_vkexceptionBlock)(NSString *log) = ^void(NSString *log) {
         for (JSValue *jsVal in args) {
             id obj = vkformatJSToOC(jsVal);
             NSLog(@"JSPatch.log: %@", obj == _vknilObj ? nil : (obj == _vknullObj ? [NSNull null]: obj));
-            [_vktarget addScriptLogToOutput:[NSString stringWithFormat:@"JSPatch.log: %@", obj == _vknilObj ? nil : (obj == _vknullObj ? [NSNull null]: obj)]];
+            NSString *logmsg = [NSString stringWithFormat:@"Console.log: %@", obj == _vknilObj ? nil : (obj == _vknullObj ? [NSNull null]: obj)];
+            _vkLogBlock(logmsg);
         }
     };
     
@@ -219,11 +224,9 @@ void (^_vkexceptionBlock)(NSString *log) = ^void(NSString *log) {
         _vkexceptionBlock([NSString stringWithFormat:@"js exception, \nmsg: %@, \nstack: \n %@", [msg toObject], [stack toObject]]);
     };
     
-    context[@"_OC_target"] = ^(JSValue *msg, JSValue *stack) {
+    context[@"target"] = ^(JSValue *msg, JSValue *stack) {
         return vkformatOCToJS(_vktarget);
     };
-    
-    
     
     context.exceptionHandler = ^(JSContext *con, JSValue *exception) {
         NSLog(@"%@", exception);
@@ -337,6 +340,13 @@ void (^_vkexceptionBlock)(NSString *log) = ^void(NSString *log) {
 {
     _vkexceptionBlock = [exceptionBlock copy];
 }
+
++ (void)handleLog:(void (^)(NSString *msg))logBlock
+{
+    _vkLogBlock = [logBlock copy];
+}
+
+
 
 #pragma mark - Implements
 

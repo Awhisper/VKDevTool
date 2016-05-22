@@ -1,5 +1,6 @@
 var global = this
 
+
 ;(function() {
 
   var _ocCls = {};
@@ -199,8 +200,6 @@ var global = this
       _ocCls[className][key][name] = _wrapLocalMethod(name, func, realClsName)
     }
   }
-  
-  global.target = _OC_target();
 
   global.defineClass = function(declaration, properties, instMethods, clsMethods) {
     var newInstMethods = {}, newClsMethods = {}

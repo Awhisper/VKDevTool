@@ -7,6 +7,8 @@
 //
 
 #import "ViewController.h"
+#import "VKScriptConsole.h"
+
 #import "VKDebugConsole.h"
 @interface ViewController ()
 
@@ -27,7 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor blueColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     
     self.title = @"测试界面";
     
@@ -40,12 +42,6 @@
     self.label.text = @"测试文案";
     [self.view addSubview:self.label];
     
-    self.bt = [[UIButton alloc]initWithFrame:CGRectMake(300, 600, 75, 50)];
-    
-    [self.bt setTitle:@"控制台" forState:UIControlStateNormal];
-    [self.bt setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.view addSubview:self.bt];
-    [self.bt addTarget:self action:@selector(click) forControlEvents:UIControlEventTouchUpInside];
     
     
     UIView *v = [[UIView alloc]initWithFrame:CGRectMake(150, 300, 100, 100)];
@@ -53,14 +49,10 @@
     v.backgroundColor = [UIColor greenColor];
     self.v = v;
     
-    
+    [VKDebugConsole showBt];
     // Do any additional setup after loading the view, typically from a nib.
 }
 
--(void)click
-{
-    [VKDebugConsole show];
-}
 
 -(void)setlabelname
 {
