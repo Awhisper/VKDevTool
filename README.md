@@ -4,6 +4,8 @@ App内控制台，可以在脱离Xcode debug的情况下，调试内存，打印
 
 方便在黑盒测试+内部体验的环境下，发现Bug后，直接在Bug现场调试内存，分析问题
 
+下面是动画演示
+
 ![git](http://ww3.sinaimg.cn/mw690/678c3e91jw1f446h4dso0g20ao0j8jxi.gif)
 
 
