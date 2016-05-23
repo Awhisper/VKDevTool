@@ -47,3 +47,5 @@ __补充支持NSLog__
 ```
 
 在执行NSLog的同时，再自动执行一次VKLog，这样所有NSLog的打印就都同时打印在LLDB上和VKDebugConsole上了
+
+支持了 红（出错） 黄（console.log） 白（系统NSlog）三种颜色
