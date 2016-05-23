@@ -26,3 +26,24 @@ App内控制台，可以在脱离Xcode debug的情况下，调试内存，打印
 
 要做的事情还好多啊╮(╯_╰)╭
 而且 这控制台UI有点丑。。。
+
+
+__补充支持NSLog__
+
+写一个这样的宏在你的pch里面，覆盖NSLog
+
+```objectivec
+#ifndef __OPTIMIZE__
+
+#import "VKLogManager.h"
+
+#define NSLog(...) NSLog(__VA_ARGS__);\
+                   VKLog(__VA_ARGS__)\
+
+#else
+#define NSLog(...) {}
+
+#endif
+```
+
+在执行NSLog的同时，再自动执行一次VKLog，这样所有NSLog的打印就都同时打印在LLDB上和VKDebugConsole上了
