@@ -57,9 +57,41 @@
     self.v = v;
     
     [VKDebugConsole showBt];
+    NSLog(@"111 ===== 111");
+    NSLog(@"111 ===== 111");
+    NSLog(@"111 ===== 111");NSLog(@"111 ===== 111");NSLog(@"111 ===== 111");
+    NSLog(@"111 ===== 111");
+    NSLog(@"111 ===== 111");
+    NSLog(@"111 ===== 111");
+    NSLog(@"111 ===== 111");
+    NSLog(@"111 ===== 111");NSLog(@"111 ===== 111");NSLog(@"111 ===== 111");
+    NSLog(@"111 ===== 111");
+    NSLog(@"111 ===== 111");
+    NSLog(@"111 ===== 111");
+    NSLog(@"111 ===== 111");
+    NSLog(@"111 ===== 111");
+    NSLog(@"111 ===== 111");
+    NSLog(@"111 ===== 111");
+    NSLog(@"111 ===== 111");
+    NSLog(@"111 ===== 111");
+    NSLog(@"111 ===== 111");
+    NSLog(@"111 ===== 111");
+    NSLog(@"111 ===== 111");
+    NSLog(@"111 ===== 111");
+    NSLog(@"111 ===== 111");
+    NSLog(@"111 ===== 111");
+    NSLog(@"111 ===== 111");
+    NSLog(@"111 ===== 111");
+    NSLog(@"111 ===== 111");
+    NSLog(@"111 ===== 111");
+    NSLog(@"111 ===== 111");
+    NSLog(@"111 ===== 111");
+    NSLog(@"111 ===== 111");
+    NSLog(@"111 ===== 111");
+    NSLog(@"111 ===== 111");
     
     
-    NSTimer * timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timertimer) userInfo:nil repeats:YES];
+//    NSTimer * timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timertimer) userInfo:nil repeats:YES];
     // Do any additional setup after loading the view, typically from a nib.
 }
 

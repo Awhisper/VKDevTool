@@ -15,6 +15,7 @@
 		6C42B6621CF2FC3C00F795AA /* VKJSPatch.js in Resources */ = {isa = PBXBuildFile; fileRef = 6C42B6571CF2FC3C00F795AA /* VKJSPatch.js */; };
 		6C42B6631CF2FC3C00F795AA /* VKScriptConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C42B65A1CF2FC3C00F795AA /* VKScriptConsole.m */; };
 		6C42B6641CF2FC3C00F795AA /* VKDebugConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C42B65C1CF2FC3C00F795AA /* VKDebugConsole.m */; };
+		6C42B6681CF3366A00F795AA /* NSMutableAttributedString+VKAttributedString.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C42B6671CF3366A00F795AA /* NSMutableAttributedString+VKAttributedString.m */; };
 		6CC1CAF41CEF0193000DD04B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC1CAF31CEF0193000DD04B /* main.m */; };
 		6CC1CAF71CEF0193000DD04B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC1CAF61CEF0193000DD04B /* AppDelegate.m */; };
 		6CC1CAFA1CEF0193000DD04B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC1CAF91CEF0193000DD04B /* ViewController.m */; };
@@ -44,6 +45,8 @@
 		6C42B65B1CF2FC3C00F795AA /* VKDebugConsole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKDebugConsole.h; sourceTree = "<group>"; };
 		6C42B65C1CF2FC3C00F795AA /* VKDebugConsole.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKDebugConsole.m; sourceTree = "<group>"; };
 		6C42B6651CF2FD6F00F795AA /* VKDebugLogHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKDebugLogHelper.h; sourceTree = "<group>"; };
+		6C42B6661CF3366A00F795AA /* NSMutableAttributedString+VKAttributedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableAttributedString+VKAttributedString.h"; sourceTree = "<group>"; };
+		6C42B6671CF3366A00F795AA /* NSMutableAttributedString+VKAttributedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+VKAttributedString.m"; sourceTree = "<group>"; };
 		6CC1CAEF1CEF0193000DD04B /* VKDebugConsoleDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VKDebugConsoleDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CC1CAF31CEF0193000DD04B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6CC1CAF51CEF0193000DD04B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -82,6 +85,8 @@
 		6C42B6461CF2FC3C00F795AA /* VKCategoryHelper */ = {
 			isa = PBXGroup;
 			children = (
+				6C42B6661CF3366A00F795AA /* NSMutableAttributedString+VKAttributedString.h */,
+				6C42B6671CF3366A00F795AA /* NSMutableAttributedString+VKAttributedString.m */,
 				6C42B6471CF2FC3C00F795AA /* NSObject+VKSingleton.h */,
 				6C42B6481CF2FC3C00F795AA /* UIDevice+VKUtlities.h */,
 				6C42B6491CF2FC3C00F795AA /* UIDevice+VKUtlities.m */,
@@ -246,6 +251,7 @@
 				6CC1CAF71CEF0193000DD04B /* AppDelegate.m in Sources */,
 				6C42B65E1CF2FC3C00F795AA /* UIView+VKMetrics.m in Sources */,
 				6C42B65F1CF2FC3C00F795AA /* VKLogManager.m in Sources */,
+				6C42B6681CF3366A00F795AA /* NSMutableAttributedString+VKAttributedString.m in Sources */,
 				6C42B6641CF2FC3C00F795AA /* VKDebugConsole.m in Sources */,
 				6CC1CAF41CEF0193000DD04B /* main.m in Sources */,
 			);

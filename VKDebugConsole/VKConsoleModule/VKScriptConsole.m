@@ -10,7 +10,7 @@
 #import "VKCommonFundation.h"
 #import "VKJPEngine.h"
 #import "VKLogManager.h"
-
+#import "NSMutableAttributedString+VKAttributedString.h"
 static CGFloat maskAlpha = 0.6f;
 
 @interface VKScriptConsole ()<UITextViewDelegate>
@@ -53,11 +53,11 @@ static CGFloat maskAlpha = 0.6f;
     [VKJPEngine setScriptWeakTarget:self.target];
     __weak typeof(self) weakSelf = self;
     [VKJPEngine handleException:^(NSString *msg) {
-        [weakSelf addScriptLogToOutput:msg];
+        [weakSelf addScriptLogToOutput:msg WithUIColor:[UIColor redColor]];
     }];
     
     [VKJPEngine handleLog:^(NSString *msg) {
-        [weakSelf addScriptLogToOutput:msg];
+        [weakSelf addScriptLogToOutput:msg WithUIColor:[UIColor yellowColor]];
     }];
 }
 
@@ -91,7 +91,7 @@ static CGFloat maskAlpha = 0.6f;
 -(UITextView *)outputView
 {
     if (!_outputView) {
-        UITextView * output = [[UITextView alloc]initWithFrame:CGRectMake(0, self.height/2 + 20, self.width, self.height/2)];
+        UITextView * output = [[UITextView alloc]initWithFrame:CGRectMake(0, self.height/2 + 20, self.width, self.height/2 - 20)];
         _outputView = output;
         output.textColor = [UIColor yellowColor];
         [self addSubview:output];
@@ -135,7 +135,7 @@ static CGFloat maskAlpha = 0.6f;
 -(void)showLogManagerOldLog
 {
     for (NSString * log in [VKLogManager singleton].logDataArray) {
-        [self addScriptLogToOutput:log];
+        [self addScriptLogToOutput:log WithUIColor:[UIColor whiteColor]];
     }
 }
 
@@ -152,21 +152,30 @@ static CGFloat maskAlpha = 0.6f;
 -(void)logNotificationGet:(NSNotification *)noti
 {
     NSString * log = noti.object;
-    [self addScriptLogToOutput:log];
+    [self addScriptLogToOutput:log WithUIColor:[UIColor whiteColor]];
 }
 
 
--(void)addScriptLogToOutput:(NSString *)log{
-    NSString *txt = self.outputView.text;
-    txt = [txt stringByAppendingString:@"\n"];
-    txt = [txt stringByAppendingString:log];
-    self.outputView.text = txt;
+-(void)addScriptLogToOutput:(NSString *)log WithUIColor:(UIColor *)color{
+    NSAttributedString *txt = self.outputView.attributedText;
+    NSMutableAttributedString *mtxt = [[NSMutableAttributedString alloc]initWithAttributedString:txt];
+    NSAttributedString *huanhang = [[NSAttributedString alloc]initWithString:@"\n"];
+    [mtxt appendAttributedString:huanhang];
+    
+    NSMutableAttributedString *logattr = [[NSMutableAttributedString alloc]initWithString:log];
+    [logattr vk_setTextColor:color];
+    [mtxt appendAttributedString:logattr];
+    self.outputView.attributedText = mtxt;
+    
+    if (self.outputView.contentSize.height > self.outputView.frame.size.height) {
+        [self.outputView setContentOffset:CGPointMake(0.f,self.outputView.contentSize.height-self.outputView.frame.size.height)];
+    }
 }
 #pragma mark logic delegate
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     if ([text isEqualToString:@"\n"]){ //判断输入的字是否是回车，即按下return
         //在这里做你响应return键的代码
-        self.outputView.text = @"output:";
+//        self.outputView.text = @"output:";
         [VKJPEngine evaluateScript:textView.text];
         
         return YES;
