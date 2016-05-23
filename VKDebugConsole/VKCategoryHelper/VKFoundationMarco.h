@@ -10,11 +10,11 @@
 #define VKFoundationMarco_h
 
 #define VK_WeakSelf(weakSelf)  __weak __typeof(&*self)weakSelf = self;
-
-#ifndef __OPTIMIZE__
-#define NSLog(...) NSLog(__VA_ARGS__)
-#else
-#define NSLog(...) {}
-#endif
+//
+//#ifndef __OPTIMIZE__
+//#define NSLog(...) NSLog(__VA_ARGS__)
+//#else
+//#define NSLog(...) {}
+//#endif
 
 #endif

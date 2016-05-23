@@ -9,6 +9,7 @@
 #import "VKScriptConsole.h"
 #import "VKCommonFundation.h"
 #import "VKJPEngine.h"
+#import "VKLogManager.h"
 
 static CGFloat maskAlpha = 0.6f;
 
@@ -25,28 +26,8 @@ static CGFloat maskAlpha = 0.6f;
 
 @implementation VKScriptConsole
 
-//+(void)show{
-//    VKScriptConsole * debug = [[VKScriptConsole alloc]initWithCurrentVC];
-//    [debug showConsole];
-//}
 
 #pragma mark construct
-
-//-(instancetype)initWithCurrentVC
-//{
-//    UIViewController *curVC = [self getCurrentVC];
-//    return [self initWithTarget:curVC];
-//}
-//
-//-(instancetype)initWithTarget:(id)target
-//{
-//    self = [self initWithFrame:CGRectMake(0, 0, VK_AppScreenWidth, VK_AppScreenHeight)];
-//    if (self) {
-//        self.target = target;
-//        [self startScriptEngine];
-//    }
-//    return self;
-//}
 
 -(instancetype)initWithFrame:(CGRect)frame
 {
@@ -131,8 +112,10 @@ static CGFloat maskAlpha = 0.6f;
         self.inputView.alpha = 1;
         self.outputView.alpha = 1;
     } completion:^(BOOL finished) {
-    
+        [self addLogNotificationObserver];
+        [self showLogManagerOldLog];
     }];
+    
 }
 
 -(void)hideConsole
@@ -144,18 +127,42 @@ static CGFloat maskAlpha = 0.6f;
         self.outputView.alpha = 0;
     } completion:^(BOOL finished) {
         [self removeFromSuperview];
+        [self removeLogNotificationObserver];
     }];
 }
 
+#pragma mark log logic
+-(void)showLogManagerOldLog
+{
+    for (NSString * log in [VKLogManager singleton].logDataArray) {
+        [self addScriptLogToOutput:log];
+    }
+}
 
-#pragma mark logic delegate
+-(void)addLogNotificationObserver
+{
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(logNotificationGet:) name:VKLogNotification object:nil];
+}
+
+-(void)removeLogNotificationObserver
+{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
+
+-(void)logNotificationGet:(NSNotification *)noti
+{
+    NSString * log = noti.object;
+    [self addScriptLogToOutput:log];
+}
+
+
 -(void)addScriptLogToOutput:(NSString *)log{
     NSString *txt = self.outputView.text;
     txt = [txt stringByAppendingString:@"\n"];
     txt = [txt stringByAppendingString:log];
     self.outputView.text = txt;
 }
-
+#pragma mark logic delegate
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     if ([text isEqualToString:@"\n"]){ //判断输入的字是否是回车，即按下return
         //在这里做你响应return键的代码

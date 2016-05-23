@@ -10,6 +10,7 @@
 #import "VKScriptConsole.h"
 
 #import "VKDebugConsole.h"
+#import "VKDebugLogHelper.h"
 @interface ViewController ()
 
 @property (nonatomic,strong) NSString * name;
@@ -35,6 +36,8 @@
     
     self.title = @"测试界面";
     
+    NSLog(@"abc = %@",@"1");
+    
     self.name = @"味精";
     self.age = 18;
     
@@ -54,7 +57,14 @@
     self.v = v;
     
     [VKDebugConsole showBt];
+    
+    
+    NSTimer * timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timertimer) userInfo:nil repeats:YES];
     // Do any additional setup after loading the view, typically from a nib.
+}
+
+-(void)timertimer{
+    NSLog(@"111 ===== 111");
 }
 
 
