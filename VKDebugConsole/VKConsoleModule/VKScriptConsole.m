@@ -135,7 +135,8 @@ static CGFloat maskAlpha = 0.6f;
 -(void)showLogManagerOldLog
 {
     for (NSString * log in [VKLogManager singleton].logDataArray) {
-        [self addScriptLogToOutput:log WithUIColor:[UIColor whiteColor]];
+        NSString * logformat = [NSString stringWithFormat:@"NSLog:%@",log];
+        [self addScriptLogToOutput:logformat WithUIColor:[UIColor whiteColor]];
     }
 }
 
@@ -152,7 +153,8 @@ static CGFloat maskAlpha = 0.6f;
 -(void)logNotificationGet:(NSNotification *)noti
 {
     NSString * log = noti.object;
-    [self addScriptLogToOutput:log WithUIColor:[UIColor whiteColor]];
+    NSString * logformat = [NSString stringWithFormat:@"NSLog:%@",log];
+    [self addScriptLogToOutput:logformat WithUIColor:[UIColor whiteColor]];
 }
 
 

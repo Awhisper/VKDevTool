@@ -256,6 +256,8 @@ void (^_vkLogBlock)(NSString *log) = ^void(NSString *log) {
     } else {
         [_vkcontext evaluateScript:jsCore];
     }
+    
+    [VKJPEngine addExtensions:@[@"VKDebugJPExtension"]];
 }
 
 +(void)setScriptWeakTarget:(__weak id)target

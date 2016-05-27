@@ -15,4 +15,6 @@
 -(void)showConsole;
 -(void)hideConsole;
 
+-(void)addScriptLogToOutput:(NSString *)log WithUIColor:(UIColor *)color;
+
 @end

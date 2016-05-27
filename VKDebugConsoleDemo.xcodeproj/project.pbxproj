@@ -22,6 +22,7 @@
 		6CC1CAFD1CEF0193000DD04B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CC1CAFB1CEF0193000DD04B /* Main.storyboard */; };
 		6CC1CAFF1CEF0193000DD04B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CC1CAFE1CEF0193000DD04B /* Assets.xcassets */; };
 		6CC1CB021CEF0193000DD04B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CC1CB001CEF0193000DD04B /* LaunchScreen.storyboard */; };
+		6CDA6CF71CF86C7500B61583 /* VKDebugJPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CDA6CF61CF86C7500B61583 /* VKDebugJPExtension.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +58,8 @@
 		6CC1CAFE1CEF0193000DD04B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6CC1CB011CEF0193000DD04B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6CC1CB031CEF0193000DD04B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6CDA6CF51CF86C7500B61583 /* VKDebugJPExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKDebugJPExtension.h; sourceTree = "<group>"; };
+		6CDA6CF61CF86C7500B61583 /* VKDebugJPExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKDebugJPExtension.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +105,7 @@
 		6C42B64F1CF2FC3C00F795AA /* VKConsoleModule */ = {
 			isa = PBXGroup;
 			children = (
+				6CDA6CE71CF8573100B61583 /* VKTouchManager */,
 				6C42B6501CF2FC3C00F795AA /* VKLogManager.h */,
 				6C42B6511CF2FC3C00F795AA /* VKLogManager.m */,
 				6C42B6521CF2FC3C00F795AA /* VKConsoleButton.h */,
@@ -117,6 +121,8 @@
 		6C42B6541CF2FC3C00F795AA /* VKDebugJPEngine */ = {
 			isa = PBXGroup;
 			children = (
+				6CDA6CF51CF86C7500B61583 /* VKDebugJPExtension.h */,
+				6CDA6CF61CF86C7500B61583 /* VKDebugJPExtension.m */,
 				6C42B6551CF2FC3C00F795AA /* VKJPEngine.h */,
 				6C42B6561CF2FC3C00F795AA /* VKJPEngine.m */,
 				6C42B6571CF2FC3C00F795AA /* VKJSPatch.js */,
@@ -170,6 +176,13 @@
 				6CC1CAF31CEF0193000DD04B /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6CDA6CE71CF8573100B61583 /* VKTouchManager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = VKTouchManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -245,6 +258,7 @@
 			files = (
 				6C42B6611CF2FC3C00F795AA /* VKJPEngine.m in Sources */,
 				6C42B6601CF2FC3C00F795AA /* VKConsoleButton.m in Sources */,
+				6CDA6CF71CF86C7500B61583 /* VKDebugJPExtension.m in Sources */,
 				6CC1CAFA1CEF0193000DD04B /* ViewController.m in Sources */,
 				6C42B6631CF2FC3C00F795AA /* VKScriptConsole.m in Sources */,
 				6C42B65D1CF2FC3C00F795AA /* UIDevice+VKUtlities.m in Sources */,
