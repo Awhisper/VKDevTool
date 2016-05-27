@@ -15,17 +15,27 @@ App内控制台，可以在脱离Xcode debug的情况下，调试内存，打印
 
 后续可以完善的地方还有很多
 
-- target采用window下当前的VC，如果targe不正常，可以修改`getCurrentVC`方法
-- 获取target手段应该，支持可以全局触摸选择View当做target
-- Log打印对象的值还能优化更方便一些，希望能像LLDB的PO一样
+
+- Log打印对象的值还能优化更方便一些，希望能像LLDB的PO一样,po对象的时候，特别加工view font label 
 - 希望能支持直接输入OC的[]方括号语法（解析前预处理js）
 
 
 - 希望可以把系统NSLog一并输出在这里(done)
 - Log颜色可以进行区分处理，报错和输出分别展现(DONE)
+- target采用window下当前的VC，如果targe不正常，可以修改`getCurrentVC`方法（DONE）
+- - 获取target手段应该，支持可以全局触摸选择View当做target(DONE)
+
+
 
 要做的事情还好多啊╮(╯_╰)╭
 而且 这控制台UI有点丑。。。
+
+__补充支持手选Target__
+
+不再是以默认方法取当前屏幕显示vc当做target
+而是通过点击，选择想要的view当做target
+
+同时增加getSuperView与getParentVC，方便快捷的通过选中的view，获取其他要调试的对象
 
 
 __补充支持NSLog__
