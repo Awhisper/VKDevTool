@@ -26,8 +26,16 @@ VK_DEF_SINGLETON
 {
     self = [super init];
     if (self) {
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(appBecomeActive)
+                                                     name:UIApplicationDidBecomeActiveNotification object:nil];
     }
     return self;
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 -(VKConsoleButton *)debugBt
@@ -147,6 +155,16 @@ VK_DEF_SINGLETON
         }
     }
     return subviewsAtPoint;
+}
+
+-(void)appBecomeActive
+{
+    if (self.scriptView.superview) {//调试状态
+        NSString *pasteCode = [[UIPasteboard generalPasteboard] string];
+        if (pasteCode.length > 0) {
+            [self.scriptView setInputCode:pasteCode];
+        }
+    }
 }
 
 

@@ -17,4 +17,6 @@
 
 -(void)addScriptLogToOutput:(NSString *)log WithUIColor:(UIColor *)color;
 
+-(void)setInputCode:(NSString *)code;
+
 @end

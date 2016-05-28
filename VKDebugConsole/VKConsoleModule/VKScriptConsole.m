@@ -186,5 +186,9 @@ static CGFloat maskAlpha = 0.6f;
     return YES;
 }
 
+-(void)setInputCode:(NSString *)code
+{
+    self.inputView.text = code;
+}
 
 @end
