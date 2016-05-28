@@ -48,17 +48,26 @@ static id __singleton__;
 
 +(void)VKLogString:(NSString *)format withVarList:(va_list)arglist{
 #ifndef __OPTIMIZE__
-    NSString* logstr = [[NSString alloc]initWithFormat:format arguments:arglist];
-    if (logstr.length > 0) {
-        [[VKLogManager singleton].logDataArray addObject:logstr];
-        
-        if ([[VKLogManager singleton].logDataArray count] > VKMAXSTEPRECORD) {
-            NSInteger nowCount = [VKLogManager singleton].logDataArray.count;
-            [[VKLogManager singleton].logDataArray removeObjectsInRange:NSMakeRange(0, nowCount - VKMAXSTEPRECORD)];
+    @synchronized([VKLogManager singleton]) {
+        NSString* logstr = [[NSString alloc]initWithFormat:format arguments:arglist];
+        if (logstr.length > 0) {
+            [[VKLogManager singleton].logDataArray addObject:logstr];
+            
+            if ([[VKLogManager singleton].logDataArray count] > VKMAXSTEPRECORD) {
+                NSInteger nowCount = [VKLogManager singleton].logDataArray.count;
+                [[VKLogManager singleton].logDataArray removeObjectsInRange:NSMakeRange(0, nowCount - VKMAXSTEPRECORD)];
+            }
+            if ([NSThread isMainThread]) {
+                [[NSNotificationCenter defaultCenter]postNotificationName:VKLogNotification object:logstr];
+            }else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [[NSNotificationCenter defaultCenter]postNotificationName:VKLogNotification object:logstr];
+                });
+            }
+            
         }
-        
-        [[NSNotificationCenter defaultCenter]postNotificationName:VKLogNotification object:logstr];
     }
+    
 #endif
 }
 
