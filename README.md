@@ -77,6 +77,10 @@ Git地址 [VKDebugConsole](https://github.com/Awhisper/VKDebugConsole)
 
 开启控制台后，程序再次输出的NSLog也能进入控制台区域方便查看
 
+# 编译控制
+
+所有的代码在debug模式下会生效，在release模式下会自动不参与编译，直接失效，不用担心发版前忘记关掉代码，导致线上暴露的问题
+
 # TODO LIST:
 
 - 指令更易输入，能支持输入oc的方括号语法
