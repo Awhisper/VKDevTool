@@ -26,9 +26,11 @@ VK_DEF_SINGLETON
 {
     self = [super init];
     if (self) {
+#ifndef __OPTIMIZE__
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(appBecomeActive)
                                                      name:UIApplicationDidBecomeActiveNotification object:nil];
+#endif
     }
     return self;
 }
@@ -41,22 +43,28 @@ VK_DEF_SINGLETON
 -(VKConsoleButton *)debugBt
 {
     if (!_debugBt) {
+#ifndef __OPTIMIZE__
         VKConsoleButton *debugbt = [[VKConsoleButton alloc]initWithDefault];
         _debugBt = debugbt;
         [debugbt addTarget:self action:@selector(debugClick) forControlEvents:UIControlEventTouchUpInside];
+#endif
     }
     return _debugBt;
 }
 
 -(void)showButton
 {
+#ifndef __OPTIMIZE__
     UIWindow * window = [[UIApplication sharedApplication] keyWindow];
     [window addSubview:self.debugBt];
+#endif
 }
 
 -(void)hideButton
 {
+#ifndef __OPTIMIZE__
     [self.debugBt removeFromSuperview];
+#endif
 }
 
 -(void)debugClick
@@ -85,9 +93,11 @@ VK_DEF_SINGLETON
 -(VKScriptConsole *)scriptView
 {
     if (!_scriptView) {
+#ifndef __OPTIMIZE__
         VKScriptConsole *scriptv = [[VKScriptConsole alloc]initWithFrame:CGRectMake(0, 0, VK_AppScreenWidth, VK_AppScreenHeight)];
         _scriptView = scriptv;
         scriptv.delegate = self;
+#endif
     }
     return _scriptView;
 }
@@ -97,12 +107,14 @@ VK_DEF_SINGLETON
 -(UITapGestureRecognizer *)tapGesture
 {
     if (!_tapGesture) {
+#ifndef __OPTIMIZE__
         UIWindow * window = [[UIApplication sharedApplication] keyWindow];
         // View selection
         UITapGestureRecognizer *selectionTapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTouchTap:)];
         [window addGestureRecognizer:selectionTapGR];
         selectionTapGR.enabled = NO;
         _tapGesture = selectionTapGR;
+#endif
         
     }
     return _tapGesture;
