@@ -45,6 +45,15 @@ Git地址 [VKDebugConsole](https://github.com/Awhisper/VKDebugConsole)
 - `clearOutput()`清空控制台输出区
 - `clearInput()`清空控制台输入区
 
+# 支持剪贴板
+
+很明显，在APP黑盒的情况下，写代码是非常不方便的，用手机上面的软键盘，于是支持了剪贴板
+
+- 打开控制台
+- 在电脑上的编辑器里写好代码
+- 无论以QQ微信等各种形式发到手机上，在手机上复制
+- 切回APP显示控制台的时候，会自动把剪贴板的内容，复制到输入区
+
 # 支持NSLog
 写一个这样的宏在你的pch里面，覆盖NSLog
 
