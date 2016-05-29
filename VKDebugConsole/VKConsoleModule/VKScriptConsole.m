@@ -59,6 +59,16 @@ static CGFloat maskAlpha = 0.6f;
     [VKJPEngine handleLog:^(NSString *msg) {
         [weakSelf addScriptLogToOutput:msg WithUIColor:[UIColor yellowColor]];
     }];
+    
+    [VKJPEngine handleCommand:^(NSString *command) {
+        if ([command isEqualToString:@"changeSelect"]) {
+            [weakSelf.delegate VKScriptConsoleExchangeTargetAction];
+        }
+        
+        if ([command isEqualToString:@"exit"]) {
+            [weakSelf.delegate VKScriptConsoleExitAction];
+        }
+    }];
 }
 
 -(UIView *)mask

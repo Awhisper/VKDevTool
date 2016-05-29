@@ -89,6 +89,11 @@ void (^_vkLogBlock)(NSString *log) = ^void(NSString *log) {
 //    NSCAssert(NO, log);
 };
 
+void (^_vkCommandBlock)(NSString *command) = ^void(NSString *command) {
+    //    NSCAssert(NO, log);
+};
+
+
 
 @implementation VKJPEngine
 
@@ -348,6 +353,10 @@ void (^_vkLogBlock)(NSString *log) = ^void(NSString *log) {
     _vkLogBlock = [logBlock copy];
 }
 
++(void)handleCommand:(void (^)(NSString *))commandBlock
+{
+    _vkCommandBlock = [commandBlock copy];
+}
 
 
 #pragma mark - Implements
@@ -1726,6 +1735,21 @@ static id _vkunboxOCObjectToJS(id obj)
 + (NSMutableSet *)includedScriptPaths
 {
     return _vkrunnedScript;
+}
+
++(id)getJPTarget
+{
+    return _vktarget;
+}
+
++(void)excuteLogHandler:(NSString *)log
+{
+    _vkLogBlock(log);
+}
+
++(void)excuteCommandHandler:(NSString *)command
+{
+    _vkCommandBlock(command);
 }
 
 @end

@@ -9,7 +9,7 @@
 #import "VKDebugConsole.h"
 #import "VKConsoleButton.h"
 #import "VKScriptConsole.h"
-@interface VKDebugConsole ()
+@interface VKDebugConsole ()<VKScriptConsoleDelegate>
 
 @property (nonatomic,strong) VKConsoleButton *debugBt;
 
@@ -87,6 +87,7 @@ VK_DEF_SINGLETON
     if (!_scriptView) {
         VKScriptConsole *scriptv = [[VKScriptConsole alloc]initWithFrame:CGRectMake(0, 0, VK_AppScreenWidth, VK_AppScreenHeight)];
         _scriptView = scriptv;
+        scriptv.delegate = self;
     }
     return _scriptView;
 }
@@ -167,5 +168,19 @@ VK_DEF_SINGLETON
     }
 }
 
+#pragma mark vkscript delegate
+-(void)VKScriptConsoleExchangeTargetAction
+{
+    [self.scriptView hideConsole];
+    self.tapGesture.enabled = YES;
+    [self.debugBt setTitle:@"Select" forState:UIControlStateNormal];
+    
+}
+
+-(void)VKScriptConsoleExitAction
+{
+    [self.scriptView hideConsole];
+    [self.debugBt setTitle:@"Debug" forState:UIControlStateNormal];
+}
 
 @end

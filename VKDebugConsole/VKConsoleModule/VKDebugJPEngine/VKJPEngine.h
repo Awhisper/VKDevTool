@@ -69,6 +69,9 @@
 + (void)handleException:(void (^)(NSString *msg))exceptionBlock;
 
 + (void)handleLog:(void (^)(NSString *msg))logBlock;
+
++ (void)handleCommand:(void(^)(NSString *command))commandBlock;
+                       
 +(void)setScriptWeakTarget:(__weak id)target;
 
 @end
@@ -83,6 +86,10 @@
 + (id)formatPointerOCToJS:(void *)pointer;
 + (id)formatJSToOC:(JSValue *)val;
 + (id)formatOCToJS:(id)obj;
+
++ (id)getJPTarget;
++ (void)excuteLogHandler:(NSString*)log;
++ (void)excuteCommandHandler:(NSString *)command;
 
 + (int)sizeOfStructTypes:(NSString *)structTypes;
 + (void)getStructDataWidthDict:(void *)structData dict:(NSDictionary *)dict structDefine:(NSDictionary *)structDefine;
