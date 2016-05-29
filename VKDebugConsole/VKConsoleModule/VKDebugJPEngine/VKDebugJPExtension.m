@@ -43,6 +43,13 @@
     context[@"exit"] = ^(){
         [self postCommand:@"exit"];
     };
+    
+    context[@"clearOutput"] = ^(){
+        [self postCommand:@"clearOutput"];
+    };
+    context[@"clearInput"] = ^(){
+        [self postCommand:@"clearInput"];
+    };
 }
 
 +(UIView *)getViewSuperView:(UIView *)view;

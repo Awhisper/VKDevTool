@@ -274,11 +274,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VKDebugConsole/VKConsoleModule/VKScriptConsole.m"
-            timestampString = "486194873.281965"
+            timestampString = "486203650.324457"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "126"
-            endingLineNumber = "126"
+            startingLineNumber = "134"
+            endingLineNumber = "134"
             landmarkName = "-showConsole"
             landmarkType = "5">
          </BreakpointContent>
@@ -302,15 +302,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VKDebugConsole/VKConsoleModule/VKDebugJPEngine/VKDebugJPExtension.m"
-            timestampString = "486194983.071954"
+            timestampString = "486203650.324457"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
             landmarkName = "+main:"
             landmarkType = "5">
          </BreakpointContent>

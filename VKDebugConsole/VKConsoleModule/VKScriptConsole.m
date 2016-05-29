@@ -68,6 +68,14 @@ static CGFloat maskAlpha = 0.6f;
         if ([command isEqualToString:@"exit"]) {
             [weakSelf.delegate VKScriptConsoleExitAction];
         }
+        
+        if ([command isEqualToString:@"clearInput"]) {
+            weakSelf.inputView.text = @"";
+        }
+        
+        if ([command isEqualToString:@"clearOutput"]) {
+            weakSelf.outputView.text = @"";
+        }
     }];
 }
 
@@ -86,7 +94,7 @@ static CGFloat maskAlpha = 0.6f;
 -(UITextView *)inputView
 {
     if (!_inputView) {
-        UITextView * input = [[UITextView alloc]initWithFrame:CGRectMake(0, 20, self.width, self.height/2)];
+        UITextView * input = [[UITextView alloc]initWithFrame:CGRectMake(0, 20, self.width, self.height/3)];
         _inputView = input;
         input.textColor = [UIColor yellowColor];
         input.layer.borderWidth = 1;
@@ -101,7 +109,7 @@ static CGFloat maskAlpha = 0.6f;
 -(UITextView *)outputView
 {
     if (!_outputView) {
-        UITextView * output = [[UITextView alloc]initWithFrame:CGRectMake(0, self.height/2 + 20, self.width, self.height/2 - 20)];
+        UITextView * output = [[UITextView alloc]initWithFrame:CGRectMake(0, self.height/3 + 20, self.width, self.height*2/3 - 20)];
         _outputView = output;
         output.textColor = [UIColor yellowColor];
         [self addSubview:output];
