@@ -6,7 +6,7 @@ App内控制台，可以在脱离Xcode debug的情况下，调试内存，打印
 
 先大体看一下GIF动画如何使用
 
-![git](http://ww3.sinaimg.cn/mw690/678c3e91jw1f4cd13c3ytg208t0g7hdt.gif)
+![git](http://ww2.sinaimg.cn/mw690/678c3e91jw1f4cejgkcipg20900gfasa.gif)
 
 
 Git地址 [VKDebugConsole](https://github.com/Awhisper/VKDebugConsole)
