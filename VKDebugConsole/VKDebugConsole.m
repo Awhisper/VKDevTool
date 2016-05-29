@@ -70,6 +70,7 @@ VK_DEF_SINGLETON
 -(void)debugClick
 {
     if (self.scriptView.superview) {
+        self.tapGesture.enabled = NO;
         [self.scriptView hideConsole];
         [self.debugBt setTitle:@"Debug" forState:UIControlStateNormal];
         
@@ -192,6 +193,7 @@ VK_DEF_SINGLETON
 -(void)VKScriptConsoleExitAction
 {
     [self.scriptView hideConsole];
+    self.tapGesture.enabled = NO;
     [self.debugBt setTitle:@"Debug" forState:UIControlStateNormal];
 }
 
