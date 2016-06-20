@@ -79,7 +79,7 @@ static id __singleton__;
 #ifndef __OPTIMIZE__
     @synchronized([VKLogManager singleton]) {
         
-        NSString *userinfo = [error.userInfo VK_JSONString];
+        NSString *userinfo = [error.userInfo vk_JSONString];
         NSString *logstr = [NSString stringWithFormat:@"NSError: domain = %@ code = %@ userinfo = %@",error.domain,@(error.code),userinfo];
         
         if (logstr.length > 0) {

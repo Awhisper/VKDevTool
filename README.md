@@ -81,10 +81,15 @@ Git地址 [VKDebugConsole](https://github.com/Awhisper/VKDebugConsole)
 
 所有的代码在debug模式下会生效，在release模式下会自动不参与编译，直接失效，不用担心发版前忘记关掉代码，导致线上暴露的问题
 
+# 支持NSError
+
+hook了系统的NSError生成，所有生成创建的NSError会自动记录log，并且以红色展示在控制台
+
 # TODO LIST:
 
 - 指令更易输入，能支持输入oc的方括号语法
 - 界面更好看点吧，至少整理下控制台输出界面，可读性太差
 - 扩展更多地方便调试的接口和指令
 - 支持网络日志，所有的网络请求接口以及返回数据，会以网络日志的方式，在console里面查询
+- 日志筛选控制
 - ......

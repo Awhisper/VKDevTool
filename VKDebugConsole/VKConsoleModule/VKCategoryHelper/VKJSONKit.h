@@ -13,18 +13,18 @@
 /**
  * @return mutable字典对象 或者 数组对象
  */
-- (id)VK_objectFromJSONData;
+- (id)vk_objectFromJSONData;
 /**
  * @param parseOptionFlags  为系统NSJSONReadingOptions参数
  * @return 字典对象 或者 数组对象
  */
-- (id)VK_objectFromJSONDataWithParseOptions:(NSJSONReadingOptions)parseOptionFlags;
+- (id)vk_objectFromJSONDataWithParseOptions:(NSJSONReadingOptions)parseOptionFlags;
 /**
  * @param parseOptionFlags  系统NSJSONReadingOptions参数
  * @param error 报错指针
  * @return 字典对象 或者 数组对象
  */
-- (id)VK_objectFromJSONDataWithParseOptions:(NSJSONReadingOptions)parseOptionFlags error:(NSError **)error;
+- (id)vk_objectFromJSONDataWithParseOptions:(NSJSONReadingOptions)parseOptionFlags error:(NSError **)error;
 
 @end
 
@@ -33,11 +33,11 @@
 /**
  * @return 字典对象 或者 数组对象
  */
-- (id)VK_objectFromJSONString;
+- (id)vk_objectFromJSONString;
 /**
  * @return 字典对象 或者 数组对象
  */
-- (id)VK_mutableObjectFromJSONString;
+- (id)vk_mutableObjectFromJSONString;
 
 @end
 
@@ -47,7 +47,7 @@
 /**
  * @return 将一行string 转成jsonstring
  */
-- (NSString *)VK_JSONString;
+- (NSString *)vk_JSONString;
 
 @end
 
@@ -56,14 +56,14 @@
 /**
  * @return 将字典 转成jsonstring
  */
-- (NSString *)VK_JSONString;
+- (NSString *)vk_JSONString;
 
 /**
  * @param serializeOptions 系统NSJSONWritingOptions参数
  * @param error 报错指针
  * @return 将字典 转成jsonstring
  */
-- (NSString *)VK_JSONStringWithOptions:(NSJSONWritingOptions)serializeOptions error:(NSError **)error;
+- (NSString *)vk_JSONStringWithOptions:(NSJSONWritingOptions)serializeOptions error:(NSError **)error;
 
 @end
 
@@ -73,13 +73,13 @@
 /**
  * @return 将字典 转成jsonstring
  */
-- (NSString *)VK_JSONString;
+- (NSString *)vk_JSONString;
 /**
  * @param serializeOptions 系统NSJSONWritingOptions参数
  * @param error 报错指针
  * @return 将数组 转成jsonstring
  */
-- (NSString *)VK_JSONStringWithOptions:(NSJSONWritingOptions)serializeOptions error:(NSError **)error;
+- (NSString *)vk_JSONStringWithOptions:(NSJSONWritingOptions)serializeOptions error:(NSError **)error;
 
 @end
 

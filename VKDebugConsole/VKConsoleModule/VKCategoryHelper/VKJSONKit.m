@@ -9,15 +9,15 @@
 
 @implementation NSData (VKJSONKitDeserializing)
 
-- (id)VK_objectFromJSONData{
-    return([self VK_objectFromJSONDataWithParseOptions:NSJSONReadingMutableContainers error:NULL]);
+- (id)vk_objectFromJSONData{
+    return([self vk_objectFromJSONDataWithParseOptions:NSJSONReadingMutableContainers error:NULL]);
 }
 
-- (id)VK_objectFromJSONDataWithParseOptions:(NSJSONReadingOptions)parseOptionFlags{
+- (id)vk_objectFromJSONDataWithParseOptions:(NSJSONReadingOptions)parseOptionFlags{
     return [NSJSONSerialization JSONObjectWithData:self options:parseOptionFlags error:nil];
 }
 
-- (id)VK_objectFromJSONDataWithParseOptions:(NSJSONReadingOptions)parseOptionFlags error:(NSError **)error{
+- (id)vk_objectFromJSONDataWithParseOptions:(NSJSONReadingOptions)parseOptionFlags error:(NSError **)error{
     return [NSJSONSerialization JSONObjectWithData:self options:parseOptionFlags error:error];
 }
 
@@ -25,12 +25,12 @@
 
 @implementation NSString (VKJSONKitDeserializing)
 
-- (id)VK_objectFromJSONString {
+- (id)vk_objectFromJSONString {
     return [NSJSONSerialization JSONObjectWithData:[self dataUsingEncoding:NSUTF8StringEncoding]
                                            options:NSJSONReadingMutableContainers error:nil];
 }
 
-- (id)VK_mutableObjectFromJSONString {
+- (id)vk_mutableObjectFromJSONString {
     return [NSJSONSerialization JSONObjectWithData:[self dataUsingEncoding:NSUTF8StringEncoding]
                                            options:NSJSONReadingMutableContainers error:nil];
 }
@@ -43,11 +43,11 @@
 #pragma mark Methods for serializing a single NSString.
 ////////////SString returning methods...
 
-- (NSString *)VK_JSONString{
-    return([self VK_JSONStringWithOptions:NSJSONWritingPrettyPrinted includeQuotes:YES error:NULL]);
+- (NSString *)vk_JSONString{
+    return([self vk_JSONStringWithOptions:NSJSONWritingPrettyPrinted includeQuotes:YES error:NULL]);
 }
 
-- (NSString *)VK_JSONStringWithOptions:(NSJSONWritingOptions)serializeOptions includeQuotes:(BOOL)includeQuotes error:(NSError **)error{
+- (NSString *)vk_JSONStringWithOptions:(NSJSONWritingOptions)serializeOptions includeQuotes:(BOOL)includeQuotes error:(NSError **)error{
     
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self options:serializeOptions error:error];
     
@@ -59,7 +59,7 @@
     
 }
 //
-//- (id)VK_objectFromJSONStringWithParseOptions:(NSJSONReadingOptions)parseOptionFlags error:(NSError **)error{
+//- (id)vk_objectFromJSONStringWithParseOptions:(NSJSONReadingOptions)parseOptionFlags error:(NSError **)error{
 //    return [NSJSONSerialization JSONObjectWithData:[self dataUsingEncoding:NSUTF8StringEncoding] options:parseOptionFlags error:error];
 //}
 
@@ -68,7 +68,7 @@
 
 @implementation NSDictionary (JSONKitSerializing)
 
-- (NSString *)VK_JSONString {
+- (NSString *)vk_JSONString {
     NSError *error = nil;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:&error];
     
@@ -79,7 +79,7 @@
     return trimmedString;
 }
 
-- (NSString *)VK_JSONStringWithOptions:(NSJSONWritingOptions)serializeOptions error:(NSError **)error{
+- (NSString *)vk_JSONStringWithOptions:(NSJSONWritingOptions)serializeOptions error:(NSError **)error{
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self options:serializeOptions error:error];
     
     NSString *trimmedString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
@@ -94,7 +94,7 @@
 
 @implementation NSArray (JSONKitSerializingBlockAdditions)
 
-- (NSString *)VK_JSONString {
+- (NSString *)vk_JSONString {
     NSError *error = nil;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:&error];
     
@@ -105,7 +105,7 @@
     return trimmedString;
 }
 
-- (NSString *)VK_JSONStringWithOptions:(NSJSONWritingOptions)serializeOptions error:(NSError **)error{
+- (NSString *)vk_JSONStringWithOptions:(NSJSONWritingOptions)serializeOptions error:(NSError **)error{
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self options:serializeOptions error:error];
     
     NSString *trimmedString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
