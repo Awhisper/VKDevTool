@@ -7,6 +7,8 @@
 //
 
 #import "VKLogManager.h"
+#import "VKJSONKit.h"
+
 #define VKMAXSTEPRECORD 100
 void VKLog(NSString *format, ...){
 #ifndef __OPTIMIZE__
@@ -50,6 +52,36 @@ static id __singleton__;
 #ifndef __OPTIMIZE__
     @synchronized([VKLogManager singleton]) {
         NSString* logstr = [[NSString alloc]initWithFormat:format arguments:arglist];
+        logstr = [NSString stringWithFormat:@"NSLog: %@",logstr];
+        if (logstr.length > 0) {
+            [[VKLogManager singleton].logDataArray addObject:logstr];
+            
+            if ([[VKLogManager singleton].logDataArray count] > VKMAXSTEPRECORD) {
+                NSInteger nowCount = [VKLogManager singleton].logDataArray.count;
+                [[VKLogManager singleton].logDataArray removeObjectsInRange:NSMakeRange(0, nowCount - VKMAXSTEPRECORD)];
+            }
+            if ([NSThread isMainThread]) {
+                [[NSNotificationCenter defaultCenter]postNotificationName:VKLogNotification object:logstr];
+            }else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [[NSNotificationCenter defaultCenter]postNotificationName:VKLogNotification object:logstr];
+                });
+            }
+            
+        }
+    }
+    
+#endif
+}
+
++(void)VKLogError:(NSError *)error
+{
+#ifndef __OPTIMIZE__
+    @synchronized([VKLogManager singleton]) {
+        
+        NSString *userinfo = [error.userInfo VK_JSONString];
+        NSString *logstr = [NSString stringWithFormat:@"NSError: domain = %@ code = %@ userinfo = %@",error.domain,@(error.code),userinfo];
+        
         if (logstr.length > 0) {
             [[VKLogManager singleton].logDataArray addObject:logstr];
             

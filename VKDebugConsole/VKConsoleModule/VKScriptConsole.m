@@ -153,8 +153,11 @@ static CGFloat maskAlpha = 0.6f;
 -(void)showLogManagerOldLog
 {
     for (NSString * log in [VKLogManager singleton].logDataArray) {
-        NSString * logformat = [NSString stringWithFormat:@"NSLog:%@",log];
-        [self addScriptLogToOutput:logformat WithUIColor:[UIColor whiteColor]];
+        if ([log rangeOfString:@"NSLog: "].location != NSNotFound) {
+            [self addScriptLogToOutput:log WithUIColor:[UIColor whiteColor]];
+        }else if ([log rangeOfString:@"NSError: "].location != NSNotFound){
+            [self addScriptLogToOutput:log WithUIColor:[UIColor redColor]];
+        }
     }
 }
 
@@ -171,8 +174,12 @@ static CGFloat maskAlpha = 0.6f;
 -(void)logNotificationGet:(NSNotification *)noti
 {
     NSString * log = noti.object;
-    NSString * logformat = [NSString stringWithFormat:@"NSLog:%@",log];
-    [self addScriptLogToOutput:logformat WithUIColor:[UIColor whiteColor]];
+    if ([log rangeOfString:@"NSLog: "].location != NSNotFound) {
+        [self addScriptLogToOutput:log WithUIColor:[UIColor whiteColor]];
+    }else if ([log rangeOfString:@"NSError: "].location != NSNotFound){
+        [self addScriptLogToOutput:log WithUIColor:[UIColor redColor]];
+    }
+
 }
 
 

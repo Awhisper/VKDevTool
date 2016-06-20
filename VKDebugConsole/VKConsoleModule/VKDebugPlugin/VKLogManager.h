@@ -22,4 +22,6 @@ static NSString * VKLogNotification = @"VKLogNotification";
 
 +(void)VKLogString:(NSString *)format withVarList:(va_list)arglist;
 
++(void)VKLogError:(NSError *)error;
+
 @end
