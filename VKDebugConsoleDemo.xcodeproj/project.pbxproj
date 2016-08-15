@@ -19,6 +19,9 @@
 		6C2469E01D17BF4000DE17C8 /* VKDebugConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C2469D51D17BF4000DE17C8 /* VKDebugConsole.m */; };
 		6C2469E31D17BF6800DE17C8 /* NSError+VKError.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C2469E21D17BF6800DE17C8 /* NSError+VKError.m */; };
 		6C2469E91D17C47800DE17C8 /* VKJSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C2469E81D17C47800DE17C8 /* VKJSONKit.m */; };
+		6C4E97791D61DF4600158484 /* VKKeyCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4E97731D61DF4600158484 /* VKKeyCommands.m */; };
+		6C4E977A1D61DF4600158484 /* UIWindow+VKShakeCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4E97761D61DF4600158484 /* UIWindow+VKShakeCommand.m */; };
+		6C4E977B1D61DF4600158484 /* VKShakeCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4E97781D61DF4600158484 /* VKShakeCommand.m */; };
 		6CC1CAF41CEF0193000DD04B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC1CAF31CEF0193000DD04B /* main.m */; };
 		6CC1CAF71CEF0193000DD04B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC1CAF61CEF0193000DD04B /* AppDelegate.m */; };
 		6CC1CAFA1CEF0193000DD04B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC1CAF91CEF0193000DD04B /* ViewController.m */; };
@@ -56,6 +59,12 @@
 		6C2469E21D17BF6800DE17C8 /* NSError+VKError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+VKError.m"; sourceTree = "<group>"; };
 		6C2469E71D17C47800DE17C8 /* VKJSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKJSONKit.h; sourceTree = "<group>"; };
 		6C2469E81D17C47800DE17C8 /* VKJSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKJSONKit.m; sourceTree = "<group>"; };
+		6C4E97721D61DF4600158484 /* VKKeyCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKKeyCommands.h; sourceTree = "<group>"; };
+		6C4E97731D61DF4600158484 /* VKKeyCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKKeyCommands.m; sourceTree = "<group>"; };
+		6C4E97751D61DF4600158484 /* UIWindow+VKShakeCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWindow+VKShakeCommand.h"; sourceTree = "<group>"; };
+		6C4E97761D61DF4600158484 /* UIWindow+VKShakeCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+VKShakeCommand.m"; sourceTree = "<group>"; };
+		6C4E97771D61DF4600158484 /* VKShakeCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKShakeCommand.h; sourceTree = "<group>"; };
+		6C4E97781D61DF4600158484 /* VKShakeCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKShakeCommand.m; sourceTree = "<group>"; };
 		6CC1CAEF1CEF0193000DD04B /* VKDebugConsoleDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VKDebugConsoleDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CC1CAF31CEF0193000DD04B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6CC1CAF51CEF0193000DD04B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -93,12 +102,13 @@
 		6C2469BA1D17BF4000DE17C8 /* VKConsoleModule */ = {
 			isa = PBXGroup;
 			children = (
-				6C2469BB1D17BF4000DE17C8 /* VKCategoryHelper */,
-				6C2469C61D17BF4000DE17C8 /* VKConsoleButton.h */,
-				6C2469C71D17BF4000DE17C8 /* VKConsoleButton.m */,
+				6C4E97701D61DF4600158484 /* VKCommands */,
 				6C2469C81D17BF4000DE17C8 /* VKDebugJPEngine */,
 				6C2469CE1D17BF4000DE17C8 /* VKDebugPlugin */,
 				6C2469D11D17BF4000DE17C8 /* VKDebugScript */,
+				6C2469BB1D17BF4000DE17C8 /* VKCategoryHelper */,
+				6C2469C61D17BF4000DE17C8 /* VKConsoleButton.h */,
+				6C2469C71D17BF4000DE17C8 /* VKConsoleButton.m */,
 				6C2469D21D17BF4000DE17C8 /* VKScriptConsole.h */,
 				6C2469D31D17BF4000DE17C8 /* VKScriptConsole.m */,
 			);
@@ -152,6 +162,35 @@
 			children = (
 			);
 			path = VKDebugScript;
+			sourceTree = "<group>";
+		};
+		6C4E97701D61DF4600158484 /* VKCommands */ = {
+			isa = PBXGroup;
+			children = (
+				6C4E97711D61DF4600158484 /* VKKeyCommands */,
+				6C4E97741D61DF4600158484 /* VKShakeCommands */,
+			);
+			path = VKCommands;
+			sourceTree = "<group>";
+		};
+		6C4E97711D61DF4600158484 /* VKKeyCommands */ = {
+			isa = PBXGroup;
+			children = (
+				6C4E97721D61DF4600158484 /* VKKeyCommands.h */,
+				6C4E97731D61DF4600158484 /* VKKeyCommands.m */,
+			);
+			path = VKKeyCommands;
+			sourceTree = "<group>";
+		};
+		6C4E97741D61DF4600158484 /* VKShakeCommands */ = {
+			isa = PBXGroup;
+			children = (
+				6C4E97751D61DF4600158484 /* UIWindow+VKShakeCommand.h */,
+				6C4E97761D61DF4600158484 /* UIWindow+VKShakeCommand.m */,
+				6C4E97771D61DF4600158484 /* VKShakeCommand.h */,
+				6C4E97781D61DF4600158484 /* VKShakeCommand.m */,
+			);
+			path = VKShakeCommands;
 			sourceTree = "<group>";
 		};
 		6CC1CAE61CEF0193000DD04B = {
@@ -267,6 +306,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C2469DA1D17BF4000DE17C8 /* VKConsoleButton.m in Sources */,
+				6C4E977A1D61DF4600158484 /* UIWindow+VKShakeCommand.m in Sources */,
 				6CC1CAFA1CEF0193000DD04B /* ViewController.m in Sources */,
 				6CC1CAF71CEF0193000DD04B /* AppDelegate.m in Sources */,
 				6C2469DE1D17BF4000DE17C8 /* VKLogManager.m in Sources */,
@@ -275,6 +315,8 @@
 				6CC1CAF41CEF0193000DD04B /* main.m in Sources */,
 				6C2469D81D17BF4000DE17C8 /* UIDevice+VKUtlities.m in Sources */,
 				6C2469DF1D17BF4000DE17C8 /* VKScriptConsole.m in Sources */,
+				6C4E977B1D61DF4600158484 /* VKShakeCommand.m in Sources */,
+				6C4E97791D61DF4600158484 /* VKKeyCommands.m in Sources */,
 				6C2469DC1D17BF4000DE17C8 /* VKJPEngine.m in Sources */,
 				6C2469DB1D17BF4000DE17C8 /* VKDebugJPExtension.m in Sources */,
 				6C2469E01D17BF4000DE17C8 /* VKDebugConsole.m in Sources */,

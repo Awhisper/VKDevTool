@@ -15,4 +15,7 @@ VK_AS_SINGLETON
 +(void)showBt;
 +(void)hideBt;
 
++(void)enableDebugMode;
++(void)disableDebugMode;
+
 @end

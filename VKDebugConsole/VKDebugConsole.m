@@ -9,6 +9,8 @@
 #import "VKDebugConsole.h"
 #import "VKConsoleButton.h"
 #import "VKScriptConsole.h"
+#import "VKShakeCommand.h"
+#import "VKKeyCommands.h"
 @interface VKDebugConsole ()<VKScriptConsoleDelegate>
 
 @property (nonatomic,strong) VKConsoleButton *debugBt;
@@ -65,6 +67,25 @@ VK_DEF_SINGLETON
 #ifndef __OPTIMIZE__
     [self.debugBt removeFromSuperview];
 #endif
+}
+
++(void)enableDebugMode
+{
+    [[VKKeyCommands sharedInstance]registerKeyCommandWithInput:@"x" modifierFlags:UIKeyModifierCommand action:^(UIKeyCommand * key) {
+        
+        
+    }];
+    
+    [[VKShakeCommand sharedInstance]registerShakeCommandWithAction:^{
+        
+        
+    }];
+}
+
++(void)disableDebugMode
+{
+    [[VKKeyCommands sharedInstance]unregisterKeyCommandWithInput:@"x" modifierFlags:UIKeyModifierCommand];
+    [[VKShakeCommand sharedInstance]removeShakeCommand];
 }
 
 -(void)debugClick
