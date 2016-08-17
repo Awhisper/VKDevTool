@@ -20,6 +20,10 @@
 
 @property (nonatomic,weak) id target;
 
+@property (nonatomic,strong) UITextView *inputView;
+
+@property (nonatomic,strong) UITextView *outputView;
+
 @property (nonatomic,weak) id<VKScriptConsoleDelegate> delegate;
 
 -(void)showConsole;

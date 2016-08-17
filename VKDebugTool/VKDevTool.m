@@ -76,7 +76,7 @@ VK_DEF_SINGLETON
 }
 
 -(void)showModuleMenu{
-    [self.mainModule showModuleMenu];
+    [self.currentModule showModuleMenu];
 }
 
 -(void)leaveCurrentModule
@@ -86,6 +86,11 @@ VK_DEF_SINGLETON
         [self.currentModule hideModuleMenu];
         self.currentModule = nil;
     }
+}
+
++(void)gotoMainModule
+{
+    [[self singleton]goMainModule];
 }
 
 -(void)goMainModule{

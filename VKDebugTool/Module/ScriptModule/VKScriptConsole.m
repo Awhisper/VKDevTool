@@ -18,10 +18,6 @@ static CGFloat maskAlpha = 0.6f;
 
 @property (nonatomic,strong) UIView *mask;
 
-@property (nonatomic,strong) UITextView *inputView;
-
-@property (nonatomic,strong) UITextView *outputView;
-
 @end
 
 @implementation VKScriptConsole

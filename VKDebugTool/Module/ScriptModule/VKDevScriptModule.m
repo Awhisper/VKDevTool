@@ -12,6 +12,8 @@
 #import "VKDevToolDefine.h"
 #import "VKDevTipView.h"
 #import "VKUIKitMarco.h"
+#import "VKDevTool.h"
+
 @interface VKDevScriptModule ()<VKDevMenuDelegate,VKScriptConsoleDelegate>
 
 @property (nonatomic,strong) VKDevMenu *devMenu;
@@ -42,7 +44,7 @@
 
 -(UIView *)moduleView
 {
-    return nil;
+    return self.devConsole;
 }
 
 -(void)showModuleMenu
@@ -62,7 +64,7 @@
 
 -(NSArray *)needDevMenuItemsArray
 {
-    return @[@"DebugScript",@"ConsoleLog",@"NetworkLog"];
+    return @[@"ChangeTarget",@"exit",@"clearInput",@"clearOutput"];
 }
 
 -(void)didClickMenuWithButtonIndex:(NSInteger)index
@@ -70,7 +72,23 @@
     switch (index) {
         case 0:
         {
-            
+            [self VKScriptConsoleExchangeTargetAction];
+        }
+            break;
+        case 1:
+        {
+            [self VKScriptConsoleExitAction];
+        }
+            break;
+        case 2:
+        {
+            self.devConsole.inputView.text = @"";
+        }
+            break;
+        case 3:
+        {
+            self.devConsole.inputView.text = @"";
+
         }
             break;
             
@@ -83,12 +101,14 @@
 #pragma mark DebugScript
 -(void)VKScriptConsoleExitAction
 {
-    
+    self.isSelecting = NO;
+    [VKDevTool gotoMainModule];
 }
 
 -(void)VKScriptConsoleExchangeTargetAction
 {
-    
+    [self.devConsole hideConsole];
+    self.isSelecting = YES;
 }
 
 -(void)startScriptDebug
@@ -107,9 +127,6 @@
     
 }
 
-#pragma mark tapGesture
-
-#pragma mark touch gesture
 -(UITapGestureRecognizer *)tapGesture
 {
     if (!_tapGesture) {
@@ -127,7 +144,6 @@
 }
 
 
-#pragma mark script
 -(VKScriptConsole *)devConsole
 {
     if (!_devConsole) {

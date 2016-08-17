@@ -16,6 +16,8 @@ VK_AS_SINGLETON
 
 +(void)disableDebugMode;
 
++(void)gotoMainModule;
+
 +(void)gotoScriptModule;
 
 +(void)gotoLogModule;
