@@ -27,20 +27,38 @@
     return self;
 }
 
-
 +(void)showVKDevTip:(NSString *)msg
+{
+    [self showVKDevTip:msg autoHide:YES];
+}
+
++(void)hideVKDevTip
+{
+    UIView *window = [UIApplication sharedApplication].keyWindow;
+    for (UIView *sub in window.subviews) {
+        if ([sub isKindOfClass:[VKDevTipView class]]) {
+            [sub removeFromSuperview];
+        }
+    }
+}
+
++(void)showVKDevTip:(NSString *)msg autoHide:(BOOL)hide
 {
     VKDevTipView *tip = [[VKDevTipView alloc]initWithMsg:msg];
     UIView *window = [UIApplication sharedApplication].keyWindow;
     
     [window addSubview:tip];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [UIView animateWithDuration:1 animations:^{
-            tip.alpha = 0;
-        } completion:^(BOOL finished) {
-            [tip removeFromSuperview];
-        }];
-    });
+    
+    if (hide) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [UIView animateWithDuration:1 animations:^{
+                tip.alpha = 0;
+            } completion:^(BOOL finished) {
+                [tip removeFromSuperview];
+            }];
+        });
+    }
+    
 }
 /*
 // Only override drawRect: if you perform custom drawing.

@@ -27,6 +27,8 @@
 		6C4E97DA1D643C0F00158484 /* VKDevMainModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4E97D91D643C0F00158484 /* VKDevMainModule.m */; };
 		6C4E97E01D643C5200158484 /* VKDevMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4E97DD1D643C5200158484 /* VKDevMenu.m */; };
 		6C4E97E11D643C5200158484 /* VKDevTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4E97DF1D643C5200158484 /* VKDevTipView.m */; };
+		6C4E97E51D644C0900158484 /* VKScriptConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4E97E41D644C0900158484 /* VKScriptConsole.m */; };
+		6C4E97E81D644C2B00158484 /* VKDevScriptModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4E97E71D644C2B00158484 /* VKDevScriptModule.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +75,10 @@
 		6C4E97DD1D643C5200158484 /* VKDevMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKDevMenu.m; sourceTree = "<group>"; };
 		6C4E97DE1D643C5200158484 /* VKDevTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKDevTipView.h; sourceTree = "<group>"; };
 		6C4E97DF1D643C5200158484 /* VKDevTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKDevTipView.m; sourceTree = "<group>"; };
+		6C4E97E31D644C0900158484 /* VKScriptConsole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKScriptConsole.h; sourceTree = "<group>"; };
+		6C4E97E41D644C0900158484 /* VKScriptConsole.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKScriptConsole.m; sourceTree = "<group>"; };
+		6C4E97E61D644C2B00158484 /* VKDevScriptModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKDevScriptModule.h; sourceTree = "<group>"; };
+		6C4E97E71D644C2B00158484 /* VKDevScriptModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKDevScriptModule.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +150,7 @@
 		6C4E97A41D64382100158484 /* Module */ = {
 			isa = PBXGroup;
 			children = (
+				6C4E97E21D644C0900158484 /* ScriptModule */,
 				6C4E97D61D643B9700158484 /* MainModule */,
 				6C4E97D71D643BFD00158484 /* VKDevModuleProtocol.h */,
 			);
@@ -240,6 +247,17 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		6C4E97E21D644C0900158484 /* ScriptModule */ = {
+			isa = PBXGroup;
+			children = (
+				6C4E97E31D644C0900158484 /* VKScriptConsole.h */,
+				6C4E97E41D644C0900158484 /* VKScriptConsole.m */,
+				6C4E97E61D644C2B00158484 /* VKDevScriptModule.h */,
+				6C4E97E71D644C2B00158484 /* VKDevScriptModule.m */,
+			);
+			path = ScriptModule;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -322,7 +340,9 @@
 				6C4E97C41D64382100158484 /* UIView+VKMetrics.m in Sources */,
 				6C4E97E01D643C5200158484 /* VKDevMenu.m in Sources */,
 				6C4E97E11D643C5200158484 /* VKDevTipView.m in Sources */,
+				6C4E97E51D644C0900158484 /* VKScriptConsole.m in Sources */,
 				6C4E97C81D64382100158484 /* VKShakeCommand.m in Sources */,
+				6C4E97E81D644C2B00158484 /* VKDevScriptModule.m in Sources */,
 				6C4E97C71D64382100158484 /* UIWindow+VKShakeCommand.m in Sources */,
 				6C4E978A1D6437A300158484 /* main.m in Sources */,
 				6C4E97C31D64382100158484 /* UIDevice+VKUtlities.m in Sources */,

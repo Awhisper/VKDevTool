@@ -70,7 +70,23 @@
     
 }
 
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+//- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+//{
+//    _actionSheet = nil;
+//    if (buttonIndex == actionSheet.cancelButtonIndex) {
+//        if (self.delegate && [self.delegate respondsToSelector:@selector(didClickMenuWithButtonIndex:)]) {
+//            [self.delegate didClickMenuWithButtonIndex:-1];
+//        }
+//    }else
+//    {
+//        if (self.delegate && [self.delegate respondsToSelector:@selector(didClickMenuWithButtonIndex:)]) {
+//            [self.delegate didClickMenuWithButtonIndex:buttonIndex];
+//        }
+//    }
+//}
+
+
+-(void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     _actionSheet = nil;
     if (buttonIndex == actionSheet.cancelButtonIndex) {
@@ -84,6 +100,5 @@
         }
     }
 }
-
 
 @end

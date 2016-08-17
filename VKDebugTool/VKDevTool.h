@@ -16,5 +16,11 @@ VK_AS_SINGLETON
 
 +(void)disableDebugMode;
 
++(void)gotoScriptModule;
+
++(void)gotoLogModule;
+
++(void)gotoNetworkModule;
+
 
 @end

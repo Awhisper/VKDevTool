@@ -11,12 +11,15 @@
 #import "VKKeyCommands.h"
 #import "VKDevToolDefine.h"
 #import "VKDevMainModule.h"
+#import "VKDevScriptModule.h"
 
 @interface VKDevTool ()
 
 @property (nonatomic,strong) id<VKDevModuleProtocol> currentModule;
 
 @property (nonatomic,strong) VKDevMainModule *mainModule;
+
+@property (nonatomic,strong) VKDevScriptModule *scriptModule;
 
 @end
 
@@ -32,6 +35,7 @@ VK_DEF_SINGLETON
 //#ifdef VKDevMode
         
         _mainModule = [[VKDevMainModule alloc]init];
+        _scriptModule = [[VKDevScriptModule alloc]init];
 //#endif
     }
     return self;
@@ -44,10 +48,9 @@ VK_DEF_SINGLETON
 
 -(void)enableDebugMode
 {
-    [self disableDebugMode];
 //#ifdef VKDevMode
     
-    self.currentModule = self.mainModule;
+    [self goMainModule];
     [[VKKeyCommands sharedInstance]registerKeyCommandWithInput:@"x" modifierFlags:UIKeyModifierCommand action:^(UIKeyCommand * key) {
         [self showModuleMenu];
     }];
@@ -65,12 +68,7 @@ VK_DEF_SINGLETON
 -(void)disableDebugMode
 {
 //#ifdef VKDevMode
-    if (self.currentModule) {
-        [[self.currentModule moduleView] removeFromSuperview];
-        [self.currentModule hideModuleMenu];
-        self.currentModule = nil;
-    }
-    
+    [self leaveCurrentModule];
     
     [[VKKeyCommands sharedInstance]unregisterKeyCommandWithInput:@"x" modifierFlags:UIKeyModifierCommand];
     [[VKShakeCommand sharedInstance]unregisterKeyShakeCommand];
@@ -81,5 +79,29 @@ VK_DEF_SINGLETON
     [self.mainModule showModuleMenu];
 }
 
+-(void)leaveCurrentModule
+{
+    if (self.currentModule) {
+        [[self.currentModule moduleView] removeFromSuperview];
+        [self.currentModule hideModuleMenu];
+        self.currentModule = nil;
+    }
+}
+
+-(void)goMainModule{
+    [self leaveCurrentModule];
+    self.currentModule = self.mainModule;
+}
+
++(void)gotoScriptModule
+{
+    [[self singleton]goScriptModule];
+}
+-(void)goScriptModule{
+    [self leaveCurrentModule];
+    self.currentModule = self.scriptModule;
+    [self.scriptModule startScriptDebug];
+    
+}
 
 @end

@@ -10,7 +10,7 @@
 #define VKDebugToolDefine_h
 
 
-#ifdef Debug
+#ifdef DEBUG
 
 #define VKDevMode
 

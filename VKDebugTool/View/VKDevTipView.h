@@ -11,6 +11,10 @@
 
 +(void)showVKDevTip:(NSString *)msg;
 
++(void)hideVKDevTip;
+
++(void)showVKDevTip:(NSString *)msg autoHide:(BOOL)hide;
+
 -(instancetype)initWithMsg:(NSString*)msg;
 
 @end

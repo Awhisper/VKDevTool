@@ -8,6 +8,8 @@
 
 #import "VKDevMainModule.h"
 #import "VKDevMenu.h"
+#import "VKDevTipView.h"
+#import "VKDevTool.h"
 @interface VKDevMainModule ()<VKDevMenuDelegate>
 
 @property (nonatomic,strong) VKDevMenu *devMenu;
@@ -48,11 +50,25 @@
 
 -(NSArray *)needDevMenuItemsArray
 {
-    return @[@"DebugConsole",@"LogConsole",@"NetworkConsole"];
+    return @[@"DebugScript",@"ConsoleLog",@"NetworkLog"];
 }
 
 -(void)didClickMenuWithButtonIndex:(NSInteger)index
 {
-    NSLog(@"11");
+    switch (index) {
+        case 0:
+        {
+            [self goDebugScript];
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
+-(void)goDebugScript
+{
+    [VKDevTool gotoScriptModule];
 }
 @end
