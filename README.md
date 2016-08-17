@@ -1,4 +1,9 @@
-# VKDebugConsole
+# VKDebugTooL
+
+
+整体全面推翻重做
+
+
 
 App内控制台，可以在脱离Xcode debug的情况下，调试内存，打印数据，修改UI等
 
