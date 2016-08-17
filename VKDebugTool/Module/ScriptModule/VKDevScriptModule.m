@@ -8,7 +8,7 @@
 
 #import "VKDevScriptModule.h"
 #import "VKDevMenu.h"
-#import "VKScriptConsole.h"
+#import "VKScriptConsoleView.h"
 #import "VKDevToolDefine.h"
 #import "VKDevTipView.h"
 #import "VKUIKitMarco.h"
@@ -18,7 +18,7 @@
 
 @property (nonatomic,strong) VKDevMenu *devMenu;
 
-@property (nonatomic,strong) VKScriptConsole *devConsole;
+@property (nonatomic,strong) VKScriptConsoleView *devConsole;
 
 @property (nonatomic,assign) BOOL isSelecting;
 
@@ -59,7 +59,7 @@
 #pragma mark VKDevMenuDelegate
 -(NSString *)needDevMenuTitle
 {
-    return @"VKDevTool";
+    return @"VKDebugScript";
 }
 
 -(NSArray *)needDevMenuItemsArray
@@ -144,11 +144,11 @@
 }
 
 
--(VKScriptConsole *)devConsole
+-(VKScriptConsoleView *)devConsole
 {
     if (!_devConsole) {
 #ifdef VKDevMode
-        VKScriptConsole *scriptv = [[VKScriptConsole alloc]initWithFrame:CGRectMake(0, 0, VK_AppScreenWidth, VK_AppScreenHeight)];
+        VKScriptConsoleView *scriptv = [[VKScriptConsoleView alloc]initWithFrame:CGRectMake(0, 0, VK_AppScreenWidth, VK_AppScreenHeight)];
         _devConsole = scriptv;
         scriptv.delegate = self;
 #endif

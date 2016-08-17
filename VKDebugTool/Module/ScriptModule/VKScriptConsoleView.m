@@ -6,21 +6,21 @@
 //  Copyright © 2016年 baidu. All rights reserved.
 //
 
-#import "VKScriptConsole.h"
+#import "VKScriptConsoleView.h"
 #import "VKCommonFundation.h"
 #import "VKJPEngine.h"
 //#import "VKLogManager.h"
 #import "NSMutableAttributedString+VKAttributedString.h"
 static CGFloat maskAlpha = 0.6f;
 
-@interface VKScriptConsole ()<UITextViewDelegate>
+@interface VKScriptConsoleView ()<UITextViewDelegate>
 
 
 @property (nonatomic,strong) UIView *mask;
 
 @end
 
-@implementation VKScriptConsole
+@implementation VKScriptConsoleView
 
 
 #pragma mark construct

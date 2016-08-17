@@ -16,7 +16,7 @@
 
 @end
 
-@interface VKScriptConsole : UIView
+@interface VKScriptConsoleView : UIView
 
 @property (nonatomic,weak) id target;
 
