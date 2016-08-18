@@ -34,6 +34,10 @@
 		6C4E97F21D6469B700158484 /* VKDevConsoleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4E97F11D6469B700158484 /* VKDevConsoleView.m */; };
 		6C4E97F81D656DD300158484 /* NSError+VKError.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4E97F51D656DD300158484 /* NSError+VKError.m */; };
 		6C4E97F91D656DD300158484 /* VKLogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4E97F71D656DD300158484 /* VKLogManager.m */; };
+		6C4E98001D65800300158484 /* VKNetworkLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4E97FF1D65800300158484 /* VKNetworkLogger.m */; };
+		6C4E98041D6583DD00158484 /* VKURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4E98031D6583DD00158484 /* VKURLProtocol.m */; };
+		6C4E98081D65979800158484 /* VKNetworkModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4E98071D65979800158484 /* VKNetworkModule.m */; };
+		6C4E980B1D6597A900158484 /* VKNetworkConsoleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4E980A1D6597A900158484 /* VKNetworkConsoleView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -94,6 +98,14 @@
 		6C4E97F51D656DD300158484 /* NSError+VKError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+VKError.m"; sourceTree = "<group>"; };
 		6C4E97F61D656DD300158484 /* VKLogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKLogManager.h; sourceTree = "<group>"; };
 		6C4E97F71D656DD300158484 /* VKLogManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKLogManager.m; sourceTree = "<group>"; };
+		6C4E97FE1D65800300158484 /* VKNetworkLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKNetworkLogger.h; sourceTree = "<group>"; };
+		6C4E97FF1D65800300158484 /* VKNetworkLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKNetworkLogger.m; sourceTree = "<group>"; };
+		6C4E98021D6583DD00158484 /* VKURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKURLProtocol.h; sourceTree = "<group>"; };
+		6C4E98031D6583DD00158484 /* VKURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKURLProtocol.m; sourceTree = "<group>"; };
+		6C4E98061D65979800158484 /* VKNetworkModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKNetworkModule.h; sourceTree = "<group>"; };
+		6C4E98071D65979800158484 /* VKNetworkModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKNetworkModule.m; sourceTree = "<group>"; };
+		6C4E98091D6597A900158484 /* VKNetworkConsoleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKNetworkConsoleView.h; sourceTree = "<group>"; };
+		6C4E980A1D6597A900158484 /* VKNetworkConsoleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKNetworkConsoleView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +177,7 @@
 		6C4E97A41D64382100158484 /* Module */ = {
 			isa = PBXGroup;
 			children = (
+				6C4E97FA1D65785800158484 /* NetworkModule */,
 				6C4E97E91D64652700158484 /* LogModule */,
 				6C4E97E21D644C0900158484 /* ScriptModule */,
 				6C4E97D61D643B9700158484 /* MainModule */,
@@ -291,6 +304,21 @@
 			path = LogModule;
 			sourceTree = "<group>";
 		};
+		6C4E97FA1D65785800158484 /* NetworkModule */ = {
+			isa = PBXGroup;
+			children = (
+				6C4E98021D6583DD00158484 /* VKURLProtocol.h */,
+				6C4E98031D6583DD00158484 /* VKURLProtocol.m */,
+				6C4E97FE1D65800300158484 /* VKNetworkLogger.h */,
+				6C4E97FF1D65800300158484 /* VKNetworkLogger.m */,
+				6C4E98061D65979800158484 /* VKNetworkModule.h */,
+				6C4E98071D65979800158484 /* VKNetworkModule.m */,
+				6C4E98091D6597A900158484 /* VKNetworkConsoleView.h */,
+				6C4E980A1D6597A900158484 /* VKNetworkConsoleView.m */,
+			);
+			path = NetworkModule;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -362,14 +390,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C4E98001D65800300158484 /* VKNetworkLogger.m in Sources */,
 				6C4E97CA1D64382100158484 /* VKJPEngine.m in Sources */,
 				6C4E97901D6437A300158484 /* ViewController.m in Sources */,
 				6C4E97C51D64382100158484 /* VKJSONKit.m in Sources */,
 				6C4E97C91D64382100158484 /* VKDebugJPExtension.m in Sources */,
 				6C4E978D1D6437A300158484 /* AppDelegate.m in Sources */,
 				6C4E97F81D656DD300158484 /* NSError+VKError.m in Sources */,
+				6C4E98041D6583DD00158484 /* VKURLProtocol.m in Sources */,
 				6C4E97C61D64382100158484 /* VKKeyCommands.m in Sources */,
 				6C4E97EC1D64653300158484 /* VKDevLogModule.m in Sources */,
+				6C4E980B1D6597A900158484 /* VKNetworkConsoleView.m in Sources */,
 				6C4E97C21D64382100158484 /* NSMutableAttributedString+VKAttributedString.m in Sources */,
 				6C4E97CE1D6438F600158484 /* VKDevTool.m in Sources */,
 				6C4E97C41D64382100158484 /* UIView+VKMetrics.m in Sources */,
@@ -383,6 +414,7 @@
 				6C4E97F21D6469B700158484 /* VKDevConsoleView.m in Sources */,
 				6C4E97C71D64382100158484 /* UIWindow+VKShakeCommand.m in Sources */,
 				6C4E978A1D6437A300158484 /* main.m in Sources */,
+				6C4E98081D65979800158484 /* VKNetworkModule.m in Sources */,
 				6C4E97C31D64382100158484 /* UIDevice+VKUtlities.m in Sources */,
 				6C4E97DA1D643C0F00158484 /* VKDevMainModule.m in Sources */,
 			);

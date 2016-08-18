@@ -13,6 +13,7 @@
 #import "VKDevMainModule.h"
 #import "VKDevScriptModule.h"
 #import "VKDevLogModule.h"
+#import "VKNetworkModule.h"
 @interface VKDevTool ()
 
 @property (nonatomic,strong) id<VKDevModuleProtocol> currentModule;
@@ -22,6 +23,8 @@
 @property (nonatomic,strong) VKDevScriptModule *scriptModule;
 
 @property (nonatomic,strong) VKDevLogModule *logModule;
+
+@property (nonatomic,strong) VKNetworkModule *netModule;
 
 @end
 
@@ -38,6 +41,7 @@ VK_DEF_SINGLETON
         _mainModule = [[VKDevMainModule alloc]init];
         _scriptModule = [[VKDevScriptModule alloc]init];
         _logModule = [[VKDevLogModule alloc]init];
+        _netModule = [[VKNetworkModule alloc]init];
 #endif
     }
     return self;
@@ -120,6 +124,18 @@ VK_DEF_SINGLETON
     [self leaveCurrentModule];
     self.currentModule = self.logModule;
     [self.logModule showModuleView];
+}
+
++(void)gotoNetworkModule
+{
+    [[self singleton]goNetworkModule];
+}
+
+-(void)goNetworkModule
+{
+    [self leaveCurrentModule];
+    self.currentModule = self.netModule;
+    [self.netModule showModuleView];
 }
 
 @end

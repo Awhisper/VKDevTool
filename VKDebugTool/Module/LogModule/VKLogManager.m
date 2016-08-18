@@ -10,7 +10,7 @@
 #import "VKJSONKit.h"
 #import "VKDevToolDefine.h"
 
-#define VKMAXSTEPRECORD 100
+#define VKMAXSTEPRECORD 200
 void VKLog(NSString *format, ...){
 #ifdef VKDevMode
     va_list arglist;

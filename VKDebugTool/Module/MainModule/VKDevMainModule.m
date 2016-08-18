@@ -69,6 +69,9 @@
         case 1:{
             [self goConsoleLog];
         }
+        case 2:{
+            [self goNetworkLog];
+        }
         default:
             break;
     }
@@ -81,5 +84,9 @@
 
 -(void)goConsoleLog{
     [VKDevTool gotoLogModule];
+}
+
+-(void)goNetworkLog{
+    [VKDevTool gotoNetworkModule];
 }
 @end
