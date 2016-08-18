@@ -8,10 +8,15 @@
 
 #import "VKDevLogModule.h"
 #import "VKDevMenu.h"
-
+#import "VKLogConsoleView.h"
+#import "VKUIKitMarco.h"
+#import "VKDevTool.h"
+#import "VKDevToolDefine.h"
 @interface VKDevLogModule ()<VKDevMenuDelegate>
 
 @property (nonatomic,strong) VKDevMenu *devMenu;
+
+@property (nonatomic,strong) VKLogConsoleView *logView;
 
 @end
 
@@ -29,9 +34,21 @@
     return self;
 }
 
+
+-(VKLogConsoleView *)logView
+{
+    if (!_logView) {
+#ifdef VKDevMode
+        VKLogConsoleView *logv = [[VKLogConsoleView alloc]initWithFrame:CGRectMake(0, 0, VK_AppScreenWidth, VK_AppScreenHeight)];
+        _logView = logv;
+#endif
+    }
+    return _logView;
+}
+
 -(UIView *)moduleView
 {
-    return nil;
+    return self.logView;
 }
 
 -(void)showModuleMenu
@@ -43,6 +60,13 @@
     [self.devMenu hide];
 }
 
+-(void)showModuleView
+{
+    UIView *window = [UIApplication sharedApplication].keyWindow;
+    [window addSubview:self.logView];
+    [self.logView showConsole];
+}
+
 #pragma mark VKDevMenuDelegate
 -(NSString *)needDevMenuTitle
 {
@@ -51,7 +75,7 @@
 
 -(NSArray *)needDevMenuItemsArray
 {
-    return @[@"ChangeTarget",@"exit",@"clearInput",@"clearOutput"];
+    return @[@"Enable ErrorLog",@"Exit"];
 }
 
 -(void)didClickMenuWithButtonIndex:(NSInteger)index
@@ -64,7 +88,7 @@
             break;
         case 1:
         {
-//            [self VKScriptConsoleExitAction];
+            [VKDevTool gotoMainModule];
         }
             break;
         case 2:

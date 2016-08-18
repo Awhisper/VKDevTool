@@ -64,7 +64,7 @@
 
 -(NSArray *)needDevMenuItemsArray
 {
-    return @[@"ChangeTarget",@"exit",@"clearInput",@"clearOutput"];
+    return @[@"ChangeTarget",@"clearInput",@"clearOutput",@"Exit"];
 }
 
 -(void)didClickMenuWithButtonIndex:(NSInteger)index
@@ -75,17 +75,17 @@
             [self VKScriptConsoleExchangeTargetAction];
         }
             break;
-        case 1:
+        case 3:
         {
             [self VKScriptConsoleExitAction];
         }
             break;
-        case 2:
+        case 1:
         {
             self.devConsole.inputView.text = @"";
         }
             break;
-        case 3:
+        case 2:
         {
             self.devConsole.inputView.text = @"";
 

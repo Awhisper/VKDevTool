@@ -32,6 +32,8 @@
 		6C4E97EC1D64653300158484 /* VKDevLogModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4E97EB1D64653300158484 /* VKDevLogModule.m */; };
 		6C4E97EF1D64696D00158484 /* VKLogConsoleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4E97EE1D64696D00158484 /* VKLogConsoleView.m */; };
 		6C4E97F21D6469B700158484 /* VKDevConsoleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4E97F11D6469B700158484 /* VKDevConsoleView.m */; };
+		6C4E97F81D656DD300158484 /* NSError+VKError.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4E97F51D656DD300158484 /* NSError+VKError.m */; };
+		6C4E97F91D656DD300158484 /* VKLogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4E97F71D656DD300158484 /* VKLogManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +90,10 @@
 		6C4E97EE1D64696D00158484 /* VKLogConsoleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKLogConsoleView.m; sourceTree = "<group>"; };
 		6C4E97F01D6469B700158484 /* VKDevConsoleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKDevConsoleView.h; sourceTree = "<group>"; };
 		6C4E97F11D6469B700158484 /* VKDevConsoleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKDevConsoleView.m; sourceTree = "<group>"; };
+		6C4E97F41D656DD300158484 /* NSError+VKError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+VKError.h"; sourceTree = "<group>"; };
+		6C4E97F51D656DD300158484 /* NSError+VKError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+VKError.m"; sourceTree = "<group>"; };
+		6C4E97F61D656DD300158484 /* VKLogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKLogManager.h; sourceTree = "<group>"; };
+		6C4E97F71D656DD300158484 /* VKLogManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKLogManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -273,6 +279,10 @@
 		6C4E97E91D64652700158484 /* LogModule */ = {
 			isa = PBXGroup;
 			children = (
+				6C4E97F41D656DD300158484 /* NSError+VKError.h */,
+				6C4E97F51D656DD300158484 /* NSError+VKError.m */,
+				6C4E97F61D656DD300158484 /* VKLogManager.h */,
+				6C4E97F71D656DD300158484 /* VKLogManager.m */,
 				6C4E97ED1D64696D00158484 /* VKLogConsoleView.h */,
 				6C4E97EE1D64696D00158484 /* VKLogConsoleView.m */,
 				6C4E97EA1D64653300158484 /* VKDevLogModule.h */,
@@ -357,6 +367,7 @@
 				6C4E97C51D64382100158484 /* VKJSONKit.m in Sources */,
 				6C4E97C91D64382100158484 /* VKDebugJPExtension.m in Sources */,
 				6C4E978D1D6437A300158484 /* AppDelegate.m in Sources */,
+				6C4E97F81D656DD300158484 /* NSError+VKError.m in Sources */,
 				6C4E97C61D64382100158484 /* VKKeyCommands.m in Sources */,
 				6C4E97EC1D64653300158484 /* VKDevLogModule.m in Sources */,
 				6C4E97C21D64382100158484 /* NSMutableAttributedString+VKAttributedString.m in Sources */,
@@ -365,6 +376,7 @@
 				6C4E97E01D643C5200158484 /* VKDevMenu.m in Sources */,
 				6C4E97E11D643C5200158484 /* VKDevTipView.m in Sources */,
 				6C4E97E51D644C0900158484 /* VKScriptConsoleView.m in Sources */,
+				6C4E97F91D656DD300158484 /* VKLogManager.m in Sources */,
 				6C4E97C81D64382100158484 /* VKShakeCommand.m in Sources */,
 				6C4E97E81D644C2B00158484 /* VKDevScriptModule.m in Sources */,
 				6C4E97EF1D64696D00158484 /* VKLogConsoleView.m in Sources */,
@@ -521,6 +533,7 @@
 				6C4E979E1D6437A300158484 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

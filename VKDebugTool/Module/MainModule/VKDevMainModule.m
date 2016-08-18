@@ -33,6 +33,11 @@
     return nil;
 }
 
+-(void)showModuleView
+{
+    
+}
+
 -(void)showModuleMenu
 {
     [self.devMenu show];
@@ -61,7 +66,9 @@
             [self goDebugScript];
         }
             break;
-            
+        case 1:{
+            [self goConsoleLog];
+        }
         default:
             break;
     }
@@ -70,5 +77,9 @@
 -(void)goDebugScript
 {
     [VKDevTool gotoScriptModule];
+}
+
+-(void)goConsoleLog{
+    [VKDevTool gotoLogModule];
 }
 @end

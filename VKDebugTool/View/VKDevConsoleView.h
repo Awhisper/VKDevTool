@@ -10,4 +10,8 @@
 
 @interface VKDevConsoleView : UIView
 
+
+-(void)showConsole;
+-(void)hideConsole;
+
 @end

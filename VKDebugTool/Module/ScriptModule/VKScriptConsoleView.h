@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "VKDevConsoleView.h"
 @protocol VKScriptConsoleDelegate <NSObject>
 
 -(void)VKScriptConsoleExitAction;
@@ -16,7 +16,7 @@
 
 @end
 
-@interface VKScriptConsoleView : UIView
+@interface VKScriptConsoleView : VKDevConsoleView
 
 @property (nonatomic,weak) id target;
 
@@ -25,9 +25,6 @@
 @property (nonatomic,strong) UITextView *outputView;
 
 @property (nonatomic,weak) id<VKScriptConsoleDelegate> delegate;
-
--(void)showConsole;
--(void)hideConsole;
 
 -(void)addScriptLogToOutput:(NSString *)log WithUIColor:(UIColor *)color;
 

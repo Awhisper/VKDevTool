@@ -12,7 +12,7 @@
 #import "VKDevToolDefine.h"
 #import "VKDevMainModule.h"
 #import "VKDevScriptModule.h"
-
+#import "VKDevLogModule.h"
 @interface VKDevTool ()
 
 @property (nonatomic,strong) id<VKDevModuleProtocol> currentModule;
@@ -20,6 +20,8 @@
 @property (nonatomic,strong) VKDevMainModule *mainModule;
 
 @property (nonatomic,strong) VKDevScriptModule *scriptModule;
+
+@property (nonatomic,strong) VKDevLogModule *logModule;
 
 @end
 
@@ -32,11 +34,11 @@ VK_DEF_SINGLETON
 {
     self = [super init];
     if (self) {
-//#ifdef VKDevMode
-        
+#ifdef VKDevMode
         _mainModule = [[VKDevMainModule alloc]init];
         _scriptModule = [[VKDevScriptModule alloc]init];
-//#endif
+        _logModule = [[VKDevLogModule alloc]init];
+#endif
     }
     return self;
 }
@@ -48,8 +50,7 @@ VK_DEF_SINGLETON
 
 -(void)enableDebugMode
 {
-//#ifdef VKDevMode
-    
+#ifdef VKDevMode
     [self goMainModule];
     [[VKKeyCommands sharedInstance]registerKeyCommandWithInput:@"x" modifierFlags:UIKeyModifierCommand action:^(UIKeyCommand * key) {
         [self showModuleMenu];
@@ -58,7 +59,7 @@ VK_DEF_SINGLETON
     [[VKShakeCommand sharedInstance]registerShakeCommandWithAction:^{
         [self showModuleMenu];
     }];
-//#endif
+#endif
 }
 
 +(void)disableDebugMode{
@@ -67,12 +68,12 @@ VK_DEF_SINGLETON
 
 -(void)disableDebugMode
 {
-//#ifdef VKDevMode
+#ifdef VKDevMode
     [self leaveCurrentModule];
     
     [[VKKeyCommands sharedInstance]unregisterKeyCommandWithInput:@"x" modifierFlags:UIKeyModifierCommand];
     [[VKShakeCommand sharedInstance]unregisterKeyShakeCommand];
-//#endif
+#endif
 }
 
 -(void)showModuleMenu{
@@ -107,6 +108,18 @@ VK_DEF_SINGLETON
     self.currentModule = self.scriptModule;
     [self.scriptModule startScriptDebug];
     
+}
+
++(void)gotoLogModule
+{
+    [[self singleton]goLogModule];
+}
+
+-(void)goLogModule
+{
+    [self leaveCurrentModule];
+    self.currentModule = self.logModule;
+    [self.logModule showModuleView];
 }
 
 @end

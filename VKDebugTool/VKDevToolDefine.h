@@ -16,5 +16,14 @@
 
 #endif
 
+#ifdef VKDevMode
+#import "VKLogManager.h"
+#define NSLog(...) NSLog(__VA_ARGS__);\
+VKLog(__VA_ARGS__)
+
+#else
+#define NSLog(...) {}
+
+#endif
 
 #endif /* VKDebugToolDefine_h */

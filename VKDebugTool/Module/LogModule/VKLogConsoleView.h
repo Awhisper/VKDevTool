@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface VKLogConsoleView : UIView
+#import "VKDevConsoleView.h"
+@interface VKLogConsoleView : VKDevConsoleView
 
 @end

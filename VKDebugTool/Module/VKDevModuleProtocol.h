@@ -10,6 +10,8 @@
 #import <UIKit/UIKit.h>
 @protocol VKDevModuleProtocol <NSObject>
 
+-(void)showModuleView;
+
 -(UIView *)moduleView;
 
 -(void)showModuleMenu;

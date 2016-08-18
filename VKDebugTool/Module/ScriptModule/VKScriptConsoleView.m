@@ -29,8 +29,6 @@ static CGFloat maskAlpha = 0.6f;
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor clearColor];
-        self.mask.alpha = 0;
         [self startScriptEngine];
     }
     return self;
@@ -117,30 +115,9 @@ static CGFloat maskAlpha = 0.6f;
 
 -(void)showConsole
 {
-    self.alpha = 0;
+    [super showConsole];
     self.inputView.text = @"";
     self.outputView.text = @"output:";
-    [UIView animateWithDuration:0.5f animations:^{
-        self.alpha = 1;
-        self.mask.alpha = maskAlpha;
-        self.inputView.alpha = 1;
-        self.outputView.alpha = 1;
-    } completion:^(BOOL finished) {
-        
-    }];
-    
-}
-
--(void)hideConsole
-{
-    [UIView animateWithDuration:1.0f animations:^{
-        self.alpha = 0;
-        self.mask.alpha = 0;
-        self.inputView.alpha = 0;
-        self.outputView.alpha = 0;
-    } completion:^(BOOL finished) {
-        [self removeFromSuperview];
-    }];
 }
 
 

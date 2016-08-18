@@ -34,12 +34,14 @@
 
 +(void)hideVKDevTip
 {
-    UIView *window = [UIApplication sharedApplication].keyWindow;
-    for (UIView *sub in window.subviews) {
-        if ([sub isKindOfClass:[VKDevTipView class]]) {
-            [sub removeFromSuperview];
+    [UIView animateWithDuration:1.0f animations:^{
+        UIView *window = [UIApplication sharedApplication].keyWindow;
+        for (UIView *sub in window.subviews) {
+            if ([sub isKindOfClass:[VKDevTipView class]]) {
+                [sub removeFromSuperview];
+            }
         }
-    }
+    }];
 }
 
 +(void)showVKDevTip:(NSString *)msg autoHide:(BOOL)hide

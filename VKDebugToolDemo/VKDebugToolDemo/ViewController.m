@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "VKDevToolDefine.h"
 
 @interface ViewController ()
 
@@ -89,8 +90,8 @@
     
     NSError *error = [NSError errorWithDomain:@"aaaaahahhaa" code:1 userInfo:nil];
     
-    //    NSTimer * timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timertimer) userInfo:nil repeats:YES];
-    // Do any additional setup after loading the view, typically from a nib.
+    NSTimer * timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timertimer) userInfo:nil repeats:YES];
+//     Do any additional setup after loading the view, typically from a nib.
 }
 
 -(void)timertimer{
