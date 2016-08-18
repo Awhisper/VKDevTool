@@ -3,7 +3,7 @@
 
 整体全面推翻重做
 
-
+<!--
 
 App内控制台，可以在脱离Xcode debug的情况下，调试内存，打印数据，修改UI等
 
@@ -25,7 +25,6 @@ Git地址 [VKDebugConsole](https://github.com/Awhisper/VKDebugConsole)
 后续优化指令，优化功能，优化界面，还需要持续进行（眼下这个看着太难看，指令也太难用了）
 
 # 基本使用
-<!--more-->
 
 - `[VKDebugConsole showBt]`方法会在window上增加一个debug按钮
 
@@ -98,3 +97,5 @@ hook了系统的NSError生成，所有生成创建的NSError会自动记录log�
 - 支持网络日志，所有的网络请求接口以及返回数据，会以网络日志的方式，在console里面查询
 - 日志筛选控制
 - ......
+
+-->
