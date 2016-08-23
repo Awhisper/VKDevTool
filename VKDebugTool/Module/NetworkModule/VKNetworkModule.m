@@ -11,6 +11,7 @@
 #import "VKNetworkConsoleView.h"
 #import "VKDevTool.h"
 #import "VKDevToolDefine.h"
+#import "VKNetworkLogger.h"
 @interface VKNetworkModule ()<VKDevMenuDelegate>
 
 @property (nonatomic,strong) VKDevMenu *devMenu;
@@ -75,13 +76,23 @@
 
 -(NSArray *)needDevMenuItemsArray
 {
-    return @[@"Exit"];
+    if ([VKNetworkLogger singleton].enableHook) {
+        return @[@"Disable NetWork Hook",@"Exit"];
+    }else{
+        return @[@"Enable NetWork Hook",@"Exit"];
+    }
+    
 }
 
 -(void)didClickMenuWithButtonIndex:(NSInteger)index
 {
     switch (index) {
         case 0:
+        {
+            [self changeNetworkHook];
+        }
+            break;
+        case 1:
         {
             [VKDevTool gotoMainModule];
         }
@@ -91,6 +102,9 @@
     }
 }
 
+-(void)changeNetworkHook{
+    [VKNetworkLogger singleton].enableHook = ![VKNetworkLogger singleton].enableHook;
+}
 
 
 @end

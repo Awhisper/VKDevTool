@@ -86,6 +86,8 @@
     
     NSMutableAttributedString *logattr = [[NSMutableAttributedString alloc]initWithString:log];
     [logattr vk_setTextColor:color];
+    [logattr vk_setFont:[UIFont boldSystemFontOfSize:15]];
+    [logattr vk_setLineSpacing:10];
     [mtxt appendAttributedString:logattr];
     self.LogLabel.attributedText = mtxt;
     

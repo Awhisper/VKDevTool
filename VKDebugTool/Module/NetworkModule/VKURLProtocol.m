@@ -20,6 +20,9 @@ static NSString * const VKURLProtocolHandledKey = @"VKURLProtocolHandledKey";
 
 + (BOOL)canInitWithRequest:(NSURLRequest *)request
 {
+    if (![VKNetworkLogger singleton].enableHook) {
+        return NO;
+    }
     //只处理http和https请求
     NSString *scheme = [[request URL] scheme];
     if ( ([scheme caseInsensitiveCompare:@"http"] == NSOrderedSame ||
@@ -98,6 +101,7 @@ didReceiveResponse:(NSURLResponse *)response
 - (void)connection:(NSURLConnection *)connection
     didReceiveData:(NSData *)data
 {
+    [VKNetworkLogger VKNetworkResponseDataLog:data];
     [self.client URLProtocol:self
                  didLoadData:data];
 }

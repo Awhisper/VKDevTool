@@ -69,6 +69,7 @@
         case 1:{
             [self goConsoleLog];
         }
+            break;
         case 2:{
             [self goNetworkLog];
         }

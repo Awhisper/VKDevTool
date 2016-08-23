@@ -75,7 +75,7 @@
 
 -(NSArray *)needDevMenuItemsArray
 {
-    return @[@"Enable ErrorLog",@"Exit"];
+    return @[@"Enable ErrorLog",@"Copy to Pasteboard",@"Exit"];
 }
 
 -(void)didClickMenuWithButtonIndex:(NSInteger)index
