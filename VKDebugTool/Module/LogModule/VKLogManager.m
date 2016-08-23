@@ -34,6 +34,7 @@ VK_DEF_SINGLETON
     self = [super init];
     if (self) {
         self.logDataArray = [[NSMutableArray alloc]init];
+        self.enableHook = YES;
     }
     return self;
 }
@@ -67,6 +68,10 @@ VK_DEF_SINGLETON
 +(void)VKLogError:(NSError *)error
 {
 #ifdef VKDevMode
+    if (![VKLogManager singleton].enableHook) {
+        return;
+    }
+    
     @synchronized([VKLogManager singleton]) {
         
         NSString *userinfo = [error.userInfo vk_JSONString];

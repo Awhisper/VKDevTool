@@ -12,6 +12,7 @@
 #import "VKUIKitMarco.h"
 #import "VKDevTool.h"
 #import "VKDevToolDefine.h"
+#import "VKLogManager.h"
 @interface VKDevLogModule ()<VKDevMenuDelegate>
 
 @property (nonatomic,strong) VKDevMenu *devMenu;
@@ -56,7 +57,8 @@
     [self.devMenu show];
 }
 
--(void)hideModuleMenu{
+-(void)hideModuleMenu
+{
     [self.devMenu hide];
 }
 
@@ -73,9 +75,15 @@
     return @"VKConsoleLog";
 }
 
+
 -(NSArray *)needDevMenuItemsArray
 {
-    return @[@"Enable ErrorLog",@"Copy to Pasteboard",@"Exit"];
+    if ([VKLogManager singleton].enableHook) {
+        return @[@"Disable NSError Hook",@"Copy to Pasteboard",@"Exit"];
+    }else{
+        return @[@"Enable NSError Hook",@"Copy to Pasteboard",@"Exit"];
+    }
+    
 }
 
 -(void)didClickMenuWithButtonIndex:(NSInteger)index
@@ -83,29 +91,42 @@
     switch (index) {
         case 0:
         {
-//            [self VKScriptConsoleExchangeTargetAction];
+            [self changeNetworkHook];
         }
             break;
         case 1:
         {
-            [VKDevTool gotoMainModule];
+            [self copyLogToPasteBoard];
         }
             break;
         case 2:
         {
-//            self.devConsole.inputView.text = @"";
-        }
-            break;
-        case 3:
-        {
-//            self.devConsole.inputView.text = @"";
-            
+            [VKDevTool gotoMainModule];
+
         }
             break;
             
         default:
             break;
     }
+}
+
+-(void)changeNetworkHook
+{
+    [VKLogManager singleton].enableHook = ![VKLogManager singleton].enableHook;
+}
+
+-(void)copyLogToPasteBoard
+{
+    NSMutableString *resultstr = [[NSMutableString alloc]initWithString:@""];
+    NSArray *resultarr = [[VKLogManager singleton].logDataArray copy];
+    for (NSString* item in resultarr) {
+        [resultstr appendString:item];
+        [resultstr appendString:@"\n"];
+    }
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    pasteboard.string = [resultstr copy];
+    
 }
 
 

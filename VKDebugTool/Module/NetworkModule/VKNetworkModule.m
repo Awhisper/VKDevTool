@@ -57,7 +57,8 @@
     [self.devMenu show];
 }
 
--(void)hideModuleMenu{
+-(void)hideModuleMenu
+{
     [self.devMenu hide];
 }
 
@@ -102,7 +103,8 @@
     }
 }
 
--(void)changeNetworkHook{
+-(void)changeNetworkHook
+{
     [VKNetworkLogger singleton].enableHook = ![VKNetworkLogger singleton].enableHook;
 }
 

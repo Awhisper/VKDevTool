@@ -47,11 +47,11 @@ static CGFloat maskAlpha = 0.6f;
     [VKJPEngine setScriptWeakTarget:self.target];
     __weak typeof(self) weakSelf = self;
     [VKJPEngine handleException:^(NSString *msg) {
-        [weakSelf addScriptLogToOutput:msg WithUIColor:[UIColor redColor]];
+        [weakSelf addScriptLogToOutput:msg WithUIColor:[UIColor orangeColor]];
     }];
     
     [VKJPEngine handleLog:^(NSString *msg) {
-        [weakSelf addScriptLogToOutput:msg WithUIColor:[UIColor yellowColor]];
+        [weakSelf addScriptLogToOutput:msg WithUIColor:[UIColor whiteColor]];
     }];
     
     [VKJPEngine handleCommand:^(NSString *command) {
@@ -90,11 +90,12 @@ static CGFloat maskAlpha = 0.6f;
     if (!_inputView) {
         UITextView * input = [[UITextView alloc]initWithFrame:CGRectMake(0, 20, self.width, self.height/3)];
         _inputView = input;
-        input.textColor = [UIColor yellowColor];
+        input.textColor = [UIColor whiteColor];
         input.layer.borderWidth = 1;
         input.layer.borderColor = [UIColor blackColor].CGColor;
         input.delegate = self;
         input.backgroundColor = [UIColor clearColor];
+        input.font = [UIFont boldSystemFontOfSize:15];
         [self addSubview:input];
     }
     return _inputView;
@@ -108,7 +109,8 @@ static CGFloat maskAlpha = 0.6f;
         output.textColor = [UIColor yellowColor];
         [self addSubview:output];
         output.backgroundColor = [UIColor clearColor];
-        output.text = @"output:";
+        [self addScriptLogToOutput:@"Output:" WithUIColor:[UIColor whiteColor]];
+        output.editable = NO;
     }
     return _outputView;
 }
@@ -130,11 +132,14 @@ static CGFloat maskAlpha = 0.6f;
     
     NSMutableAttributedString *logattr = [[NSMutableAttributedString alloc]initWithString:log];
     [logattr vk_setTextColor:color];
+    [logattr vk_setFont:[UIFont boldSystemFontOfSize:15]];
+    [logattr vk_setLineSpacing:10];
     [mtxt appendAttributedString:logattr];
     self.outputView.attributedText = mtxt;
     
     if (self.outputView.contentSize.height > self.outputView.frame.size.height) {
-        [self.outputView setContentOffset:CGPointMake(0.f,self.outputView.contentSize.height-self.outputView.frame.size.height)];
+        CGPoint point = CGPointMake(0.f,self.outputView.contentSize.height - self.outputView.frame.size.height);
+        [self.outputView setContentOffset:point animated:YES];
     }
 }
 #pragma mark logic delegate

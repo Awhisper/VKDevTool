@@ -16,6 +16,8 @@ static NSString * VKLogNotification = @"VKLogNotification";
 
 @property(atomic,strong) NSMutableArray* logDataArray;
 
+@property(nonatomic,assign) BOOL enableHook;
+
 VK_AS_SINGLETON
 
 +(void)VKLogString:(NSString *)format withVarList:(va_list)arglist;

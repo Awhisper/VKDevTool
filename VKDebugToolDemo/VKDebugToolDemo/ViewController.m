@@ -122,7 +122,6 @@
 }
 
 -(void)timertimer{
-    return;
     NSLog(@"111 ===== 111");
     NSError *error =[NSError errorWithDomain:@"woshige erro" code:1 userInfo:nil];
 }

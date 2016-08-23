@@ -27,6 +27,7 @@
         _LogLabel.layer.borderWidth = 1;
         _LogLabel.layer.borderColor = [UIColor blackColor].CGColor;
         _LogLabel.backgroundColor = [UIColor clearColor];
+        _LogLabel.editable = NO;
         [self addSubview:_LogLabel];
     }
     return _LogLabel;
@@ -51,7 +52,7 @@
         if ([log rangeOfString:@"NSLog: "].location != NSNotFound) {
             [self addScriptLogToOutput:log WithUIColor:[UIColor whiteColor]];
         }else if ([log rangeOfString:@"NSError: "].location != NSNotFound){
-            [self addScriptLogToOutput:log WithUIColor:[UIColor redColor]];
+            [self addScriptLogToOutput:log WithUIColor:[UIColor orangeColor]];
         }
     }
 }
@@ -72,7 +73,7 @@
     if ([log rangeOfString:@"NSLog: "].location != NSNotFound) {
         [self addScriptLogToOutput:log WithUIColor:[UIColor whiteColor]];
     }else if ([log rangeOfString:@"NSError: "].location != NSNotFound){
-        [self addScriptLogToOutput:log WithUIColor:[UIColor redColor]];
+        [self addScriptLogToOutput:log WithUIColor:[UIColor orangeColor]];
     }
     
 }
@@ -92,7 +93,8 @@
     self.LogLabel.attributedText = mtxt;
     
     if (self.LogLabel.contentSize.height > self.LogLabel.frame.size.height) {
-        [self.LogLabel setContentOffset:CGPointMake(0.f,self.LogLabel.contentSize.height-self.LogLabel.frame.size.height)];
+        CGPoint point = CGPointMake(0.f,self.LogLabel.contentSize.height - self.LogLabel.frame.size.height);
+        [self.LogLabel setContentOffset:point animated:YES];
     }
 }
 

@@ -8,6 +8,7 @@
 
 #import "VKNetworkConsoleView.h"
 #import "VKNetworkLogger.h"
+#import "VKUIKitMarco.h"
 @interface VKNetworkConsoleView ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 
 @property (nonatomic,strong) UITableView *requestTable;
@@ -27,7 +28,7 @@
 -(UITableView *)requestTable
 {
     if (!_requestTable) {
-        _requestTable = [[UITableView alloc]initWithFrame:self.bounds];
+        _requestTable = [[UITableView alloc]initWithFrame:CGRectMake(0, 20, VK_AppScreenWidth, VK_AppScreenHeight - 20)];
         _requestTable.delegate = self;
         _requestTable.dataSource = self;
         _requestTable.backgroundColor = [UIColor clearColor];
