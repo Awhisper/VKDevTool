@@ -172,7 +172,7 @@ static CGFloat maskAlpha = 0.6f;
 #ifdef VKDevMode
     if ([text isEqualToString:@"\n"]){ //判断输入的字是否是回车，即按下return
         //在这里做你响应return键的代码
-//        self.outputView.text = @"output:";
+        self.outputView.text = @"output:";
         [VKJPEngine evaluateScript:textView.text];
         
         return YES;
