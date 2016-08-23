@@ -10,6 +10,7 @@
 #import "VKDevMenu.h"
 #import "VKDevTipView.h"
 #import "VKDevTool.h"
+#import "VKDevToolDefine.h"
 @interface VKDevMainModule ()<VKDevMenuDelegate>
 
 @property (nonatomic,strong) VKDevMenu *devMenu;
@@ -22,8 +23,10 @@
 {
     self = [super init];
     if (self) {
+#ifdef VKDevMode
         _devMenu = [[VKDevMenu alloc]init];
         _devMenu.delegate = self;
+#endif
     }
     return self;
 }
@@ -40,11 +43,16 @@
 
 -(void)showModuleMenu
 {
+#ifdef VKDevMode
     [self.devMenu show];
+#endif
 }
 
--(void)hideModuleMenu{
+-(void)hideModuleMenu
+{
+#ifdef VKDevMode
     [self.devMenu hide];
+#endif
 }
 
 #pragma mark VKDevMenuDelegate
@@ -60,6 +68,7 @@
 
 -(void)didClickMenuWithButtonIndex:(NSInteger)index
 {
+#ifdef VKDevMode
     switch (index) {
         case 0:
         {
@@ -76,6 +85,7 @@
         default:
             break;
     }
+#endif
 }
 
 -(void)goDebugScript

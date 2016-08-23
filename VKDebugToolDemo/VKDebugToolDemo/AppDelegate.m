@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "VKDevTool.h"
-#import "VKURLProtocol.h"
 
 @interface AppDelegate ()
 
@@ -20,7 +19,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    [NSURLProtocol registerClass:[VKURLProtocol class]];
     [VKDevTool enableDebugMode];
     
     return YES;

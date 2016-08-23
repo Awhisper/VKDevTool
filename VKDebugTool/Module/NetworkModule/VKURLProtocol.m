@@ -8,6 +8,7 @@
 
 #import "VKURLProtocol.h"
 #import "VKNetworkLogger.h"
+#import "VKDevToolDefine.h"
 static NSString * const VKURLProtocolHandledKey = @"VKURLProtocolHandledKey";
 
 @interface VKURLProtocol ()<NSURLConnectionDelegate>
@@ -20,6 +21,7 @@ static NSString * const VKURLProtocolHandledKey = @"VKURLProtocolHandledKey";
 
 + (BOOL)canInitWithRequest:(NSURLRequest *)request
 {
+#ifdef VKDevMode
     if (![VKNetworkLogger singleton].enableHook) {
         return NO;
     }
@@ -45,6 +47,7 @@ static NSString * const VKURLProtocolHandledKey = @"VKURLProtocolHandledKey";
         }
         return YES;
     }
+#endif
     return NO;
 }
 

@@ -12,9 +12,9 @@
 #import "VKDevToolDefine.h"
 @implementation NSError (VKError)
 
+#ifdef VKDevMode
 +(void)load
 {
-#ifdef VKDevMode
     SEL origSelector1 = @selector(initWithDomain:code:userInfo:);
     SEL newSelector1 = @selector(vkInitWithDomain:code:userInfo:);
     
@@ -34,7 +34,6 @@
         method_exchangeImplementations(origMethod2, newMehthod2);
     }
     
-#endif
 }
 
 -(instancetype)vkInitWithDomain:(NSString *)domain code:(NSInteger)code userInfo:(NSDictionary *)dict
@@ -51,4 +50,6 @@
     [VKLogManager VKLogError:result];
     return result;
 }
+
+#endif
 @end

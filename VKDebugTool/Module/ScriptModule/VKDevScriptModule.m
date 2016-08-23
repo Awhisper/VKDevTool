@@ -33,11 +33,11 @@
 {
     self = [super init];
     if (self) {
+#ifdef VKDevMode
         _isSelecting = NO;
-        
         _devMenu = [[VKDevMenu alloc]init];
         _devMenu.delegate = self;
-        
+#endif
     }
     return self;
 }
@@ -49,11 +49,21 @@
 
 -(void)showModuleMenu
 {
+#ifdef VKDevMode
     [self.devMenu show];
+#endif
 }
 
--(void)hideModuleMenu{
+-(void)hideModuleMenu
+{
+#ifdef VKDevMode
     [self.devMenu hide];
+#endif
+}
+
+-(void)showModuleView
+{
+
 }
 
 #pragma mark VKDevMenuDelegate
@@ -69,6 +79,7 @@
 
 -(void)didClickMenuWithButtonIndex:(NSInteger)index
 {
+#ifdef VKDevMode
     switch (index) {
         case 0:
         {
@@ -95,20 +106,25 @@
         default:
             break;
     }
+#endif
 }
 
 
 #pragma mark DebugScript
 -(void)VKScriptConsoleExitAction
 {
+#ifdef VKDevMode
     self.isSelecting = NO;
     [VKDevTool gotoMainModule];
+#endif
 }
 
 -(void)VKScriptConsoleExchangeTargetAction
 {
+#ifdef VKDevMode
     [self.devConsole hideConsole];
     self.isSelecting = YES;
+#endif
 }
 
 -(void)startScriptDebug
@@ -118,13 +134,14 @@
 
 -(void)setIsSelecting:(BOOL)isSelecting
 {
+#ifdef VKDevMode
     self.tapGesture.enabled = isSelecting;
     if (isSelecting) {
         [VKDevTipView showVKDevTip:@"请选择一个界面View元素" autoHide:NO];
     }else{
         [VKDevTipView hideVKDevTip];
     }
-    
+#endif
 }
 
 -(UITapGestureRecognizer *)tapGesture

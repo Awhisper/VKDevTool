@@ -27,10 +27,10 @@
 {
     self = [super init];
     if (self) {
-        
+#ifdef VKDevMode
         _devMenu = [[VKDevMenu alloc]init];
         _devMenu.delegate = self;
-        
+#endif
     }
     return self;
 }
@@ -54,19 +54,25 @@
 
 -(void)showModuleMenu
 {
+#ifdef VKDevMode
     [self.devMenu show];
+#endif
 }
 
 -(void)hideModuleMenu
 {
+#ifdef VKDevMode
     [self.devMenu hide];
+#endif
 }
 
 -(void)showModuleView
 {
+#ifdef VKDevMode
     UIView *window = [UIApplication sharedApplication].keyWindow;
     [window addSubview:self.logView];
     [self.logView showConsole];
+#endif
 }
 
 #pragma mark VKDevMenuDelegate
@@ -88,6 +94,7 @@
 
 -(void)didClickMenuWithButtonIndex:(NSInteger)index
 {
+#ifdef VKDevMode
     switch (index) {
         case 0:
         {
@@ -109,6 +116,7 @@
         default:
             break;
     }
+#endif
 }
 
 -(void)changeNetworkHook
@@ -118,6 +126,7 @@
 
 -(void)copyLogToPasteBoard
 {
+#ifdef VKDevMode
     NSMutableString *resultstr = [[NSMutableString alloc]initWithString:@""];
     NSArray *resultarr = [[VKLogManager singleton].logDataArray copy];
     for (NSString* item in resultarr) {
@@ -126,7 +135,7 @@
     }
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
     pasteboard.string = [resultstr copy];
-    
+#endif
 }
 
 

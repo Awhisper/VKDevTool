@@ -86,11 +86,13 @@ VK_DEF_SINGLETON
 
 -(void)leaveCurrentModule
 {
+#ifdef VKDevMode
     if (self.currentModule) {
         [[self.currentModule moduleView] removeFromSuperview];
         [self.currentModule hideModuleMenu];
         self.currentModule = nil;
     }
+#endif
 }
 
 +(void)gotoMainModule
@@ -99,8 +101,10 @@ VK_DEF_SINGLETON
 }
 
 -(void)goMainModule{
+#ifdef VKDevMode
     [self leaveCurrentModule];
     self.currentModule = self.mainModule;
+#endif
 }
 
 +(void)gotoScriptModule
@@ -108,10 +112,11 @@ VK_DEF_SINGLETON
     [[self singleton]goScriptModule];
 }
 -(void)goScriptModule{
+#ifdef VKDevMode
     [self leaveCurrentModule];
     self.currentModule = self.scriptModule;
     [self.scriptModule startScriptDebug];
-    
+#endif
 }
 
 +(void)gotoLogModule
@@ -121,9 +126,11 @@ VK_DEF_SINGLETON
 
 -(void)goLogModule
 {
+#ifdef VKDevMode
     [self leaveCurrentModule];
     self.currentModule = self.logModule;
     [self.logModule showModuleView];
+#endif
 }
 
 +(void)gotoNetworkModule
@@ -133,9 +140,11 @@ VK_DEF_SINGLETON
 
 -(void)goNetworkModule
 {
+#ifdef VKDevMode
     [self leaveCurrentModule];
     self.currentModule = self.netModule;
     [self.netModule showModuleView];
+#endif
 }
 
 @end

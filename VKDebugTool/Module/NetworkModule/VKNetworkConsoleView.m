@@ -9,6 +9,7 @@
 #import "VKNetworkConsoleView.h"
 #import "VKNetworkLogger.h"
 #import "VKUIKitMarco.h"
+#import "VKDevToolDefine.h"
 @interface VKNetworkConsoleView ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 
 @property (nonatomic,strong) UITableView *requestTable;
@@ -28,61 +29,77 @@
 -(UITableView *)requestTable
 {
     if (!_requestTable) {
+#ifdef VKDevMode
         _requestTable = [[UITableView alloc]initWithFrame:CGRectMake(0, 20, VK_AppScreenWidth, VK_AppScreenHeight - 20)];
         _requestTable.delegate = self;
         _requestTable.dataSource = self;
         _requestTable.backgroundColor = [UIColor clearColor];
         [self addSubview:_requestTable];
+#endif
     }
     return _requestTable;
 }
 
 
 -(void)showConsole{
+#ifdef VKDevMode
     [super showConsole];
     [self addLogNotificationObserver];
     [self showLogManagerOldLog];
+#endif
 }
 
 -(void)hideConsole
 {
+#ifdef VKDevMode
     [super hideConsole];
     [self removeLogNotificationObserver];
+#endif
 }
 
 -(void)showLogManagerOldLog
 {
+#ifdef VKDevMode
     self.requestDataArr = [[NSMutableArray alloc]initWithArray:[VKNetworkLogger singleton].logDataArray];
     self.requestArr = [[NSMutableArray alloc]initWithArray:[VKNetworkLogger singleton].logReqArray];
     [self.requestTable reloadData];
+#endif
 }
 
 -(void)addLogNotificationObserver
 {
+#ifdef VKDevMode
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(logNotificationDataGet:) name:VKNetDataLogNotification object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(logNotificationGet:) name:VKNetReqLogNotification object:nil];
+#endif
 }
 
 -(void)removeLogNotificationObserver
 {
+#ifdef VKDevMode
     [[NSNotificationCenter defaultCenter]removeObserver:self];
+#endif
 }
 
 -(void)logNotificationGet:(NSNotification *)noti
 {
+#ifdef VKDevMode
     NSURLRequest * request = noti.object;
     if (request) {
         [self.requestArr addObject:request];
     }
+#endif
 }
 
 -(void)logNotificationDataGet:(NSNotification *)noti
 {
+#ifdef VKDevMode
     NSURLRequest * request = noti.object;
     if (request) {
         [self.requestDataArr addObject:request];
     }
     [self.requestTable reloadData];
+#endif
 }
 
 #pragma mark  tableview
@@ -116,6 +133,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+#ifdef VKDevMode
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSURLRequest *req = self.requestArr[indexPath.row];
     NSString *strurl = req.URL.absoluteString;
@@ -127,15 +145,18 @@
     
     NSString *pasteboardstr = [NSString stringWithFormat:@"URL: %@ \n\n Data: %@",strurl,strdata];
     self.pasteboardString = pasteboardstr;
+#endif
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+#ifdef VKDevMode
     if (buttonIndex == 1) {//复制
         UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
         pasteboard.string = self.pasteboardString;
         self.pasteboardString = nil;
     }
+#endif
 }
 
 @end

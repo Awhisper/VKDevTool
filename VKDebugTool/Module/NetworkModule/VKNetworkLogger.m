@@ -17,9 +17,11 @@ VK_DEF_SINGLETON
 {
     self = [super init];
     if (self) {
+#ifdef VKDevMode
         self.logDataArray = [[NSMutableArray alloc]init];
         self.logReqArray = [[NSMutableArray alloc]init];
         self.enableHook = YES;
+#endif
     }
     return self;
 }

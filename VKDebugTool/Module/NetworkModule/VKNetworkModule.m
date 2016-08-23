@@ -12,6 +12,7 @@
 #import "VKDevTool.h"
 #import "VKDevToolDefine.h"
 #import "VKNetworkLogger.h"
+#import "VKURLProtocol.h"
 @interface VKNetworkModule ()<VKDevMenuDelegate,UIAlertViewDelegate>
 
 @property (nonatomic,strong) VKDevMenu *devMenu;
@@ -27,10 +28,11 @@
 {
     self = [super init];
     if (self) {
-        
+#ifdef VKDevMode
         _devMenu = [[VKDevMenu alloc]init];
         _devMenu.delegate = self;
-        
+        [NSURLProtocol registerClass:[VKURLProtocol class]];
+#endif
     }
     return self;
 }
@@ -54,19 +56,25 @@
 
 -(void)showModuleMenu
 {
+#ifdef VKDevMode
     [self.devMenu show];
+#endif
 }
 
 -(void)hideModuleMenu
 {
+#ifdef VKDevMode
     [self.devMenu hide];
+#endif
 }
 
 -(void)showModuleView
 {
+#ifdef VKDevMode
     UIView *window = [UIApplication sharedApplication].keyWindow;
     [window addSubview:self.logView];
     [self.logView showConsole];
+#endif
 }
 
 #pragma mark VKDevMenuDelegate
@@ -87,6 +95,7 @@
 
 -(void)didClickMenuWithButtonIndex:(NSInteger)index
 {
+#ifdef VKDevMode
     switch (index) {
         case 0:
         {
@@ -106,6 +115,7 @@
         default:
             break;
     }
+#endif
 }
 
 -(void)changeNetworkHook
@@ -115,6 +125,7 @@
 
 -(void)changeHostFilter
 {
+#ifdef VKDevMode
     UIAlertView *inputbox = [[UIAlertView alloc] initWithTitle:@"自定义域名过滤" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
 
     [inputbox setAlertViewStyle:UIAlertViewStylePlainTextInput];
@@ -122,10 +133,11 @@
     UITextField *nameField = [inputbox textFieldAtIndex:0];
     nameField.placeholder = @"请输入过滤字符";
     [inputbox show];
+#endif
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    
+#ifdef VKDevMode
     if (buttonIndex == alertView.firstOtherButtonIndex) {
         UITextField *nameField = [alertView textFieldAtIndex:0];
         
@@ -135,9 +147,7 @@
             [VKNetworkLogger singleton].hostFilter = nameField.text;
         }
     }
-    
-    
-    
+#endif 
 }
 
 @end

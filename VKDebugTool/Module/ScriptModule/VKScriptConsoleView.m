@@ -9,7 +9,7 @@
 #import "VKScriptConsoleView.h"
 #import "VKCommonFundation.h"
 #import "VKJPEngine.h"
-//#import "VKLogManager.h"
+#import "VKDevToolDefine.h"
 #import "NSMutableAttributedString+VKAttributedString.h"
 static CGFloat maskAlpha = 0.6f;
 
@@ -37,12 +37,15 @@ static CGFloat maskAlpha = 0.6f;
 
 -(void)setTarget:(id)target
 {
+#ifdef VKDevMode
     _target = target;
     [VKJPEngine setScriptWeakTarget:_target];
+#endif
 }
 
 -(void)startScriptEngine
 {
+#ifdef VKDevMode
     [VKJPEngine startEngine];
     [VKJPEngine setScriptWeakTarget:self.target];
     __weak typeof(self) weakSelf = self;
@@ -71,16 +74,19 @@ static CGFloat maskAlpha = 0.6f;
             weakSelf.outputView.text = @"";
         }
     }];
+#endif
 }
 
 -(UIView *)mask
 {
     if (!_mask) {
+#ifdef VKDevMode
         UIView *maskv = [[UIView alloc]initWithFrame:self.bounds];
         maskv.backgroundColor = [UIColor blackColor];
         maskv.alpha = maskAlpha;
         _mask = maskv;
         [self addSubview:maskv];
+#endif
     }
     return _mask;
 }
@@ -88,6 +94,7 @@ static CGFloat maskAlpha = 0.6f;
 -(UITextView *)inputView
 {
     if (!_inputView) {
+#ifdef VKDevMode
         UITextView * input = [[UITextView alloc]initWithFrame:CGRectMake(0, 20, self.width, self.height/3)];
         _inputView = input;
         input.textColor = [UIColor whiteColor];
@@ -97,6 +104,7 @@ static CGFloat maskAlpha = 0.6f;
         input.backgroundColor = [UIColor clearColor];
         input.font = [UIFont boldSystemFontOfSize:15];
         [self addSubview:input];
+#endif
     }
     return _inputView;
 }
@@ -104,6 +112,7 @@ static CGFloat maskAlpha = 0.6f;
 -(UITextView *)outputView
 {
     if (!_outputView) {
+#ifdef VKDevMode
         UITextView * output = [[UITextView alloc]initWithFrame:CGRectMake(0, self.height/3 + 20, self.width, self.height*2/3 - 20)];
         _outputView = output;
         output.textColor = [UIColor yellowColor];
@@ -111,29 +120,35 @@ static CGFloat maskAlpha = 0.6f;
         output.backgroundColor = [UIColor clearColor];
         [self addScriptLogToOutput:@"Output:" WithUIColor:[UIColor whiteColor]];
         output.editable = NO;
+#endif
     }
     return _outputView;
 }
 
 -(void)showConsole
 {
+#ifdef VKDevMode
     [super showConsole];
     self.inputView.text = @"";
     self.outputView.text = @"output:";
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(appBecomeActive)
                                                  name:UIApplicationDidBecomeActiveNotification object:nil];
+#endif
 }
 
 -(void)hideConsole
 {
+#ifdef VKDevMode
     [super hideConsole];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+#endif
 }
 
 
 
 -(void)addScriptLogToOutput:(NSString *)log WithUIColor:(UIColor *)color{
+#ifdef VKDevMode
     NSAttributedString *txt = self.outputView.attributedText;
     NSMutableAttributedString *mtxt = [[NSMutableAttributedString alloc]initWithAttributedString:txt];
     NSAttributedString *huanhang = [[NSAttributedString alloc]initWithString:@"\n"];
@@ -150,9 +165,11 @@ static CGFloat maskAlpha = 0.6f;
         CGPoint point = CGPointMake(0.f,self.outputView.contentSize.height - self.outputView.frame.size.height);
         [self.outputView setContentOffset:point animated:YES];
     }
+#endif
 }
 #pragma mark logic delegate
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+#ifdef VKDevMode
     if ([text isEqualToString:@"\n"]){ //判断输入的字是否是回车，即按下return
         //在这里做你响应return键的代码
 //        self.outputView.text = @"output:";
@@ -160,6 +177,7 @@ static CGFloat maskAlpha = 0.6f;
         
         return YES;
     }
+#endif
     
     return YES;
 }
@@ -172,10 +190,12 @@ static CGFloat maskAlpha = 0.6f;
 
 -(void)appBecomeActive
 {
+#ifdef VKDevMode
     NSString *pasteCode = [[UIPasteboard generalPasteboard] string];
     if (pasteCode.length > 0) {
         [self setInputCode:pasteCode];
     }
+#endif
 }
 
 @end
