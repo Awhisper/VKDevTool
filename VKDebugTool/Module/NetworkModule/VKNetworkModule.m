@@ -12,7 +12,7 @@
 #import "VKDevTool.h"
 #import "VKDevToolDefine.h"
 #import "VKNetworkLogger.h"
-@interface VKNetworkModule ()<VKDevMenuDelegate>
+@interface VKNetworkModule ()<VKDevMenuDelegate,UIAlertViewDelegate>
 
 @property (nonatomic,strong) VKDevMenu *devMenu;
 
@@ -78,9 +78,9 @@
 -(NSArray *)needDevMenuItemsArray
 {
     if ([VKNetworkLogger singleton].enableHook) {
-        return @[@"Disable NetWork Hook",@"Exit"];
+        return @[@"Disable NetWork Hook",@"Change HostFilter",@"Exit"];
     }else{
-        return @[@"Enable NetWork Hook",@"Exit"];
+        return @[@"Enable NetWork Hook",@"Change HostFilter",@"Exit"];
     }
     
 }
@@ -95,6 +95,11 @@
             break;
         case 1:
         {
+            [self changeHostFilter];
+        }
+            break;
+        case 2:
+        {
             [VKDevTool gotoMainModule];
         }
             break;
@@ -108,5 +113,31 @@
     [VKNetworkLogger singleton].enableHook = ![VKNetworkLogger singleton].enableHook;
 }
 
+-(void)changeHostFilter
+{
+    UIAlertView *inputbox = [[UIAlertView alloc] initWithTitle:@"自定义域名过滤" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+
+    [inputbox setAlertViewStyle:UIAlertViewStylePlainTextInput];
+
+    UITextField *nameField = [inputbox textFieldAtIndex:0];
+    nameField.placeholder = @"请输入过滤字符";
+    [inputbox show];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    if (buttonIndex == alertView.firstOtherButtonIndex) {
+        UITextField *nameField = [alertView textFieldAtIndex:0];
+        
+        if (nameField.text.length > 0) {
+            [VKNetworkLogger singleton].hostFilter = nil;
+        }else{
+            [VKNetworkLogger singleton].hostFilter = nameField.text;
+        }
+    }
+    
+    
+    
+}
 
 @end

@@ -59,8 +59,8 @@
 
 -(void)addLogNotificationObserver
 {
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(logNotificationGet:) name:VKNetDataLogNotification object:nil];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(logNotificationDataGet:) name:VKNetReqLogNotification object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(logNotificationDataGet:) name:VKNetDataLogNotification object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(logNotificationGet:) name:VKNetReqLogNotification object:nil];
 }
 
 -(void)removeLogNotificationObserver

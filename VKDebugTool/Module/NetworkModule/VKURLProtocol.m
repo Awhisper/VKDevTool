@@ -28,11 +28,21 @@ static NSString * const VKURLProtocolHandledKey = @"VKURLProtocolHandledKey";
     if ( ([scheme caseInsensitiveCompare:@"http"] == NSOrderedSame ||
           [scheme caseInsensitiveCompare:@"https"] == NSOrderedSame))
     {
-        //看看是否已经处理过了，防止无限循环
-        if ([NSURLProtocol propertyForKey:VKURLProtocolHandledKey inRequest:request]) {
-            return NO;
+        if ([VKNetworkLogger singleton].hostFilter && [VKNetworkLogger singleton].hostFilter.length > 0) {
+            
+            NSString *url = [[request URL] absoluteString];
+            if ([url rangeOfString:[VKNetworkLogger singleton].hostFilter].location != NSNotFound) {
+                //看看是否已经处理过了，防止无限循环
+                if ([NSURLProtocol propertyForKey:VKURLProtocolHandledKey inRequest:request]) {
+                    return NO;
+                }
+            }
+        }else{
+            //看看是否已经处理过了，防止无限循环
+            if ([NSURLProtocol propertyForKey:VKURLProtocolHandledKey inRequest:request]) {
+                return NO;
+            }
         }
-        
         return YES;
     }
     return NO;

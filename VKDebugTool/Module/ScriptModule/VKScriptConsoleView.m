@@ -120,6 +120,15 @@ static CGFloat maskAlpha = 0.6f;
     [super showConsole];
     self.inputView.text = @"";
     self.outputView.text = @"output:";
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(appBecomeActive)
+                                                 name:UIApplicationDidBecomeActiveNotification object:nil];
+}
+
+-(void)hideConsole
+{
+    [super hideConsole];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
@@ -158,6 +167,15 @@ static CGFloat maskAlpha = 0.6f;
 -(void)setInputCode:(NSString *)code
 {
     self.inputView.text = code;
+}
+
+
+-(void)appBecomeActive
+{
+    NSString *pasteCode = [[UIPasteboard generalPasteboard] string];
+    if (pasteCode.length > 0) {
+        [self setInputCode:pasteCode];
+    }
 }
 
 @end

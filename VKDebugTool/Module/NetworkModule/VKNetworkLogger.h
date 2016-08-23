@@ -19,6 +19,8 @@ static NSString * VKNetDataLogNotification = @"VKNetDataLogNotification";
 
 @property (nonatomic,assign) BOOL enableHook;
 
+@property(nonatomic,strong) NSString* hostFilter;
+
 VK_AS_SINGLETON
 
 +(void)VKNetworkResponseLog:(NSURLResponse *)response;
