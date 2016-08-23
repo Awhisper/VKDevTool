@@ -229,7 +229,7 @@ void (^_vkCommandBlock)(NSString *command) = ^void(NSString *command) {
         _vkexceptionBlock([NSString stringWithFormat:@"js exception, \nmsg: %@, \nstack: \n %@", [msg toObject], [stack toObject]]);
     };
     
-    context[@"target"] = ^(JSValue *msg, JSValue *stack) {
+    context[@"getTarget"] = ^(JSValue *msg, JSValue *stack) {
         return vkformatOCToJS(_vktarget);
     };
     
@@ -263,6 +263,7 @@ void (^_vkCommandBlock)(NSString *command) = ^void(NSString *command) {
     }
     
     [VKJPEngine addExtensions:@[@"VKDebugJPExtension"]];
+    [VKJPEngine addExtensions:@[@"WKAppUrlExtension"]];
 }
 
 +(void)setScriptWeakTarget:(__weak id)target

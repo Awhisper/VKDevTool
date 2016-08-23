@@ -24,7 +24,7 @@
         return [self formatOCToJS:parentVCOC];
     };
     
-    context[@"targetVC"] = ^(JSValue *viewJS) {
+    context[@"getTargetVC"] = ^(JSValue *viewJS) {
         UIView *target = [self getJPTarget];
         UIViewController *parentVCOC = [VKDebugJPExtension getViewParentViewController:target];
         return [self formatOCToJS:parentVCOC];

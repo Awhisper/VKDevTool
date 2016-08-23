@@ -10,11 +10,11 @@
 #define VKDebugToolDefine_h
 
 
-//#ifdef DEBUG
-//
-//#define VKDevMode
-//
-//#endif
+#ifdef DEBUG
+
+#define VKDevMode
+
+#endif
 
 #ifdef VKDevMode
 #import "VKLogManager.h"

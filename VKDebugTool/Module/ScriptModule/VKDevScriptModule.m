@@ -74,7 +74,7 @@
 
 -(NSArray *)needDevMenuItemsArray
 {
-    return @[@"ChangeTarget",@"clearInput",@"clearOutput",@"Exit"];
+    return @[@"Get Target",@"Get TargetVC",@"ChangeTarget",@"clearInput",@"clearOutput",@"Exit"];
 }
 
 -(void)didClickMenuWithButtonIndex:(NSInteger)index
@@ -83,26 +83,41 @@
     switch (index) {
         case 0:
         {
+            NSString *inputCode = self.devConsole.inputView.text;
+            NSString *addCode = @"var target = getTarget()\nprint(target)";
+            NSString *rtCode = [NSString stringWithFormat:@"%@\n%@",inputCode,addCode];
+            self.devConsole.inputView.text = rtCode;
+        }
+            break;
+        case 1:
+        {
+            NSString *inputCode = self.devConsole.inputView.text;
+            NSString *addCode = @"var targetVC = getTargetVC()\nprint(targetVC)";
+            NSString *rtCode = [NSString stringWithFormat:@"%@\n%@",inputCode,addCode];
+            self.devConsole.inputView.text = rtCode;
+
+        }
+            break;
+        case 2:
+        {
             [self VKScriptConsoleExchangeTargetAction];
         }
             break;
         case 3:
         {
+            self.devConsole.inputView.text = @"";
+        }
+            break;
+        case 4:
+        {
+            self.devConsole.inputView.text = @"";
+        }
+            break;
+        case 5:
+        {
             [self VKScriptConsoleExitAction];
         }
             break;
-        case 1:
-        {
-            self.devConsole.inputView.text = @"";
-        }
-            break;
-        case 2:
-        {
-            self.devConsole.inputView.text = @"";
-
-        }
-            break;
-            
         default:
             break;
     }
