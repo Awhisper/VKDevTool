@@ -6,14 +6,14 @@
 //  Copyright © 2016年 baidu. All rights reserved.
 //
 
-#import "VKNetworkModule.h"
+#import "VKDevNetworkModule.h"
 #import "VKDevMenu.h"
 #import "VKNetworkConsoleView.h"
 #import "VKDevTool.h"
 #import "VKDevToolDefine.h"
 #import "VKNetworkLogger.h"
 #import "VKURLProtocol.h"
-@interface VKNetworkModule ()<VKDevMenuDelegate,UIAlertViewDelegate>
+@interface VKDevNetworkModule ()<VKDevMenuDelegate,UIAlertViewDelegate>
 
 @property (nonatomic,strong) VKDevMenu *devMenu;
 
@@ -21,7 +21,7 @@
 
 @end
 
-@implementation VKNetworkModule
+@implementation VKDevNetworkModule
 
 
 -(instancetype)init

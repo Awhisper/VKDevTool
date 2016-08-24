@@ -13,7 +13,7 @@
 #import "VKDevMainModule.h"
 #import "VKDevScriptModule.h"
 #import "VKDevLogModule.h"
-#import "VKNetworkModule.h"
+#import "VKDevNetworkModule.h"
 #import "VKDevViewModule.h"
 @interface VKDevTool ()
 
@@ -25,7 +25,7 @@
 
 @property (nonatomic,strong) VKDevLogModule *logModule;
 
-@property (nonatomic,strong) VKNetworkModule *netModule;
+@property (nonatomic,strong) VKDevNetworkModule *netModule;
 
 @property (nonatomic,strong) VKDevViewModule *viewModule;
 
@@ -44,7 +44,7 @@ VK_DEF_SINGLETON
         _mainModule = [[VKDevMainModule alloc]init];
         _scriptModule = [[VKDevScriptModule alloc]init];
         _logModule = [[VKDevLogModule alloc]init];
-        _netModule = [[VKNetworkModule alloc]init];
+        _netModule = [[VKDevNetworkModule alloc]init];
         _viewModule = [[VKDevViewModule alloc]init];
         _extensionDic = [[NSMutableDictionary alloc]init];
 #endif

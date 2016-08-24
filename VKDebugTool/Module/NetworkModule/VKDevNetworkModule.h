@@ -8,6 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "VKDevModuleProtocol.h"
-@interface VKNetworkModule : NSObject<VKDevModuleProtocol>
+@interface VKDevNetworkModule : NSObject<VKDevModuleProtocol>
 
 @end

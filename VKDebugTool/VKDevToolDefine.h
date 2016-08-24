@@ -26,4 +26,4 @@ VKLog(__VA_ARGS__)
 
 #endif
 
-#endif /* VKDebugToolDefine_h */
+#endif /* VKDevToolDefine_h */

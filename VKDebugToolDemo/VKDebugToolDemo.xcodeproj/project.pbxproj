@@ -36,7 +36,7 @@
 		6C4E97F91D656DD300158484 /* VKLogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4E97F71D656DD300158484 /* VKLogManager.m */; };
 		6C4E98001D65800300158484 /* VKNetworkLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4E97FF1D65800300158484 /* VKNetworkLogger.m */; };
 		6C4E98041D6583DD00158484 /* VKURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4E98031D6583DD00158484 /* VKURLProtocol.m */; };
-		6C4E98081D65979800158484 /* VKNetworkModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4E98071D65979800158484 /* VKNetworkModule.m */; };
+		6C4E98081D65979800158484 /* VKDevNetworkModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4E98071D65979800158484 /* VKDevNetworkModule.m */; };
 		6C4E980B1D6597A900158484 /* VKNetworkConsoleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4E980A1D6597A900158484 /* VKNetworkConsoleView.m */; };
 		6C51EDF11D6D6C7900A01B73 /* YYViewHierarchy3D.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C51EDF01D6D6C7900A01B73 /* YYViewHierarchy3D.m */; };
 		6C51EDF51D6D718600A01B73 /* VKDevViewModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C51EDF41D6D718600A01B73 /* VKDevViewModule.m */; };
@@ -104,8 +104,8 @@
 		6C4E97FF1D65800300158484 /* VKNetworkLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKNetworkLogger.m; sourceTree = "<group>"; };
 		6C4E98021D6583DD00158484 /* VKURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKURLProtocol.h; sourceTree = "<group>"; };
 		6C4E98031D6583DD00158484 /* VKURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKURLProtocol.m; sourceTree = "<group>"; };
-		6C4E98061D65979800158484 /* VKNetworkModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKNetworkModule.h; sourceTree = "<group>"; };
-		6C4E98071D65979800158484 /* VKNetworkModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKNetworkModule.m; sourceTree = "<group>"; };
+		6C4E98061D65979800158484 /* VKDevNetworkModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKDevNetworkModule.h; sourceTree = "<group>"; };
+		6C4E98071D65979800158484 /* VKDevNetworkModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKDevNetworkModule.m; sourceTree = "<group>"; };
 		6C4E98091D6597A900158484 /* VKNetworkConsoleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKNetworkConsoleView.h; sourceTree = "<group>"; };
 		6C4E980A1D6597A900158484 /* VKNetworkConsoleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKNetworkConsoleView.m; sourceTree = "<group>"; };
 		6C51EDEF1D6D6C7900A01B73 /* YYViewHierarchy3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYViewHierarchy3D.h; sourceTree = "<group>"; };
@@ -320,8 +320,8 @@
 				6C4E98031D6583DD00158484 /* VKURLProtocol.m */,
 				6C4E97FE1D65800300158484 /* VKNetworkLogger.h */,
 				6C4E97FF1D65800300158484 /* VKNetworkLogger.m */,
-				6C4E98061D65979800158484 /* VKNetworkModule.h */,
-				6C4E98071D65979800158484 /* VKNetworkModule.m */,
+				6C4E98061D65979800158484 /* VKDevNetworkModule.h */,
+				6C4E98071D65979800158484 /* VKDevNetworkModule.m */,
 				6C4E98091D6597A900158484 /* VKNetworkConsoleView.h */,
 				6C4E980A1D6597A900158484 /* VKNetworkConsoleView.m */,
 			);
@@ -434,7 +434,7 @@
 				6C4E97F21D6469B700158484 /* VKDevConsoleView.m in Sources */,
 				6C4E97C71D64382100158484 /* UIWindow+VKShakeCommand.m in Sources */,
 				6C4E978A1D6437A300158484 /* main.m in Sources */,
-				6C4E98081D65979800158484 /* VKNetworkModule.m in Sources */,
+				6C4E98081D65979800158484 /* VKDevNetworkModule.m in Sources */,
 				6C4E97C31D64382100158484 /* UIDevice+VKUtlities.m in Sources */,
 				6C4E97DA1D643C0F00158484 /* VKDevMainModule.m in Sources */,
 			);
