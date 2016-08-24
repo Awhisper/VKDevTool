@@ -63,7 +63,11 @@
 
 -(NSArray *)needDevMenuItemsArray
 {
-    return @[@"DebugScript",@"ConsoleLog",@"NetworkLog"];
+    NSDictionary *extDic = [VKDevTool singleton].extensionDic;
+    NSMutableArray *titleArray = [[NSMutableArray alloc]initWithArray:@[@"DebugScript",@"ConsoleLog",@"NetworkLog"]];
+    NSArray *extTitleArray = [extDic allKeys];
+    [titleArray addObjectsFromArray:extTitleArray];
+    return titleArray;
 }
 
 -(void)didClickMenuWithButtonIndex:(NSInteger)index
@@ -82,7 +86,18 @@
         case 2:{
             [self goNetworkLog];
         }
-        default:
+        default:{
+            if (index >= 3) {
+                NSDictionary *extDic = [VKDevTool singleton].extensionDic;
+                NSArray *extTitleArray = [extDic allKeys];
+                NSInteger extIndex = index - 3;
+                if (extTitleArray.count > extIndex) {
+                    NSString *key = [extTitleArray objectAtIndex:extIndex];
+                    void(^extblock)(void) = [extDic objectForKey:key];
+                    extblock();
+                }
+            }
+        }
             break;
     }
 #endif

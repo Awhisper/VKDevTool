@@ -12,9 +12,15 @@
 @interface VKDevTool : NSObject
 VK_AS_SINGLETON
 
+@property (nonatomic,strong) NSMutableDictionary *extensionDic;
+
 +(void)enableDebugMode;
 
 +(void)disableDebugMode;
+
++(void)registKeyName:(NSString *)key withExtensionFunction:(void(^)(void))block;
+
++(void)removeExtensionFunction:(NSString *)key;
 
 +(void)gotoMainModule;
 
@@ -23,6 +29,5 @@ VK_AS_SINGLETON
 +(void)gotoLogModule;
 
 +(void)gotoNetworkModule;
-
 
 @end

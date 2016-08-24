@@ -21,6 +21,10 @@
     
     [VKDevTool enableDebugMode];
     
+    [VKDevTool registKeyName:@"hahaha" withExtensionFunction:^{
+        
+        NSLog(@"1111");
+    }];
     return YES;
 }
 

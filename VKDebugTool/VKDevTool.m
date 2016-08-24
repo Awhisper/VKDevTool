@@ -42,6 +42,8 @@ VK_DEF_SINGLETON
         _scriptModule = [[VKDevScriptModule alloc]init];
         _logModule = [[VKDevLogModule alloc]init];
         _netModule = [[VKNetworkModule alloc]init];
+        
+        _extensionDic = [[NSMutableDictionary alloc]init];
 #endif
     }
     return self;
@@ -145,6 +147,14 @@ VK_DEF_SINGLETON
     self.currentModule = self.netModule;
     [self.netModule showModuleView];
 #endif
+}
+
++(void)registKeyName:(NSString *)key withExtensionFunction:(void (^)(void))block{
+    [[VKDevTool singleton].extensionDic setObject:[block copy] forKey:key];
+}
+
++(void)removeExtensionFunction:(NSString *)key{
+    [[VKDevTool singleton].extensionDic removeObjectForKey:key];
 }
 
 @end
