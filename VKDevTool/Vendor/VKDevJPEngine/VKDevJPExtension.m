@@ -6,27 +6,27 @@
 //  Copyright © 2016年 baidu. All rights reserved.
 //
 
-#import "VKDebugJPExtension.h"
+#import "VKDevJPExtension.h"
 #import <UIKit/UIKit.h>
-@implementation VKDebugJPExtension
+@implementation VKDevJPExtension
 
 + (void)main:(JSContext *)context
 {
     context[@"getSuperView"] = ^(JSValue *viewJS) {
         UIView *viewOC = [VKJPExtension formatJSToOC:viewJS];
-        UIView *superViewOC = [VKDebugJPExtension getViewSuperView:viewOC];
+        UIView *superViewOC = [VKDevJPExtension getViewSuperView:viewOC];
         return [self formatOCToJS:superViewOC];
     };
     
     context[@"getParentVC"] = ^(JSValue *viewJS) {
         UIView *viewOC = [VKJPExtension formatJSToOC:viewJS];
-        UIViewController *parentVCOC = [VKDebugJPExtension getViewParentViewController:viewOC];
+        UIViewController *parentVCOC = [VKDevJPExtension getViewParentViewController:viewOC];
         return [self formatOCToJS:parentVCOC];
     };
     
     context[@"getTargetVC"] = ^(JSValue *viewJS) {
         UIView *target = [self getJPTarget];
-        UIViewController *parentVCOC = [VKDebugJPExtension getViewParentViewController:target];
+        UIViewController *parentVCOC = [VKDevJPExtension getViewParentViewController:target];
         return [self formatOCToJS:parentVCOC];
     };
     

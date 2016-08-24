@@ -73,8 +73,13 @@ VK_DEF_SINGLETON
     }
     
     @synchronized([VKLogManager singleton]) {
-        
-        NSString *userinfo = [error.userInfo vk_JSONString];
+        NSString *userinfo;
+        if ([error.userInfo isKindOfClass:[NSDictionary class]] && [error.userInfo isKindOfClass:[NSArray class]]) {
+            userinfo = [error.userInfo vk_JSONString];
+        }else{
+            userinfo = @"Empty Error";
+        }
+//        NSString *userinfo = [error.userInfo vk_JSONString];
         NSString *logstr = [NSString stringWithFormat:@"NSError: domain = %@ code = %@ userinfo = %@",error.domain,@(error.code),userinfo];
         
         if (logstr.length > 0) {

@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:VKDebugToolDemo.xcodeproj">
+      location = "self:VKDevToolDemo.xcodeproj">
    </FileRef>
 </Workspace>

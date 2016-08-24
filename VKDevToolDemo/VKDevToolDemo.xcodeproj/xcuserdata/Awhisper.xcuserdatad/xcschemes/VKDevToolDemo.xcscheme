@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6C4E97841D6437A300158484"
-               BuildableName = "VKDebugToolDemo.app"
-               BlueprintName = "VKDebugToolDemo"
-               ReferencedContainer = "container:VKDebugToolDemo.xcodeproj">
+               BlueprintIdentifier = "6C483BAA1D6D8275001041E1"
+               BuildableName = "VKDevToolDemo.app"
+               BlueprintName = "VKDevToolDemo"
+               ReferencedContainer = "container:VKDevToolDemo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,10 +32,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6C4E97841D6437A300158484"
-            BuildableName = "VKDebugToolDemo.app"
-            BlueprintName = "VKDebugToolDemo"
-            ReferencedContainer = "container:VKDebugToolDemo.xcodeproj">
+            BlueprintIdentifier = "6C483BAA1D6D8275001041E1"
+            BuildableName = "VKDevToolDemo.app"
+            BlueprintName = "VKDevToolDemo"
+            ReferencedContainer = "container:VKDevToolDemo.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -55,10 +55,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6C4E97841D6437A300158484"
-            BuildableName = "VKDebugToolDemo.app"
-            BlueprintName = "VKDebugToolDemo"
-            ReferencedContainer = "container:VKDebugToolDemo.xcodeproj">
+            BlueprintIdentifier = "6C483BAA1D6D8275001041E1"
+            BuildableName = "VKDevToolDemo.app"
+            BlueprintName = "VKDevToolDemo"
+            ReferencedContainer = "container:VKDevToolDemo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -74,10 +74,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6C4E97841D6437A300158484"
-            BuildableName = "VKDebugToolDemo.app"
-            BlueprintName = "VKDebugToolDemo"
-            ReferencedContainer = "container:VKDebugToolDemo.xcodeproj">
+            BlueprintIdentifier = "6C483BAA1D6D8275001041E1"
+            BuildableName = "VKDevToolDemo.app"
+            BlueprintName = "VKDevToolDemo"
+            ReferencedContainer = "container:VKDevToolDemo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

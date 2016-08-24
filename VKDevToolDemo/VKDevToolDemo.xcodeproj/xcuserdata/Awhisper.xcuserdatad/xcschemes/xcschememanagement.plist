@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>VKDebugToolDemo.xcscheme</key>
+		<key>VKDevToolDemo.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
@@ -12,7 +12,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>6C4E97841D6437A300158484</key>
+		<key>6C483BAA1D6D8275001041E1</key>
 		<dict>
 			<key>primary</key>
 			<true/>

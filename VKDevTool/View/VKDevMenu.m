@@ -9,7 +9,8 @@
 #import "VKDevMenu.h"
 #import <UIKit/UIKit.h>
 
-#pragma clang diagnostic ignored "-Wundeclared-selector"
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
 @interface VKDevMenu ()<UIActionSheetDelegate>
 
@@ -70,21 +71,7 @@
     }
     
 }
-//-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        _actionSheet = nil;
-//        if (buttonIndex == actionSheet.cancelButtonIndex) {
-//            if (self.delegate && [self.delegate respondsToSelector:@selector(didClickMenuWithButtonIndex:)]) {
-//                [self.delegate didClickMenuWithButtonIndex:-1];
-//            }
-//        }else
-//        {
-//            if (self.delegate && [self.delegate respondsToSelector:@selector(didClickMenuWithButtonIndex:)]) {
-//                [self.delegate didClickMenuWithButtonIndex:buttonIndex];
-//            }
-//        }
-//    });
-//}
+
 
 -(void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
@@ -103,5 +90,7 @@
     }
     _actionSheet = nil;
 }
+
+#pragma clang diagnostic pop
 
 @end

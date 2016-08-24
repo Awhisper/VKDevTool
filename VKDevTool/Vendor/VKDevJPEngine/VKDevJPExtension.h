@@ -8,6 +8,6 @@
 
 #import "VKJPEngine.h"
 
-@interface VKDebugJPExtension : VKJPExtension
+@interface VKDevJPExtension : VKJPExtension
 
 @end
