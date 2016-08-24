@@ -11,6 +11,15 @@
 #import "VKDevTipView.h"
 #import "VKDevTool.h"
 #import "VKDevToolDefine.h"
+
+typedef enum : NSUInteger {
+    VKDevModuleScrpit = 0,
+    VKDevModuleLog,
+    VKDevModuleNetwork,
+    VKDevModuleView,
+    VKDevModuleOther
+} VKDevModuleType;
+
 @interface VKDevMainModule ()<VKDevMenuDelegate>
 
 @property (nonatomic,strong) VKDevMenu *devMenu;
@@ -64,7 +73,7 @@
 -(NSArray *)needDevMenuItemsArray
 {
     NSDictionary *extDic = [VKDevTool singleton].extensionDic;
-    NSMutableArray *titleArray = [[NSMutableArray alloc]initWithArray:@[@"DebugScript",@"ConsoleLog",@"NetworkLog"]];
+    NSMutableArray *titleArray = [[NSMutableArray alloc]initWithArray:@[@"DebugScript",@"ConsoleLog",@"NetworkLog",@"ViewHierarchy3D"]];
     NSArray *extTitleArray = [extDic allKeys];
     [titleArray addObjectsFromArray:extTitleArray];
     return titleArray;
@@ -74,23 +83,28 @@
 {
 #ifdef VKDevMode
     switch (index) {
-        case 0:
+        case VKDevModuleScrpit:
         {
             [self goDebugScript];
         }
             break;
-        case 1:{
+        case VKDevModuleLog:{
             [self goConsoleLog];
         }
             break;
-        case 2:{
+        case VKDevModuleNetwork:{
             [self goNetworkLog];
         }
+            break;
+        case VKDevModuleView:{
+            [self goViewModule];
+        }
+            break;
         default:{
-            if (index >= 3) {
+            if (index >= VKDevModuleOther) {
                 NSDictionary *extDic = [VKDevTool singleton].extensionDic;
                 NSArray *extTitleArray = [extDic allKeys];
-                NSInteger extIndex = index - 3;
+                NSInteger extIndex = index - VKDevModuleOther;
                 if (extTitleArray.count > extIndex) {
                     NSString *key = [extTitleArray objectAtIndex:extIndex];
                     void(^extblock)(void) = [extDic objectForKey:key];
@@ -114,5 +128,9 @@
 
 -(void)goNetworkLog{
     [VKDevTool gotoNetworkModule];
+}
+
+-(void)goViewModule{
+    [VKDevTool gotoViewModule];
 }
 @end

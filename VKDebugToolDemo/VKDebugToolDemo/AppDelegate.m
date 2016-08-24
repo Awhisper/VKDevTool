@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "VKDevTool.h"
-
+#import "YYViewHierarchy3D.h"
 @interface AppDelegate ()
 
 @end
@@ -21,9 +21,8 @@
     
     [VKDevTool enableDebugMode];
     
-    [VKDevTool registKeyName:@"hahaha" withExtensionFunction:^{
-        
-        NSLog(@"1111");
+    [VKDevTool registKeyName:@"VKDevToolExtension" withExtensionFunction:^{
+        NSLog(@"VKDevToolExtension worked");
     }];
     return YES;
 }

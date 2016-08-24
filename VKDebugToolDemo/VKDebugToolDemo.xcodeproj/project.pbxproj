@@ -38,6 +38,8 @@
 		6C4E98041D6583DD00158484 /* VKURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4E98031D6583DD00158484 /* VKURLProtocol.m */; };
 		6C4E98081D65979800158484 /* VKNetworkModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4E98071D65979800158484 /* VKNetworkModule.m */; };
 		6C4E980B1D6597A900158484 /* VKNetworkConsoleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4E980A1D6597A900158484 /* VKNetworkConsoleView.m */; };
+		6C51EDF11D6D6C7900A01B73 /* YYViewHierarchy3D.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C51EDF01D6D6C7900A01B73 /* YYViewHierarchy3D.m */; };
+		6C51EDF51D6D718600A01B73 /* VKDevViewModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C51EDF41D6D718600A01B73 /* VKDevViewModule.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -106,6 +108,10 @@
 		6C4E98071D65979800158484 /* VKNetworkModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKNetworkModule.m; sourceTree = "<group>"; };
 		6C4E98091D6597A900158484 /* VKNetworkConsoleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKNetworkConsoleView.h; sourceTree = "<group>"; };
 		6C4E980A1D6597A900158484 /* VKNetworkConsoleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKNetworkConsoleView.m; sourceTree = "<group>"; };
+		6C51EDEF1D6D6C7900A01B73 /* YYViewHierarchy3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYViewHierarchy3D.h; sourceTree = "<group>"; };
+		6C51EDF01D6D6C7900A01B73 /* YYViewHierarchy3D.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYViewHierarchy3D.m; sourceTree = "<group>"; };
+		6C51EDF31D6D718600A01B73 /* VKDevViewModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKDevViewModule.h; sourceTree = "<group>"; };
+		6C51EDF41D6D718600A01B73 /* VKDevViewModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKDevViewModule.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +183,7 @@
 		6C4E97A41D64382100158484 /* Module */ = {
 			isa = PBXGroup;
 			children = (
+				6C51EDF21D6D715700A01B73 /* ViewModule */,
 				6C4E97FA1D65785800158484 /* NetworkModule */,
 				6C4E97E91D64652700158484 /* LogModule */,
 				6C4E97E21D644C0900158484 /* ScriptModule */,
@@ -189,6 +196,8 @@
 		6C4E97A51D64382100158484 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				6C51EDEF1D6D6C7900A01B73 /* YYViewHierarchy3D.h */,
+				6C51EDF01D6D6C7900A01B73 /* YYViewHierarchy3D.m */,
 				6C4E97A61D64382100158484 /* VKCategoryHelper */,
 				6C4E97B31D64382100158484 /* VKCommands */,
 				6C4E97BC1D64382100158484 /* VKDebugJPEngine */,
@@ -319,6 +328,15 @@
 			path = NetworkModule;
 			sourceTree = "<group>";
 		};
+		6C51EDF21D6D715700A01B73 /* ViewModule */ = {
+			isa = PBXGroup;
+			children = (
+				6C51EDF31D6D718600A01B73 /* VKDevViewModule.h */,
+				6C51EDF41D6D718600A01B73 /* VKDevViewModule.m */,
+			);
+			path = ViewModule;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -394,6 +412,7 @@
 				6C4E97CA1D64382100158484 /* VKJPEngine.m in Sources */,
 				6C4E97901D6437A300158484 /* ViewController.m in Sources */,
 				6C4E97C51D64382100158484 /* VKJSONKit.m in Sources */,
+				6C51EDF51D6D718600A01B73 /* VKDevViewModule.m in Sources */,
 				6C4E97C91D64382100158484 /* VKDebugJPExtension.m in Sources */,
 				6C4E978D1D6437A300158484 /* AppDelegate.m in Sources */,
 				6C4E97F81D656DD300158484 /* NSError+VKError.m in Sources */,
@@ -411,6 +430,7 @@
 				6C4E97C81D64382100158484 /* VKShakeCommand.m in Sources */,
 				6C4E97E81D644C2B00158484 /* VKDevScriptModule.m in Sources */,
 				6C4E97EF1D64696D00158484 /* VKLogConsoleView.m in Sources */,
+				6C51EDF11D6D6C7900A01B73 /* YYViewHierarchy3D.m in Sources */,
 				6C4E97F21D6469B700158484 /* VKDevConsoleView.m in Sources */,
 				6C4E97C71D64382100158484 /* UIWindow+VKShakeCommand.m in Sources */,
 				6C4E978A1D6437A300158484 /* main.m in Sources */,

@@ -30,4 +30,5 @@ VK_AS_SINGLETON
 
 +(void)gotoNetworkModule;
 
++(void)gotoViewModule;
 @end

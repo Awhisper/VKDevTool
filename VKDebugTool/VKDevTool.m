@@ -14,6 +14,7 @@
 #import "VKDevScriptModule.h"
 #import "VKDevLogModule.h"
 #import "VKNetworkModule.h"
+#import "VKDevViewModule.h"
 @interface VKDevTool ()
 
 @property (nonatomic,strong) id<VKDevModuleProtocol> currentModule;
@@ -25,6 +26,8 @@
 @property (nonatomic,strong) VKDevLogModule *logModule;
 
 @property (nonatomic,strong) VKNetworkModule *netModule;
+
+@property (nonatomic,strong) VKDevViewModule *viewModule;
 
 @end
 
@@ -42,7 +45,7 @@ VK_DEF_SINGLETON
         _scriptModule = [[VKDevScriptModule alloc]init];
         _logModule = [[VKDevLogModule alloc]init];
         _netModule = [[VKNetworkModule alloc]init];
-        
+        _viewModule = [[VKDevViewModule alloc]init];
         _extensionDic = [[NSMutableDictionary alloc]init];
 #endif
     }
@@ -146,6 +149,20 @@ VK_DEF_SINGLETON
     [self leaveCurrentModule];
     self.currentModule = self.netModule;
     [self.netModule showModuleView];
+#endif
+}
+
++(void)gotoViewModule
+{
+    [[self singleton]gotoViewModule];
+}
+
+-(void)gotoViewModule
+{
+#ifdef VKDevMode
+    [self leaveCurrentModule];
+    self.currentModule = self.viewModule;
+    [self.viewModule showModuleView];
 #endif
 }
 
