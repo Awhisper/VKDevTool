@@ -51,6 +51,8 @@ static BOOL _vkShakeCommandEnable = NO;
     }
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
 -(void)registerShakeCommandWithAction:(void (^)(void))block
 {
     _vkShakeCommandHandle = [block copy];
@@ -71,4 +73,5 @@ static BOOL _vkShakeCommandEnable = NO;
         VKSwizzleInstanceMethods([UIWindow class], @selector(motionEnded:withEvent:), @selector(vk_motionEnded:withEvent:));
     }
 }
+#pragma clang diagnostic pop
 @end

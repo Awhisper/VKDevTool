@@ -122,7 +122,8 @@
 {
     [VKNetworkLogger singleton].enableHook = ![VKNetworkLogger singleton].enableHook;
 }
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 -(void)changeHostFilter
 {
 #ifdef VKDevMode
@@ -149,5 +150,5 @@
     }
 #endif 
 }
-
+#pragma clang diagnostic pop
 @end

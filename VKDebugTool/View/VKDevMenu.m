@@ -9,6 +9,7 @@
 #import "VKDevMenu.h"
 #import <UIKit/UIKit.h>
 
+#pragma clang diagnostic ignored "-Wundeclared-selector"
 
 @interface VKDevMenu ()<UIActionSheetDelegate>
 
@@ -97,7 +98,6 @@
     }else
     {
         if (self.delegate && [self.delegate respondsToSelector:@selector(didClickMenuWithButtonIndex:)]) {
-            NSLog([_actionSheet description]);
             [self.delegate didClickMenuWithButtonIndex:buttonIndex];
         }
     }

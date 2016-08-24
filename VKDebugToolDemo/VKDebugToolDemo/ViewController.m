@@ -25,6 +25,9 @@
 
 @end
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-variable"
+
 @implementation ViewController
 
 - (void)viewDidLoad {
@@ -148,4 +151,5 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma clang diagnostic pop
 @end

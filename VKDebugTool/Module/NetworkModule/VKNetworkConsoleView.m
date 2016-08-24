@@ -131,6 +131,8 @@
     return cell;
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 #ifdef VKDevMode
@@ -158,5 +160,5 @@
     }
 #endif
 }
-
+#pragma clang diagnostic pop
 @end

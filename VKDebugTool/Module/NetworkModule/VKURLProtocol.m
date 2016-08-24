@@ -9,6 +9,7 @@
 #import "VKURLProtocol.h"
 #import "VKNetworkLogger.h"
 #import "VKDevToolDefine.h"
+
 static NSString * const VKURLProtocolHandledKey = @"VKURLProtocolHandledKey";
 
 @interface VKURLProtocol ()<NSURLConnectionDelegate>
@@ -66,7 +67,10 @@ static NSString * const VKURLProtocolHandledKey = @"VKURLProtocolHandledKey";
     NSMutableURLRequest *mutableReqeust = [[self request] mutableCopy];
     
     [NSURLProtocol setProperty:@YES forKey:VKURLProtocolHandledKey inRequest:mutableReqeust];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     self.connection = [NSURLConnection connectionWithRequest:mutableReqeust delegate:self];
+#pragma clang diagnostic pop
 }
 
 -(void)stopLoading{
@@ -109,7 +113,7 @@ didReceiveResponse:(NSURLResponse *)response
     [VKNetworkLogger VKNetworkResponseLog:response];
     [self.client URLProtocol:self
           didReceiveResponse:response
-          cacheStoragePolicy:[[self request] cachePolicy]];
+          cacheStoragePolicy:(NSURLCacheStoragePolicy)[[self request] cachePolicy]];
 }
 - (void)connection:(NSURLConnection *)connection
     didReceiveData:(NSData *)data
