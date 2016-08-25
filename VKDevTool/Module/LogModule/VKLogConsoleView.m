@@ -55,13 +55,30 @@
 -(void)showLogManagerOldLog
 {
 #ifdef VKDevMode
-    for (NSString * log in [VKLogManager singleton].logDataArray) {
-        if ([log rangeOfString:@"NSLog: "].location != NSNotFound) {
-            [self addScriptLogToOutput:log WithUIColor:[UIColor whiteColor]];
-        }else if ([log rangeOfString:@"NSError: "].location != NSNotFound){
-            [self addScriptLogToOutput:log WithUIColor:[UIColor orangeColor]];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSMutableAttributedString *str = [[NSMutableAttributedString alloc]initWithString:@""];
+        for (NSString * log in [VKLogManager singleton].logDataArray) {
+            if ([log rangeOfString:@"NSLog: "].location != NSNotFound) {
+//                [self addScriptLogToOutput:log WithUIColor:[UIColor whiteColor]];
+                [self addScriptLogToAttriString:str withLog:log WithUIColor:[UIColor whiteColor]];
+            }else if ([log rangeOfString:@"NSError: "].location != NSNotFound){
+//                [self addScriptLogToOutput:log WithUIColor:[UIColor orangeColor]];
+                [self addScriptLogToAttriString:str withLog:log WithUIColor:[UIColor orangeColor]];
+            }
         }
-    }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.LogLabel.attributedText = str;
+            
+            if (self.LogLabel.contentSize.height > self.LogLabel.frame.size.height) {
+                CGPoint point = CGPointMake(0.f,self.LogLabel.contentSize.height - self.LogLabel.frame.size.height);
+                [self.LogLabel setContentOffset:point animated:YES];
+            }
+            
+        });
+    });
+    
+    
 #endif
 }
 
@@ -91,6 +108,17 @@
 #endif
 }
 
+
+-(void)addScriptLogToAttriString:(NSMutableAttributedString *)str withLog:(NSString *)log WithUIColor:(UIColor *)color{
+    
+    [str appendAttributedString:[[NSAttributedString alloc]initWithString:@"\n"]];
+    
+    NSMutableAttributedString *logattr = [[NSMutableAttributedString alloc]initWithString:log];
+    [logattr vk_setTextColor:color];
+    [logattr vk_setFont:[UIFont boldSystemFontOfSize:15]];
+    [logattr vk_setLineSpacing:10];
+    [str appendAttributedString:logattr];
+}
 
 -(void)addScriptLogToOutput:(NSString *)log WithUIColor:(UIColor *)color{
 #ifdef VKDevMode
