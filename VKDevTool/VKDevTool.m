@@ -15,6 +15,7 @@
 #import "VKDevLogModule.h"
 #import "VKDevNetworkModule.h"
 #import "VKDevViewModule.h"
+#import "VKNetworkLogger.h"
 @interface VKDevTool ()
 
 @property (nonatomic,strong) id<VKDevModuleProtocol> currentModule;
@@ -172,6 +173,11 @@ VK_DEF_SINGLETON
 
 +(void)removeExtensionFunction:(NSString *)key{
     [[VKDevTool singleton].extensionDic removeObjectForKey:key];
+}
+
++(void)changeNetworktModuleFilter:(NSString *)filter
+{
+    [VKNetworkLogger singleton].hostFilter = filter;
 }
 
 @end

@@ -14,8 +14,6 @@
 
 @property (nonatomic,strong) UITableView *requestTable;
 
-@property (nonatomic,strong) NSMutableArray *requestDataArr;
-
 @property (nonatomic,strong) NSMutableArray *requestArr;
 
 @property (nonatomic,strong) NSString *pasteboardString;
@@ -60,7 +58,6 @@
 -(void)showLogManagerOldLog
 {
 #ifdef VKDevMode
-    self.requestDataArr = [[NSMutableArray alloc]initWithArray:[VKNetworkLogger singleton].logDataArray];
     self.requestArr = [[NSMutableArray alloc]initWithArray:[VKNetworkLogger singleton].logReqArray];
     [self.requestTable reloadData];
 #endif
@@ -69,7 +66,6 @@
 -(void)addLogNotificationObserver
 {
 #ifdef VKDevMode
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(logNotificationDataGet:) name:VKNetDataLogNotification object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(logNotificationGet:) name:VKNetReqLogNotification object:nil];
 #endif
 }
@@ -91,21 +87,10 @@
 #endif
 }
 
--(void)logNotificationDataGet:(NSNotification *)noti
-{
-#ifdef VKDevMode
-    NSURLRequest * request = noti.object;
-    if (request) {
-        [self.requestDataArr addObject:request];
-    }
-    [self.requestTable reloadData];
-#endif
-}
-
 #pragma mark  tableview
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.requestDataArr.count;
+    return self.requestArr.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -124,7 +109,7 @@
         cell.textLabel.font = [UIFont boldSystemFontOfSize:15];
     }
     if (indexPath.row < self.requestArr.count) {
-        NSURLRequest *req = self.requestArr[indexPath.row];
+        NSURLRequest *req = self.requestArr[indexPath.row][0];
         cell.textLabel.text = req.URL.absoluteString;
     }
     cell.backgroundColor = [UIColor clearColor];
@@ -137,10 +122,10 @@
 {
 #ifdef VKDevMode
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    NSURLRequest *req = self.requestArr[indexPath.row];
+    NSURLRequest *req = self.requestArr[indexPath.row][0];
     NSString *strurl = req.URL.absoluteString;
     
-    NSData *reqData = self.requestDataArr[indexPath.row];
+    NSData *reqData = self.requestArr[indexPath.row][1];
     NSString *strdata = [[NSJSONSerialization JSONObjectWithData:reqData options:kNilOptions error:nil] description];
     UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"返回数据" message:strdata delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"复制", nil];
     [alert show];

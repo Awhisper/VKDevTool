@@ -31,4 +31,6 @@ VK_AS_SINGLETON
 +(void)gotoNetworkModule;
 
 +(void)gotoViewModule;
+
++(void)changeNetworktModuleFilter:(NSString *)filter;
 @end

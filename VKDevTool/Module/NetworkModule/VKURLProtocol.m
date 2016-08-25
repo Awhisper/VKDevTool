@@ -39,6 +39,8 @@ static NSString * const VKURLProtocolHandledKey = @"VKURLProtocolHandledKey";
                 if ([NSURLProtocol propertyForKey:VKURLProtocolHandledKey inRequest:request]) {
                     return NO;
                 }
+            }else{
+                return NO;
             }
         }else{
             //看看是否已经处理过了，防止无限循环
@@ -110,7 +112,6 @@ didCancelAuthenticationChallenge:challenge];
 - (void)connection:(NSURLConnection *)connection
 didReceiveResponse:(NSURLResponse *)response
 {
-    [VKNetworkLogger VKNetworkResponseLog:response];
     [self.client URLProtocol:self
           didReceiveResponse:response
           cacheStoragePolicy:(NSURLCacheStoragePolicy)[[self request] cachePolicy]];
@@ -118,7 +119,7 @@ didReceiveResponse:(NSURLResponse *)response
 - (void)connection:(NSURLConnection *)connection
     didReceiveData:(NSData *)data
 {
-    [VKNetworkLogger VKNetworkResponseDataLog:data];
+    [VKNetworkLogger VKNetworkRequestLog:connection.originalRequest DataLog:data];
     [self.client URLProtocol:self
                  didLoadData:data];
 }

@@ -10,12 +10,9 @@
 #import "VKCommonFundation.h"
 
 static NSString * VKNetReqLogNotification = @"VKNetReqLogNotification";
-static NSString * VKNetDataLogNotification = @"VKNetDataLogNotification";
 @interface VKNetworkLogger : NSObject
 
 @property(atomic,strong) NSMutableArray* logReqArray;
-
-@property(atomic,strong) NSMutableArray* logDataArray;
 
 @property (nonatomic,assign) BOOL enableHook;
 
@@ -23,8 +20,6 @@ static NSString * VKNetDataLogNotification = @"VKNetDataLogNotification";
 
 VK_AS_SINGLETON
 
-+(void)VKNetworkResponseLog:(NSURLResponse *)response;
-
-+(void)VKNetworkResponseDataLog:(NSData *)data;
++(void)VKNetworkRequestLog:(NSURLRequest *)req DataLog:(NSData *)data;
 
 @end
