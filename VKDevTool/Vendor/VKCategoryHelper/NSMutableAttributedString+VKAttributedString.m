@@ -73,6 +73,18 @@
     [self vk_setTextColor:color range:NSMakeRange(0, self.length)];
 }
 
+- (void)vk_setTextBackgroundColor:(UIColor *)color range:(NSRange)range {
+    [self removeAttribute:NSBackgroundColorAttributeName range:range];
+    
+    if (nil != color) {
+        [self addAttribute:NSBackgroundColorAttributeName value:color range:range];
+    }
+}
+
+- (void)vk_setTextBackgroundColor:(UIColor *)color {
+    [self vk_setTextBackgroundColor:color range:NSMakeRange(0, self.length)];
+}
+
 - (void)vk_setFont:(UIFont *)font range:(NSRange)range {
     [self removeAttribute:NSFontAttributeName range:range];
     

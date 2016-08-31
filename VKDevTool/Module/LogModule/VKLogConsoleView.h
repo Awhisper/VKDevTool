@@ -10,4 +10,8 @@
 #import "VKDevConsoleView.h"
 @interface VKLogConsoleView : VKDevConsoleView
 
+-(void)searchKeyword:(NSString *)keyword;
+
+-(void)cancelSearching;
+
 @end

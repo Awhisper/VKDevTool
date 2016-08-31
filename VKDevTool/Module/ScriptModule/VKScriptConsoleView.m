@@ -11,6 +11,7 @@
 #import "VKJPEngine.h"
 #import "VKDevToolDefine.h"
 #import "NSMutableAttributedString+VKAttributedString.h"
+#import "UIColor+VKUtlities.h"
 static CGFloat maskAlpha = 0.6f;
 
 @interface VKScriptConsoleView ()<UITextViewDelegate>
@@ -50,7 +51,7 @@ static CGFloat maskAlpha = 0.6f;
     [VKJPEngine setScriptWeakTarget:self.target];
     __weak typeof(self) weakSelf = self;
     [VKJPEngine handleException:^(NSString *msg) {
-        [weakSelf addScriptLogToOutput:msg WithUIColor:[UIColor orangeColor]];
+        [weakSelf addScriptLogToOutput:msg WithUIColor:VK_HEXRGBCOLOR(0xFF4500)];
     }];
     
     [VKJPEngine handleLog:^(NSString *msg) {

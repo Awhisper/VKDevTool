@@ -196,5 +196,8 @@
  */
 - (void)vk_setKern:(CGFloat)kern;
 
+- (void)vk_setTextBackgroundColor:(UIColor *)color range:(NSRange)range;
+
+- (void)vk_setTextBackgroundColor:(UIColor *)color;
 
 @end

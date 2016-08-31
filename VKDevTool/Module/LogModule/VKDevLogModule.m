@@ -13,11 +13,13 @@
 #import "VKDevTool.h"
 #import "VKDevToolDefine.h"
 #import "VKLogManager.h"
-@interface VKDevLogModule ()<VKDevMenuDelegate>
+@interface VKDevLogModule ()<VKDevMenuDelegate,UIAlertViewDelegate>
 
 @property (nonatomic,strong) VKDevMenu *devMenu;
 
 @property (nonatomic,strong) VKLogConsoleView *logView;
+
+@property (nonatomic,assign) BOOL isSearching;
 
 @end
 
@@ -30,6 +32,7 @@
 #ifdef VKDevMode
         _devMenu = [[VKDevMenu alloc]init];
         _devMenu.delegate = self;
+        _isSearching = NO;
 #endif
     }
     return self;
@@ -71,6 +74,7 @@
 #ifdef VKDevMode
     UIView *window = [UIApplication sharedApplication].keyWindow;
     [window addSubview:self.logView];
+    self.isSearching = NO;
     [self.logView showConsole];
 #endif
 }
@@ -84,12 +88,20 @@
 
 -(NSArray *)needDevMenuItemsArray
 {
+    NSString *enableHookStr;
     if ([VKLogManager singleton].enableHook) {
-        return @[@"Disable NSError Hook",@"Copy to Pasteboard",@"Exit"];
+        enableHookStr = @"Disable NSError Hook";
     }else{
-        return @[@"Enable NSError Hook",@"Copy to Pasteboard",@"Exit"];
+        enableHookStr = @"Enable NSError Hook";
+    }
+    NSString *enableSearchingStr;
+    if (self.isSearching) {
+        enableSearchingStr = @"Cancel Searching";
+    }else{
+        enableSearchingStr = @"Seach Key Word";
     }
     
+    return @[enableHookStr,@"Copy to Pasteboard",enableSearchingStr,@"Exit"];
 }
 
 -(void)didClickMenuWithButtonIndex:(NSInteger)index
@@ -108,6 +120,12 @@
             break;
         case 2:
         {
+            [self searchHandler];
+            
+        }
+            break;
+        case 3:
+        {
             [VKDevTool gotoMainModule];
 
         }
@@ -118,6 +136,39 @@
     }
 #endif
 }
+
+-(void)searchHandler
+{
+    if (self.isSearching) {
+        [self.logView cancelSearching];
+        self.isSearching = NO;
+    }else{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+        UIAlertView *inputbox = [[UIAlertView alloc] initWithTitle:@"搜索关键字" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        
+        [inputbox setAlertViewStyle:UIAlertViewStylePlainTextInput];
+        
+        UITextField *nameField = [inputbox textFieldAtIndex:0];
+        nameField.placeholder = @"请输入搜索词";
+        [inputbox show];
+#pragma clang diagnostic pop
+    }
+}
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+#ifdef VKDevMode
+    if (buttonIndex == alertView.firstOtherButtonIndex) {
+        UITextField *nameField = [alertView textFieldAtIndex:0];
+        [self.logView searchKeyword:nameField.text];
+        self.isSearching = YES;
+    }
+#endif
+}
+#pragma clang diagnostic pop
 
 -(void)changeNetworkHook
 {

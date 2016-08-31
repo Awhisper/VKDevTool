@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6C2F59A31D77008E000BD0FD /* UIColor+VKUtlities.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C2F59A21D77008E000BD0FD /* UIColor+VKUtlities.m */; };
 		6C483BB01D6D8275001041E1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C483BAF1D6D8275001041E1 /* main.m */; };
 		6C483BB31D6D8275001041E1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C483BB21D6D8275001041E1 /* AppDelegate.m */; };
 		6C483BB61D6D8275001041E1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C483BB51D6D8275001041E1 /* ViewController.m */; };
@@ -43,6 +44,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6C2F59A11D77008E000BD0FD /* UIColor+VKUtlities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+VKUtlities.h"; sourceTree = "<group>"; };
+		6C2F59A21D77008E000BD0FD /* UIColor+VKUtlities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+VKUtlities.m"; sourceTree = "<group>"; };
 		6C483BAB1D6D8275001041E1 /* VKDevToolDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VKDevToolDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C483BAF1D6D8275001041E1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6C483BB11D6D8275001041E1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -267,6 +270,8 @@
 		6C483BE61D6D8280001041E1 /* VKCategoryHelper */ = {
 			isa = PBXGroup;
 			children = (
+				6C2F59A11D77008E000BD0FD /* UIColor+VKUtlities.h */,
+				6C2F59A21D77008E000BD0FD /* UIColor+VKUtlities.m */,
 				6C483BE71D6D8280001041E1 /* NSMutableAttributedString+VKAttributedString.h */,
 				6C483BE81D6D8280001041E1 /* NSMutableAttributedString+VKAttributedString.m */,
 				6C483BE91D6D8280001041E1 /* NSObject+VKSingleton.h */,
@@ -412,6 +417,7 @@
 				6C483C161D6D8280001041E1 /* VKURLProtocol.m in Sources */,
 				6C483C171D6D8280001041E1 /* VKDevScriptModule.m in Sources */,
 				6C483C131D6D8280001041E1 /* VKDevNetworkModule.m in Sources */,
+				6C2F59A31D77008E000BD0FD /* UIColor+VKUtlities.m in Sources */,
 				6C483C101D6D8280001041E1 /* VKLogConsoleView.m in Sources */,
 				6C483C111D6D8280001041E1 /* VKLogManager.m in Sources */,
 				6C483C1C1D6D8280001041E1 /* UIView+VKMetrics.m in Sources */,
@@ -585,6 +591,7 @@
 				6C483BC41D6D8275001041E1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
