@@ -49,6 +49,9 @@
 - 真机运行下，使用摇一摇唤起菜单
 
 
+![main](http://o7bhtwerg.bkt.clouddn.com/devtoolmain.jpeg)
+
+
 主菜单模块包含4个模块
 - DebugScript
 - ConsoleLog
@@ -63,10 +66,34 @@
 - 在主菜单中选择`DebugScript`
 - 按提示点选任意一个界面元素
 - 进入代码控制台
-- 上面是输入框
+- 上面是代码输入框
 - 下面是输出框
-- 可以输入js脚本代码，通过代码调试app
 
+![main](http://o7bhtwerg.bkt.clouddn.com/devscript1.jpeg)
+
+
+以上是一个预览界面，上方输入的代码都是基于JSPatch的，所有JSPatch的语法规则这里都一模一样可以使用，戳这里看JSPatch如何使用 [JSPatch语法](https://github.com/bang590/JSPatch/wiki)
+
+- 真机摇一摇 or 模拟器Command+X 可以唤起DebugScript模块子菜单
+- 模拟器下如果输入过代码Command+X可能不好使，通过模拟器菜单`Shake Gesture`功能模拟摇一摇，依旧可以唤起
+
+子菜单包含以下几个功能
+
+- `GetTarget`:自动往输入框中输入getTarget的脚本代码，执行以后print Target信息，便于后续直接调试target的任意内存数据和执行方法
+- `Get TargetVC`:自动往输入框中输入getTargetVC的脚本代码，执行以后print Target所在的当前vc的信息，便于后续直接调试targetVC的任意内存数据和执行方法
+- `ChangeTarget`:自动往输入框中输入切换所选target的代码，执行后，重新返回选择target界面
+- `clearInput`
+
+- `getParentVC(v)`输入一个View，获取所在的VC
+- `print(item)`输出一个对象到控制台，单独处理了Label和View的描述信息，更加方便直观（可以扩展更多单独处理的对象类型）
+- `changeSelect()`重新手选获取新target
+- `exit()`退出控制台
+- `clearOutput()`清空控制台输出区
+- `clearInput()`清空控制台输入区
+
+先大体看一下GIF动画如何使用，此处的Gif是旧的Gif，新版本的颜色样式都已经调整，但是用法完全不变
+
+![git](http://ww2.sinaimg.cn/mw690/678c3e91jw1f4cejgkcipg20900gfasa.gif)
 
 
 

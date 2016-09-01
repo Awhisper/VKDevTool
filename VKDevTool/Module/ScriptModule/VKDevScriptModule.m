@@ -74,7 +74,7 @@
 
 -(NSArray *)needDevMenuItemsArray
 {
-    return @[@"Get Target",@"Get TargetVC",@"ChangeTarget",@"clearInput",@"clearOutput",@"Exit"];
+    return @[@"Get Target",@"Get TargetVC",@"ChangeTarget",@"ClearInput",@"ClearOutput",@"Exit"];
 }
 
 -(void)didClickMenuWithButtonIndex:(NSInteger)index
