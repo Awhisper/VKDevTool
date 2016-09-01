@@ -79,29 +79,17 @@
 
 子菜单包含以下几个功能
 
-- `GetTarget`:
+- `GetTarget`:自动往输入框中输入getTarget的脚本代码，执行以后print Target信息，便于后续直接调试target的任意内存数据和执行方法
 
-自动往输入框中输入getTarget的脚本代码，执行以后print Target信息，便于后续直接调试target的任意内存数据和执行方法
+- `Get TargetVC`:自动往输入框中输入getTargetVC的脚本代码，执行以后print Target所在的当前vc的信息，便于后续直接调试targetVC的任意内存数据和执行方法
 
-- `Get TargetVC`:
+- `ChangeTarget`:自动往输入框中输入切换所选target的代码，执行后，重新返回选择target界面
 
-自动往输入框中输入getTargetVC的脚本代码，执行以后print Target所在的当前vc的信息，便于后续直接调试targetVC的任意内存数据和执行方法
+- `ClearInput`:清空输入区域
 
-- `ChangeTarget`:
+- `ClearOutput`:清空输出区域
 
-自动往输入框中输入切换所选target的代码，执行后，重新返回选择target界面
-
-- `ClearInput`:
-
-清空输入区域
-
-- `ClearOutput`:
-
-清空输出区域
-
-- `Exit`:
-
-退出DebugScript
+- `Exit`:退出DebugScript
 
 除此之外，DebugScript为JS代码添加了一个功能print()函数，可以print任意OC对象，如果对象是View，还会有额外的frame等信息输出
 
@@ -139,6 +127,14 @@ VKDevTool会采用NSURLProtocol的方案，拦截hook所有的http请求，一�
 - Exit:退出
 
 ![net1](http://o7bhtwerg.bkt.clouddn.com/devnet1.jpeg)
+
+如果NetworkHook无效，查看是否是因为AFN sessionManager需要注册NSURLProtocol导致的
+
+```objectivce
+NSURLSessionConfiguration *configuration= [NSURLSessionConfiguration defaultSessionConfiguration];
+NSArray *protocolArray = @[[VKURLProtocol class]];
+configuration.protocolClasses = protocolArray
+```
 
 ## 页面层级ViewHierarchy3D
 
