@@ -79,30 +79,77 @@
 
 子菜单包含以下几个功能
 
-- `GetTarget`:自动往输入框中输入getTarget的脚本代码，执行以后print Target信息，便于后续直接调试target的任意内存数据和执行方法
-- `Get TargetVC`:自动往输入框中输入getTargetVC的脚本代码，执行以后print Target所在的当前vc的信息，便于后续直接调试targetVC的任意内存数据和执行方法
-- `ChangeTarget`:自动往输入框中输入切换所选target的代码，执行后，重新返回选择target界面
-- `clearInput`
+- `GetTarget`:
 
-- `getParentVC(v)`输入一个View，获取所在的VC
-- `print(item)`输出一个对象到控制台，单独处理了Label和View的描述信息，更加方便直观（可以扩展更多单独处理的对象类型）
-- `changeSelect()`重新手选获取新target
-- `exit()`退出控制台
-- `clearOutput()`清空控制台输出区
-- `clearInput()`清空控制台输入区
+自动往输入框中输入getTarget的脚本代码，执行以后print Target信息，便于后续直接调试target的任意内存数据和执行方法
 
-先大体看一下GIF动画如何使用，此处的Gif是旧的Gif，新版本的颜色样式都已经调整，但是用法完全不变
+- `Get TargetVC`:
+
+自动往输入框中输入getTargetVC的脚本代码，执行以后print Target所在的当前vc的信息，便于后续直接调试targetVC的任意内存数据和执行方法
+
+- `ChangeTarget`:
+
+自动往输入框中输入切换所选target的代码，执行后，重新返回选择target界面
+
+- `ClearInput`:
+
+清空输入区域
+
+- `ClearOutput`:
+
+清空输出区域
+
+- `Exit`:
+
+退出DebugScript
+
+除此之外，DebugScript为JS代码添加了一个功能print()函数，可以print任意OC对象，如果对象是View，还会有额外的frame等信息输出
+
+我们通过一个GIF动画，大体看一下调试JS代码如何使用，此处的Gif是旧的Gif，新版本的颜色样式都已经调整，加了子菜单快捷方式，但是用法完全不变
 
 ![git](http://ww2.sinaimg.cn/mw690/678c3e91jw1f4cejgkcipg20900gfasa.gif)
 
 
+## 日志拦截功能ConsoleLog
 
-TODO LIST:
-consolelog 加入搜索功能（搜索+高亮看起来是个大坑T_T）
+在PCH中加入了`VKDevToolLogHeader.h`后，本模块会拦截所有NSLog打印日志，以及NSError生成记录，在这个界面进行列表展示
 
-摇一摇太麻烦了，准备加入音量键捕捉
+- NSLog记录采用宏覆盖的方式，拦截接管了所有NSLog请求，以白色展现在界面内。
+- NSError记录采用Runtime Swizzle的方式，拦截了NSError的init，以红色展现在界面内
 
-## 扩展接口
+![log1](http://o7bhtwerg.bkt.clouddn.com/debuglog2.jpeg)
+
+真机摇一摇 or 模拟器Command+X 可以唤起ConsoleLog模块子菜单
+
+- NSError Hook:开启和关闭NSError拦截
+- Copy to Pasteboard:把所有日志信息拷贝到剪切板
+- Search Keyword:在众多日志中搜索关键字，关键字以蓝色展示
+- Exit:退出
+
+## 网络拦截功能NetworkLog
+
+VKDevTool会采用NSURLProtocol的方案，拦截hook所有的http请求，一一记录起来，以列表的形式，展现在NetworkLog模块内
+
+每个cell，都可以点击查看每一条网络请求的真实返回数据，并且支持复制到剪切板
+
+真机摇一摇 or 模拟器Command+X 可以唤起NetworkLog模块子菜单
+
+- Network Hook:可以选择开启和关闭http拦截
+- Change Filter:可以通过过滤器，过滤含有固定字符串的网络请求，方便查找搜索
+- Exit:退出
+
+![net1](http://o7bhtwerg.bkt.clouddn.com/devnet1.jpeg)
+
+## 页面层级ViewHierarchy3D
+
+VKDevTool采用YY大神开源的[YYViewHierarchy3D](https://github.com/ibireme/YYViewHierarchy3D),实现了这个页面层级模块
+
+- 真机摇一摇 or 模拟器Command+X 可以唤起ViewHierarchy3D模块子菜单
+- 模拟器下Command+X可能不好使，通过模拟器菜单`Shake Gesture`功能模拟摇一摇，依旧可以唤起
+
+![view1](http://o7bhtwerg.bkt.clouddn.com/devview1.jpeg)
+
+## 其他扩展代码
 
 ```objectivec
 [VKDevTool changeNetworktModuleFilter:@“xxxxx”];
@@ -118,12 +165,5 @@ consolelog 加入搜索功能（搜索+高亮看起来是个大坑T_T）
 }];
 ```
 VKDevTool采取模块化设计，每个模块Module都可以独立分拆分离，同时支持用户定义扩展自己的模块
-
-主菜单模块包含4个模块
-
-- DebugScript
-- ConsoleLog
-- NetworkLog
-- ViewHierarchy3D
 
 这个接口用于给VKDevTool扩展主菜单模块，可以省略不写，只使用自带的4个模块。

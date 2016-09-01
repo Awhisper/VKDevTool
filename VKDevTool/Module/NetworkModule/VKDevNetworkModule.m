@@ -86,9 +86,9 @@
 -(NSArray *)needDevMenuItemsArray
 {
     if ([VKNetworkLogger singleton].enableHook) {
-        return @[@"Disable NetWork Hook",@"Change HostFilter",@"Exit"];
+        return @[@"Disable NetWork Hook",@"Change Filter",@"Exit"];
     }else{
-        return @[@"Enable NetWork Hook",@"Change HostFilter",@"Exit"];
+        return @[@"Enable NetWork Hook",@"Change Filter",@"Exit"];
     }
     
 }
