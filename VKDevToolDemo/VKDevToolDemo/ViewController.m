@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "VKDevToolDefine.h"
+#import "VKDevToolLogHeader.h"
 #import "VKNetworkLogger.h"
 @interface ViewController ()
 

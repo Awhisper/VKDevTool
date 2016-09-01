@@ -46,6 +46,7 @@
 /* Begin PBXFileReference section */
 		6C2F59A11D77008E000BD0FD /* UIColor+VKUtlities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+VKUtlities.h"; sourceTree = "<group>"; };
 		6C2F59A21D77008E000BD0FD /* UIColor+VKUtlities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+VKUtlities.m"; sourceTree = "<group>"; };
+		6C2F59AB1D77EFAC000BD0FD /* VKDevToolLogHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKDevToolLogHeader.h; sourceTree = "<group>"; };
 		6C483BAB1D6D8275001041E1 /* VKDevToolDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VKDevToolDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C483BAF1D6D8275001041E1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6C483BB11D6D8275001041E1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -178,6 +179,7 @@
 				6C483C0B1D6D8280001041E1 /* VKDevTool.h */,
 				6C483C0C1D6D8280001041E1 /* VKDevTool.m */,
 				6C483C0D1D6D8280001041E1 /* VKDevToolDefine.h */,
+				6C2F59AB1D77EFAC000BD0FD /* VKDevToolLogHeader.h */,
 			);
 			name = VKDevTool;
 			path = ../VKDevTool;
