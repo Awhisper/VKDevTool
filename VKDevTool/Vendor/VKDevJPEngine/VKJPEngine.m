@@ -262,8 +262,7 @@ void (^_vkCommandBlock)(NSString *command) = ^void(NSString *command) {
         [_vkcontext evaluateScript:jsCore];
     }
     
-    [VKJPEngine addExtensions:@[@"VKDebugJPExtension"]];
-    [VKJPEngine addExtensions:@[@"WKAppUrlExtension"]];
+    [VKJPEngine addExtensions:@[@"VKDevJPExtension"]];
 }
 
 +(void)setScriptWeakTarget:(__weak id)target
