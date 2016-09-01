@@ -128,13 +128,16 @@ VKDevTool会采用NSURLProtocol的方案，拦截hook所有的http请求，一�
 
 ![net1](http://o7bhtwerg.bkt.clouddn.com/devnet4.jpeg)
 
-如果NetworkHook无效，查看是否是因为AFN sessionManager需要注册NSURLProtocol导致的
+如果NetworkHook无效，查看是否是因为AFN sessionManager，在创建session的时候，需要注册NSURLProtocol导致的
 
 ```objectivce
 NSURLSessionConfiguration *configuration= [NSURLSessionConfiguration defaultSessionConfiguration];
 NSArray *protocolArray = @[[VKURLProtocol class]];
 configuration.protocolClasses = protocolArray
 ```
+
+我看看后续这块如何改成无侵入版本吧。
+todolist
 
 ## 页面层级ViewHierarchy3D
 
