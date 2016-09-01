@@ -49,7 +49,7 @@
 - 真机运行下，使用摇一摇唤起菜单
 
 
-![main](http://o7bhtwerg.bkt.clouddn.com/devtoolmain.jpeg)
+![main](http://o7bhtwerg.bkt.clouddn.com/devtoolmain4.jpeg)
 
 
 主菜单模块包含4个模块
@@ -69,7 +69,7 @@
 - 上面是代码输入框
 - 下面是输出框
 
-![main](http://o7bhtwerg.bkt.clouddn.com/devscript1.jpeg)
+![main](http://o7bhtwerg.bkt.clouddn.com/devscript4.jpeg)
 
 
 以上是一个预览界面，上方输入的代码都是基于JSPatch的，所有JSPatch的语法规则这里都一模一样可以使用，戳这里看JSPatch如何使用 [JSPatch语法](https://github.com/bang590/JSPatch/wiki)
@@ -105,7 +105,7 @@
 - NSLog记录采用宏覆盖的方式，拦截接管了所有NSLog请求，以白色展现在界面内。
 - NSError记录采用Runtime Swizzle的方式，拦截了NSError的init，以红色展现在界面内
 
-![log1](http://o7bhtwerg.bkt.clouddn.com/debuglog2.jpeg)
+![log1](http://o7bhtwerg.bkt.clouddn.com/debuglog4.jpeg)
 
 真机摇一摇 or 模拟器Command+X 可以唤起ConsoleLog模块子菜单
 
@@ -126,7 +126,7 @@ VKDevTool会采用NSURLProtocol的方案，拦截hook所有的http请求，一�
 - Change Filter:可以通过过滤器，过滤含有固定字符串的网络请求，方便查找搜索
 - Exit:退出
 
-![net1](http://o7bhtwerg.bkt.clouddn.com/devnet1.jpeg)
+![net1](http://o7bhtwerg.bkt.clouddn.com/devnet4.jpeg)
 
 如果NetworkHook无效，查看是否是因为AFN sessionManager需要注册NSURLProtocol导致的
 
@@ -143,7 +143,7 @@ VKDevTool采用YY大神开源的[YYViewHierarchy3D](https://github.com/ibireme/Y
 - 真机摇一摇 or 模拟器Command+X 可以唤起ViewHierarchy3D模块子菜单
 - 模拟器下Command+X可能不好使，通过模拟器菜单`Shake Gesture`功能模拟摇一摇，依旧可以唤起
 
-![view1](http://o7bhtwerg.bkt.clouddn.com/devview1.jpeg)
+![view1](http://o7bhtwerg.bkt.clouddn.com/devview4.jpeg)
 
 ## 其他扩展代码
 
